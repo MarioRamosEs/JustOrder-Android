@@ -3,6 +3,7 @@ package client.marpolex.com.justorder_android;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -37,7 +38,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, OnClickListener{
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -93,14 +94,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        //---------TEST------------
-        findViewById(R.id.btn_Test).setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                //DO SOMETHING! {RUN SOME FUNCTION ... DO CHECKS... ETC}
-                //todo
-            }
-        });
-        //----------TEST-----------
+        //---------Boton TEST------------
+        findViewById(R.id.btn_Test).setOnClickListener(this);
+        //----------Boton TEST-----------
     }
 
     private void populateAutoComplete() {
@@ -286,6 +282,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_Test:
+                Intent i = new Intent(LoginActivity.this,YourRestaurants.class);
+                startActivity(i);
+                break;
+        }
     }
 
 
