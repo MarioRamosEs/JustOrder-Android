@@ -13,14 +13,14 @@ import client.marpolex.com.justorder_android.R;
  * Created by mario on 22/03/2018.
  */
 
-public class RestaurantFragment extends Fragment {
+public class ScanFragment extends Fragment {
 
     View myView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.restaurantslist, container, false);
+        myView = inflater.inflate(R.layout.scan, container, false);
         return myView;
     }
 }

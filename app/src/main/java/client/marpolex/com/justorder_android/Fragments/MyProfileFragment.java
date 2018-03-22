@@ -1,4 +1,4 @@
-package client.marpolex.com.justorder_android;
+package client.marpolex.com.justorder_android.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import client.marpolex.com.justorder_android.R;
 
 /**
  * Created by mario on 22/03/2018.
