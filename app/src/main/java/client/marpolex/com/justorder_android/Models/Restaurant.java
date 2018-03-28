@@ -21,4 +21,20 @@ public class Restaurant extends SugarRecord<Restaurant> {
         this.direction = direction;
         this.openingHours = openingHours;
     }
+
+    public long getId_() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public String getOpeningHours() {
+        return openingHours;
+    }
 }

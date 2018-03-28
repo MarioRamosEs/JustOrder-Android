@@ -1,4 +1,4 @@
-package client.marpolex.com.justorder_android;
+package client.marpolex.com.justorder_android.Activities;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import client.marpolex.com.justorder_android.Fragments.MyProfileFragment;
 import client.marpolex.com.justorder_android.Fragments.RestaurantFragment;
 import client.marpolex.com.justorder_android.Fragments.ScanFragment;
 import client.marpolex.com.justorder_android.Fragments.SettingsFragment;
+import client.marpolex.com.justorder_android.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getFragmentManager().beginTransaction().replace(R.id.content_frame, new RestaurantFragment()).commit(); //Iniciar con Restaurantes seleccionado
     }
 
     @Override

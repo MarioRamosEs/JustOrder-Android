@@ -3,6 +3,9 @@ package client.marpolex.com.justorder_android.Fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import client.marpolex.com.justorder_android.Adapters.RestaurantsAdapter;
 import client.marpolex.com.justorder_android.Models.Restaurant;
 import client.marpolex.com.justorder_android.R;
 
@@ -20,6 +24,9 @@ import client.marpolex.com.justorder_android.R;
 public class RestaurantFragment extends Fragment {
 
     View myView;
+    private RecyclerView recyclerView;
+    private RestaurantsAdapter rAdapter;
+    private List<Restaurant> restaurants;
 
     @Nullable
     @Override
@@ -30,9 +37,20 @@ public class RestaurantFragment extends Fragment {
     }
 
     public void onCreate(){
-        List<Restaurant> restaurants = Restaurant.listAll(Restaurant.class);
-        if(restaurants.size() == 0) loadSampleData();
-        Log.d("SugarORM", restaurants.size()+"");
+        restaurants = Restaurant.listAll(Restaurant.class);
+        if(restaurants.size() == 0){ //DEBUG Carga los restaurantes de ejemplo
+            loadSampleData();
+            restaurants = Restaurant.listAll(Restaurant.class);
+        }
+
+        //Recycler view
+        recyclerView = (RecyclerView) myView.findViewById(R.id.recycler_view);
+        rAdapter = new RestaurantsAdapter(restaurants);
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(rLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(rAdapter);
+        //End Recycler view
     }
 
     public void loadSampleData(){
