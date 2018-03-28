@@ -288,7 +288,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Test:
-                Intent i = new Intent(LoginActivity.this,YourRestaurants.class);
+                Intent i = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(i);
                 break;
         }

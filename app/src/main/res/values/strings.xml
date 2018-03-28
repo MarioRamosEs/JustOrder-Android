@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JustOrder-Android</string>
+    <string name="app_name">JustOrder</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">email</string>
