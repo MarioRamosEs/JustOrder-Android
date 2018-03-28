@@ -66,7 +66,7 @@ public class RestaurantsFragment extends Fragment {
                 args.putLong("idRestaurant", idRestaurant);
                 Fragment restaurantFragment = new RestaurantFragment();
                 restaurantFragment.setArguments(args);
-                
+
                 getFragmentManager().beginTransaction().replace(R.id.content_frame, restaurantFragment).addToBackStack( "tag" ).commit();
             }
         });
