@@ -19,7 +19,7 @@ import client.marpolex.com.justorder_android.Fragments.RestaurantFragment;
 import client.marpolex.com.justorder_android.Fragments.ScanFragment;
 import client.marpolex.com.justorder_android.Fragments.SettingsFragment;
 
-public class YourRestaurants extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
