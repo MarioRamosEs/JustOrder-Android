@@ -7,7 +7,6 @@ import com.orm.SugarRecord;
  */
 
 public class Restaurant extends SugarRecord<Restaurant> {
-    long id;
     String name;
     String direction;
     String openingHours;
@@ -15,15 +14,10 @@ public class Restaurant extends SugarRecord<Restaurant> {
     public Restaurant(){
     }
 
-    public Restaurant(long id, String name, String direction, String openingHours){
-        this.id = id;
+    public Restaurant(String name, String direction, String openingHours){
         this.name = name;
         this.direction = direction;
         this.openingHours = openingHours;
-    }
-
-    public long getId_() {
-        return id;
     }
 
     public String getName() {

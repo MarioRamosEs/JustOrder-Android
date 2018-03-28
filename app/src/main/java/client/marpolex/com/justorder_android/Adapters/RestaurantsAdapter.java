@@ -17,6 +17,7 @@ import client.marpolex.com.justorder_android.R;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder> {
     private List<Restaurant> restaurantsList;
+    protected View.OnClickListener onClickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, direction, openingHours;
@@ -36,6 +37,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_row, parent, false);
+        itemView.setOnClickListener(onClickListener);
         return new MyViewHolder(itemView);
     }
 
@@ -50,5 +52,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @Override
     public int getItemCount() {
         return restaurantsList.size();
+    }
+
+    public void setOnItemClickListener(View.OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return restaurantsList.get(position).getId();
     }
 }

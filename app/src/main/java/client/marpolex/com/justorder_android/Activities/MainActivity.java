@@ -1,6 +1,6 @@
 package client.marpolex.com.justorder_android.Activities;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import client.marpolex.com.justorder_android.Fragments.MyProfileFragment;
-import client.marpolex.com.justorder_android.Fragments.RestaurantFragment;
+import client.marpolex.com.justorder_android.Fragments.RestaurantsFragment;
 import client.marpolex.com.justorder_android.Fragments.ScanFragment;
 import client.marpolex.com.justorder_android.Fragments.SettingsFragment;
 import client.marpolex.com.justorder_android.R;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, new RestaurantFragment()).commit(); //Iniciar con Restaurantes seleccionado
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new RestaurantsFragment()).commit(); //Iniciar con Restaurantes seleccionado
     }
 
     @Override
@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.nav_restaurants) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new RestaurantFragment()).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, new RestaurantsFragment()).commit();
         } else if (id == R.id.nav_profile) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, new MyProfileFragment()).commit();
         } else if (id == R.id.nav_scan) {
