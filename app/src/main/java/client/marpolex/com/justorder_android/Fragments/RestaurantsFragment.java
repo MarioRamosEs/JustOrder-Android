@@ -58,9 +58,6 @@ public class RestaurantsFragment extends Fragment {
         rAdapter.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent i = new Intent(MainActivity.this, VistaLugarActivity.class);
-                //i.putExtra("id", (long) recyclerView.getChildAdapterPosition(v));
-                //startActivity(i);
                 Bundle args = new Bundle();
                 long idRestaurant = rAdapter.getItemId(recyclerView.getChildAdapterPosition(v));
                 args.putLong("idRestaurant", idRestaurant);
@@ -74,11 +71,11 @@ public class RestaurantsFragment extends Fragment {
     }
 
     public void loadSampleData(){
-        Restaurant restaurant = new Restaurant("Nombre", "Direccion", "horas");
+        Restaurant restaurant = new Restaurant("Taverna Serengeti", "Muralla de Sant Llorenç, 16, 08302 Mataró", "18:00-02:00", "http://www.funcionaris.cat/Clientes/Imagenes/225/7.jpg");
         restaurant.save();
-        Restaurant restaurant2 = new Restaurant("Nombre2", "Direccion2", "horas2");
+        Restaurant restaurant2 = new Restaurant("The Drunk Monk", "Via Europa, 30, 08303 Mataró", "18:00-02:00", "https://media-cdn.tripadvisor.com/media/photo-s/03/5b/7a/e2/drunk-monk.jpg");
         restaurant2.save();
-        Restaurant restaurant3 = new Restaurant("Nombre3", "Direccion3", "horas3");
+        Restaurant restaurant3 = new Restaurant("The Beer Mugs", "Carrer de Montserrat, 21, 08302 Mataró", "19:30-02:30", "https://i.imgur.com/TDJmFlM.jpg");
         restaurant3.save();
         Log.d("SugarORM", "Sample data loaded.");
     }
