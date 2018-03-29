@@ -1,20 +1,20 @@
 package client.marpolex.com.justorder_android.Fragments;
 
+import android.graphics.Point;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.squareup.picasso.Picasso;
 import client.marpolex.com.justorder_android.Models.Restaurant;
 import client.marpolex.com.justorder_android.R;
 
-/**
- * Created by mario on 22/03/2018.
- */
 
 public class RestaurantFragment extends Fragment {
     View myView;
@@ -40,9 +40,14 @@ public class RestaurantFragment extends Fragment {
         TextView name = (TextView) myView.findViewById(R.id.tvName);
         TextView direction = (TextView) myView.findViewById(R.id.tvDirection);
         TextView openingHours = (TextView) myView.findViewById(R.id.tvOpeningHours);
+        ImageView imageView = (ImageView)  myView.findViewById(R.id.ivRestaurant);
 
         name.setText(restaurant.getName());
         direction.setText(restaurant.getDirection());
         openingHours.setText(restaurant.getOpeningHours());
+
+        Point size = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+        Picasso.get().load(restaurant.getImgUrl()).placeholder(R.drawable.logo).resize(size.x, 700).into(imageView); //.centerCrop()
     }
 }
