@@ -24,4 +24,7 @@
     <string name="settings">Ajustes</string>
     <string name="share_menu">Compartir</string>
     <string name="invite_a_friend">Invita a un amigo</string>
+    <string name="book_a_table">Reserva mesa</string>
+    <string name="your_orders">Tus pedidos</string>
+    <string name="menu">Carta</string>
 </resources>

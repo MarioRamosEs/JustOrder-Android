@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="book_a_table">Reserva mesa</string>
+    <string name="your_orders">Tus pedidos</string>
+    <string name="menu">Carta</string>
+</resources>
