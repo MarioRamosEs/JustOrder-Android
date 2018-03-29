@@ -52,9 +52,4 @@ public class RestaurantFragment extends Fragment {
         direction.setText(restaurant.getDirection());
         openingHours.setText(restaurant.getOpeningHours());
     }
-
-    public void onBackPressed() {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        fm.popBackStack();
-    }
 }
