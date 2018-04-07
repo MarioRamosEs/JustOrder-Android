@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setCheckedItem(R.id.nav_restaurants);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new RestaurantsFragment()).commit(); //Iniciar con Restaurantes seleccionado
+
+
     }
 
     @Override

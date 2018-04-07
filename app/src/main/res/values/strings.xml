@@ -28,4 +28,6 @@
     <string name="your_orders">Tus pedidos</string>
     <string name="menu">Carta</string>
     <string name="edit_profile">Editar Perfil</string>
+    <string name="yersold">años</string>
+    <string name="expPoints">puntos de experiencia</string>
 </resources>

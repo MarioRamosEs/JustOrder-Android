@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
 /**
@@ -21,6 +23,34 @@ public class MyProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.myprofile, container, false);
+        onCreate();
         return myView;
+    }
+
+    public void onCreate(){
+        //Set profile data
+        TextView name = (TextView) myView.findViewById(R.id.tvName);
+        TextView surname = (TextView) myView.findViewById(R.id.tvSurname);
+        TextView expPoints = (TextView) myView.findViewById(R.id.tvExpPoints);
+        TextView gender = (TextView) myView.findViewById(R.id.tvGender);
+        TextView age = (TextView) myView.findViewById(R.id.tvAge);
+
+        User user = User.findById(User.class, (long)1);
+
+        name.setText(user.getName());
+        surname.setText(user.getSurname());
+        expPoints.setText(user.getExpPoints()+" "+getString(R.string.expPoints));
+        age.setText(user.getAge()+" "+getString(R.string.yersold));
+        switch (user.getGender()){
+            case 0:
+                gender.setText("Indefinido");
+                break;
+            case 1:
+                gender.setText("Hombre");
+                break;
+            case 2:
+                gender.setText("Mujer");
+                break;
+        }
     }
 }

@@ -34,6 +34,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -70,6 +71,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if(User.findById(User.class, (long)1) != null){ //Si hay un usuario en la BDD pasa directamente a MainActivity
+            goToMainActivity();
+        }
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -291,15 +297,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Test:
-                ProgressDialog dialog = ProgressDialog.show(LoginActivity.this, "",
-                        "Cargando, por favor espere...", true);
-                dialog.show();
-                Intent i = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(i);
+                User user = new User("Mario", "Ramos", 100, 1, 20, "tempToken");
+                user.save();
+                LoginActivity.this.goToMainActivity();
                 break;
         }
     }
 
+    public void goToMainActivity(){
+        ProgressDialog dialog = ProgressDialog.show(LoginActivity.this, "", "Cargando, por favor espere...", true);
+        dialog.show();
+        Intent i = new Intent(LoginActivity.this,MainActivity.class);
+        startActivity(i);
+    }
 
     private interface ProfileQuery {
         String[] PROJECTION = {
