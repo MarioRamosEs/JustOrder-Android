@@ -30,4 +30,5 @@
     <string name="edit_profile">Editar Perfil</string>
     <string name="yersold">años</string>
     <string name="expPoints">puntos de experiencia</string>
+    <string name="logout">Cerrar Sesión</string>
 </resources>

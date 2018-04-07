@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.Activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import client.marpolex.com.justorder_android.Fragments.MyProfileFragment;
 import client.marpolex.com.justorder_android.Fragments.RestaurantsFragment;
 import client.marpolex.com.justorder_android.Fragments.ScanFragment;
 import client.marpolex.com.justorder_android.Fragments.SettingsFragment;
+import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
 public class MainActivity extends AppCompatActivity
@@ -125,6 +127,34 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
         } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_logout) {
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Cerrar Sesión")
+                    .setMessage("¿Seguro que deseas cerrar sesión?")
+                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Cerrar sesión
+                            User.deleteAll(User.class);
+
+                            Intent intent = new Intent();
+                            setResult(Activity.RESULT_OK, intent);
+                            finish();
+                        }
+
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Volver a restaurantes
+                            final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                            navigationView.setCheckedItem(R.id.nav_restaurants);
+                            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new RestaurantsFragment()).commit();
+                        }
+
+                    })
+                    .show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

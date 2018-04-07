@@ -35,7 +35,7 @@ public class MyProfileFragment extends Fragment {
         TextView gender = (TextView) myView.findViewById(R.id.tvGender);
         TextView age = (TextView) myView.findViewById(R.id.tvAge);
 
-        User user = User.findById(User.class, (long)1);
+        User user = User.listAll(User.class).get(0); //Obtiene el primer usuario. Solo debería haber uno.
 
         name.setText(user.getName());
         surname.setText(user.getSurname());

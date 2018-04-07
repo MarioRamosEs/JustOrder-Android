@@ -66,13 +66,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    ProgressDialog dialogLoding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(User.findById(User.class, (long)1) != null){ //Si hay un usuario en la BDD pasa directamente a MainActivity
+        dialogLoding = ProgressDialog.show(LoginActivity.this, "", "Cargando, por favor espere...", true);
+        dialogLoding.hide();
+
+        //List<User> users = User.listAll(User.class);
+        if(User.listAll(User.class).size() > 0){ //Si hay un usuario en la BDD pasa directamente a MainActivity
             goToMainActivity();
         }
 
@@ -305,10 +310,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public void goToMainActivity(){
-        ProgressDialog dialog = ProgressDialog.show(LoginActivity.this, "", "Cargando, por favor espere...", true);
-        dialog.show();
+        dialogLoding.show();
         Intent i = new Intent(LoginActivity.this,MainActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 0001);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 0001) { //Si volvemos de la main activity porque han cerrado la sesión
+            dialogLoding.hide();
+        }
     }
 
     private interface ProfileQuery {
@@ -320,6 +332,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
+
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
