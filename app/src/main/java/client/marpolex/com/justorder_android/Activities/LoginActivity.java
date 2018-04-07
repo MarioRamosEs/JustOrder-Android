@@ -3,6 +3,7 @@ package client.marpolex.com.justorder_android.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -290,6 +291,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Test:
+                ProgressDialog dialog = ProgressDialog.show(LoginActivity.this, "",
+                        "Cargando, por favor espere...", true);
+                dialog.show();
                 Intent i = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(i);
                 break;
