@@ -17,7 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:icon">
-
         <meta-data
             android:name="DATABASE"
             android:value="justorder_init.db" />
@@ -36,6 +35,7 @@
             android:label="@string/login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,5 +43,7 @@
             android:name=".Activities.MainActivity"
             android:label="@string/tus_restaurantes"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.MenuActivity"></activity>
     </application>
+
 </manifest>

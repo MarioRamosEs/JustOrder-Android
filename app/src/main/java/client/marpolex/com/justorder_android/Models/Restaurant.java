@@ -11,6 +11,7 @@ public class Restaurant extends SugarRecord<Restaurant> {
     String direction;
     String openingHours;
     String imgUrl;
+    float rating;
 
     public Restaurant() {
     }

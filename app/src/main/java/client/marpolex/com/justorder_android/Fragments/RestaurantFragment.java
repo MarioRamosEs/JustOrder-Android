@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.Fragments;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,9 +10,12 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
+
+import client.marpolex.com.justorder_android.Activities.MenuActivity;
 import client.marpolex.com.justorder_android.Models.Restaurant;
 import client.marpolex.com.justorder_android.R;
 
@@ -28,8 +32,18 @@ public class RestaurantFragment extends Fragment {
     }
 
     public void onCreate(){
-        long idRestaurant = getArguments().getLong("idRestaurant");
+        final long idRestaurant = getArguments().getLong("idRestaurant");
         loadRestaurantInfo(idRestaurant);
+
+        Button menu = (Button) myView.findViewById(R.id.btnMenu);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), MenuActivity.class);
+                intent.putExtra("idRestaurant", idRestaurant);
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadRestaurantInfo(long idRestaurant){
