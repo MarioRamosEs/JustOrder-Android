@@ -16,11 +16,12 @@ public class Restaurant extends SugarRecord<Restaurant> {
     public Restaurant() {
     }
 
-    public Restaurant(String name, String direction, String openingHours, String imgUrl) {
+    public Restaurant(String name, String direction, String openingHours, String imgUrl, float rating) {
         this.name = name;
         this.direction = direction;
         this.openingHours = openingHours;
         this.imgUrl = imgUrl;
+        this.rating = rating;
     }
 
     public String getName() {
@@ -37,5 +38,9 @@ public class Restaurant extends SugarRecord<Restaurant> {
 
     public String getImgUrl() {
         return imgUrl;
+    }
+
+    public float getRating() {
+        return rating;
     }
 }

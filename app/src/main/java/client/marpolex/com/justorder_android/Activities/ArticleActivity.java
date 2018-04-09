@@ -4,6 +4,7 @@ import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -33,6 +34,7 @@ public class ArticleActivity extends AppCompatActivity {
         TextView name = (TextView) findViewById(R.id.tvName);
         TextView description = (TextView) findViewById(R.id.tvDescription);
         ImageView imageView = (ImageView)  findViewById(R.id.ivRestaurant);
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
 
         name.setText(article.getName());
         description.setText(article.getDescription());
@@ -40,5 +42,7 @@ public class ArticleActivity extends AppCompatActivity {
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         Picasso.get().load(article.getImg()).placeholder(R.drawable.logo).into(imageView); //.centerCrop()
+
+        ratingBar.setRating(article.getRating());
     }
 }

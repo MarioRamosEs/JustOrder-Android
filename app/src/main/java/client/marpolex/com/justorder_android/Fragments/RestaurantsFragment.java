@@ -71,11 +71,11 @@ public class RestaurantsFragment extends Fragment {
     }
 
     public void loadSampleData(){
-        Restaurant restaurant = new Restaurant("Taverna Serengeti", "Muralla de Sant Llorenç, 16, 08302 Mataró", "18:00-02:00", "http://www.funcionaris.cat/Clientes/Imagenes/225/7.jpg");
+        Restaurant restaurant = new Restaurant("Taverna Serengeti", "Muralla de Sant Llorenç, 16, 08302 Mataró", "18:00-02:00", "http://www.funcionaris.cat/Clientes/Imagenes/225/7.jpg",4 );
         restaurant.save();
-        Restaurant restaurant2 = new Restaurant("The Drunk Monk", "Via Europa, 30, 08303 Mataró", "18:00-02:00", "https://media-cdn.tripadvisor.com/media/photo-s/03/5b/7a/e2/drunk-monk.jpg");
+        Restaurant restaurant2 = new Restaurant("The Drunk Monk", "Via Europa, 30, 08303 Mataró", "18:00-02:00", "https://media-cdn.tripadvisor.com/media/photo-s/03/5b/7a/e2/drunk-monk.jpg", 3);
         restaurant2.save();
-        Restaurant restaurant3 = new Restaurant("The Beer Mugs", "Carrer de Montserrat, 21, 08302 Mataró", "19:30-02:30", "https://i.imgur.com/TDJmFlM.jpg");
+        Restaurant restaurant3 = new Restaurant("The Beer Mugs", "Carrer de Montserrat, 21, 08302 Mataró", "19:30-02:30", "https://i.imgur.com/TDJmFlM.jpg", 2);
         restaurant3.save();
         Log.d("SugarORM", "Sample data loaded.");
     }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
@@ -54,6 +55,7 @@ public class RestaurantFragment extends Fragment {
         TextView direction = (TextView) myView.findViewById(R.id.tvDescription);
         TextView openingHours = (TextView) myView.findViewById(R.id.tvOpeningHours);
         ImageView imageView = (ImageView)  myView.findViewById(R.id.ivRestaurant);
+        RatingBar ratingBar = (RatingBar)  myView.findViewById(R.id.ratingBar);
 
         name.setText(restaurant.getName());
         direction.setText(restaurant.getDirection());
@@ -62,5 +64,7 @@ public class RestaurantFragment extends Fragment {
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
         Picasso.get().load(restaurant.getImgUrl()).placeholder(R.drawable.logo).resize(size.x, 700).into(imageView); //.centerCrop()
+
+        ratingBar.setRating(restaurant.getRating());
     }
 }
