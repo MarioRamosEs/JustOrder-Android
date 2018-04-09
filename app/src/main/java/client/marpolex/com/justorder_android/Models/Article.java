@@ -22,4 +22,28 @@ public class Article implements Serializable{
         this.img = img;
         this.rating = rating;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public float getPvp() {
+        return pvp;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public float getRating() {
+        return rating;
+    }
 }

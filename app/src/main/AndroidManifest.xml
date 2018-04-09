@@ -45,7 +45,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.MenuActivity" />
         <activity android:name=".Activities.CategoryActivity" />
-        <activity android:name=".Activities.SubcategoryActivity"></activity>
+        <activity android:name=".Activities.SubcategoryActivity" />
+        <activity android:name=".Activities.ArticleActivity"></activity>
     </application>
 
 </manifest>
