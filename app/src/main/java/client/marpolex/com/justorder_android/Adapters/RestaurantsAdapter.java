@@ -25,7 +25,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.tvName);
-            direction = (TextView) view.findViewById(R.id.tvDirection);
+            direction = (TextView) view.findViewById(R.id.tvDescription);
             openingHours = (TextView) view.findViewById(R.id.tvOpeningHours);
         }
     }

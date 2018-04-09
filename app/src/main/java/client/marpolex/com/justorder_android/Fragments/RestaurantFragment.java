@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,7 @@ public class RestaurantFragment extends Fragment {
         Restaurant restaurant = Restaurant.findById(Restaurant.class, idRestaurant);
 
         TextView name = (TextView) myView.findViewById(R.id.tvName);
-        TextView direction = (TextView) myView.findViewById(R.id.tvDirection);
+        TextView direction = (TextView) myView.findViewById(R.id.tvDescription);
         TextView openingHours = (TextView) myView.findViewById(R.id.tvOpeningHours);
         ImageView imageView = (ImageView)  myView.findViewById(R.id.ivRestaurant);
 

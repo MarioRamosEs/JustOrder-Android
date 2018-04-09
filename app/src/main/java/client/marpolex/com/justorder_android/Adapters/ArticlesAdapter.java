@@ -9,7 +9,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.Models.Article;
-import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
 /**
@@ -26,7 +25,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.tvName);
-            direction = (TextView) view.findViewById(R.id.tvDirection);
+            direction = (TextView) view.findViewById(R.id.tvDescription);
             openingHours = (TextView) view.findViewById(R.id.tvOpeningHours);
         }
     }
