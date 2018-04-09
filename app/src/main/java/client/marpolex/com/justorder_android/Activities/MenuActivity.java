@@ -26,23 +26,21 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        CategoriesAdapter adapter = new CategoriesAdapter(this, categoryList);
-        GridView lstElements = (GridView) findViewById(R.id.gvCategory);
-        lstElements.setAdapter(adapter);
+        final CategoriesAdapter cAdapter = new CategoriesAdapter(this, categoryList);
+        final GridView lstElements = (GridView) findViewById(R.id.gvCategory);
+        lstElements.setAdapter(cAdapter);
 
         lstElements.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //lA "i" marca la posició de l'element que hem fet click
-                /*Personajes personaje = ((Personajes) adapterView.getItemAtPosition(i));
-                Intent intent = new Intent(MainActivity.this,PantallaPersonaje.class);
-                Bundle bundle = new Bundle();
+                Intent intent = new Intent(MenuActivity.this, CategoryActivity.class);
 
-                bundle.putSerializable("Datos", personaje);
-                intent.putExtras(bundle);
+                Category category =  ((Category) adapterView.getItemAtPosition(i));
+                Bundle args = new Bundle();
+                args.putSerializable("category", category);
+                intent.putExtras(args);
 
-                startActivity(intent, bundle);*/
-                Log.d("TODO", "TODO"); //TODO setOnItemClickListener categorias
+                startActivity(intent);
             }
         });
     }

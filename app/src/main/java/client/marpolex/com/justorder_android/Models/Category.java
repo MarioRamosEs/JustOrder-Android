@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by mario on 08/04/2018.
  */
 
-public class Category {
+public class Category implements Serializable{
     long id;
     String name;
     String img;

@@ -1,10 +1,12 @@
 package client.marpolex.com.justorder_android.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by mario on 08/04/2018.
  */
 
-public class Article {
+public class Article implements Serializable{
     long id;
     String name;
     String description;

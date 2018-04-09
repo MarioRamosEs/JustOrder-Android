@@ -43,7 +43,9 @@
             android:name=".Activities.MainActivity"
             android:label="@string/tus_restaurantes"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.MenuActivity"></activity>
+        <activity android:name=".Activities.MenuActivity" />
+        <activity android:name=".Activities.CategoryActivity" />
+        <activity android:name=".Activities.SubcategoryActivity"></activity>
     </application>
 
 </manifest>
