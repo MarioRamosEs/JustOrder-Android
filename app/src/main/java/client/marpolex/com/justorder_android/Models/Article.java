@@ -14,6 +14,9 @@ public class Article implements Serializable{
     String img;
     float rating;
 
+    //Only functional variables for the shopping cart
+    int quantity = 0;
+
     public Article(long id, String name, String description, float pvp, String img, float rating) {
         this.id = id;
         this.name = name;

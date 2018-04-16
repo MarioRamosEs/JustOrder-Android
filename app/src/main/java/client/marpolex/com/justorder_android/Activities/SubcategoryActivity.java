@@ -14,10 +14,14 @@ import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
 import client.marpolex.com.justorder_android.Adapters.SubcategoriesAdapter;
 import client.marpolex.com.justorder_android.Models.Article;
 import client.marpolex.com.justorder_android.Models.Category;
+import client.marpolex.com.justorder_android.Models.ShoppingCart;
+import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
 import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
 public class SubcategoryActivity extends AppCompatActivity {
+
+    private ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
 
     private RecyclerView recyclerView;
     private ArticlesAdapter aAdapter;

@@ -10,12 +10,15 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import client.marpolex.com.justorder_android.Models.Article;
+import client.marpolex.com.justorder_android.Models.ShoppingCart;
+import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
 import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
 public class ArticleActivity extends AppCompatActivity {
 
     private Article article;
+    private ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

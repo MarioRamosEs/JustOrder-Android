@@ -36,7 +36,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_row, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_row, parent, false);
         itemView.setOnClickListener(onClickListener);
         return new MyViewHolder(itemView);
     }
