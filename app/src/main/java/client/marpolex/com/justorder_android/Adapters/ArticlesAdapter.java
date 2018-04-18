@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -20,13 +23,16 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     protected View.OnClickListener onClickListener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, direction, openingHours;
+        public TextView name, description, pvp;
+        public ImageView img, addToCart;
 
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.tvName);
-            direction = (TextView) view.findViewById(R.id.tvDescription);
-            openingHours = (TextView) view.findViewById(R.id.tvOpeningHours);
+            description = (TextView) view.findViewById(R.id.tvDescription);
+            pvp = (TextView) view.findViewById(R.id.tvPVP);
+            img = (ImageView) view.findViewById(R.id.ivImg);
+            addToCart = (ImageView) view.findViewById(R.id.ivAddToCart);
         }
     }
 
@@ -44,7 +50,12 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Article article = articleList.get(position);
+
         holder.name.setText(article.getName());
+        holder.description.setText(article.getDescription());
+        holder.pvp.setText(article.getPvp()+"€");
+
+        Picasso.get().load(article.getImg()).placeholder(R.drawable.logo).into(holder.img);
     }
 
     @Override
