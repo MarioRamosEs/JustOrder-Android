@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +25,14 @@ import client.marpolex.com.justorder_android.R;
 
 public class MenuActivity extends AppCompatActivity {
 
-    List<Category> categoryList = loadData();
+    List<Category> categoryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        categoryList = loadData();
 
         final CategoriesAdapter cAdapter = new CategoriesAdapter(this, categoryList);
         final GridView lstElements = (GridView) findViewById(R.id.gvCategory);
@@ -45,20 +53,47 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
-    private List<Category> loadData(){
-        //TODO load real Categories
-        Article amstelOro = new Article(0, "Amstel Oro", "330ml - 6.2% Alc", (float)2.99, "http://marf.es/justOrderTemp/AmstelOro.png", 4);
-        Article amstelPlata = new Article(1, "Amstel Plata", "330ml - 666% Alc", (float)6.66, "http://marf.es/justOrderTemp/AmstelOro.png", 2);
-        List<Article> tostadas = new ArrayList<>();
-        tostadas.add(amstelOro); tostadas.add(amstelPlata);
+    private List<Category> loadData() {
+        List<Category> categoryList = new ArrayList<Category>();
 
-        Subcategory scTostadas = new Subcategory(0, "Tostadas", tostadas);
-        List<Subcategory> cervezas = new ArrayList<>();
-        cervezas.add(scTostadas);
+        //Cargar JSON
+        String json = null;
+        try {
+            InputStream is = getAssets().open("example.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            json = null;
+            Log.e("JSON", "Error al cargar el JSON");
+        }
 
-        Category cCervezas = new Category(0, "Cervezas", "http://marf.es/justOrderTemp/beer.png", cervezas);
-        List<Category> categoryList = new ArrayList<>();
-        categoryList.add(cCervezas);
+        //Preparar el JSON Object
+        JSONObject object = null; //Creamos un objeto JSON a partir de la cadena
+        try {
+            object = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray categories = null;
+        try {
+            JSONObject products = object.getJSONObject("products");
+            categories = products.getJSONArray("types");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < categories.length(); i++) {
+            try {
+                categoryList.add(new Category(categories.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         return categoryList;
     }

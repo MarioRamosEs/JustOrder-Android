@@ -53,9 +53,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
         holder.name.setText(article.getName());
         holder.description.setText(article.getDescription());
-        holder.pvp.setText(article.getPvp()+"€");
+        holder.pvp.setText(article.getBase_price()+"€");
 
-        Picasso.get().load(article.getImg()).placeholder(R.drawable.logo).into(holder.img);
+        Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
     }
 
     @Override

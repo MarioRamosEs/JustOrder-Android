@@ -54,7 +54,7 @@ public class SubcategoryActivity extends AppCompatActivity {
 
                 Intent i = new Intent(SubcategoryActivity.this, ArticleActivity.class);
 
-                Article article = articles.get((int) idArticle);
+                Article article = articles.get((int) idArticle-1);
                 Bundle args = new Bundle();
                 args.putSerializable("article", article);
                 i.putExtras(args);

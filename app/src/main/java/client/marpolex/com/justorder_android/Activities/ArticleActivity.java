@@ -44,8 +44,8 @@ public class ArticleActivity extends AppCompatActivity {
 
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
-        Picasso.get().load(article.getImg()).placeholder(R.drawable.logo).into(imageView); //.centerCrop()
+        Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(imageView); //.centerCrop()
 
-        ratingBar.setRating(article.getRating());
+        ratingBar.setRating((float)article.getRating());
     }
 }
