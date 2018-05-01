@@ -35,15 +35,15 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        categoryList = loadData();
+        categoryList = loadData(); //Toda la carta
 
-        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         setSu
         getSupportActionBar().setTitle("My title");
 
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle(nameRestaurant);
+        getSupportActionBar().setTitle(nameRestaurant);*/
 
         final CategoriesAdapter cAdapter = new CategoriesAdapter(this, categoryList);
         final GridView lstElements = (GridView) findViewById(R.id.gvCategory);
