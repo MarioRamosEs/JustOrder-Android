@@ -50,9 +50,9 @@ public class RestaurantsFragment extends Fragment {
         //Recycler view
         recyclerView = (RecyclerView) myView.findViewById(R.id.recycler_view);
         rAdapter = new RestaurantsAdapter(restaurants);
-        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(rLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        //recyclerView.setLayoutManager(rLayoutManager);
+        //recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(rAdapter);
 
         rAdapter.setOnItemClickListener(new View.OnClickListener() {

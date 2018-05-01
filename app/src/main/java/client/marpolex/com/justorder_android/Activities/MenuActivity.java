@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toolbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,8 @@ import client.marpolex.com.justorder_android.R;
 public class MenuActivity extends AppCompatActivity {
 
     List<Category> categoryList;
+    int idRestaurent = 0;
+    String nameRestaurant = "Restaurant test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,14 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         categoryList = loadData();
+
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mActionBarToolbar);
+        setSu
+        getSupportActionBar().setTitle("My title");
+
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(nameRestaurant);
 
         final CategoriesAdapter cAdapter = new CategoriesAdapter(this, categoryList);
         final GridView lstElements = (GridView) findViewById(R.id.gvCategory);

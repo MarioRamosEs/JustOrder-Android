@@ -38,6 +38,9 @@ public class CategoryActivity extends AppCompatActivity {
         subcategories = category.getSubcategories();
         //End obtencion de datos
 
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(category.getName());
+
         //Recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         scAdapter = new SubcategoriesAdapter(subcategories);

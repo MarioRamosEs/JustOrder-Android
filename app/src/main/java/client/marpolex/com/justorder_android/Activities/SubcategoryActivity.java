@@ -35,9 +35,12 @@ public class SubcategoryActivity extends AppCompatActivity {
 
         //Obtencion de datos
         Bundle b = getIntent().getExtras();
-        subcategory = (Subcategory)b.getSerializable("subcategory");
+        subcategory = (Subcategory) b.getSerializable("subcategory");
         articles = subcategory.getArticleList();
         //End obtencion de datos
+
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle(subcategory.getName());
 
         //Recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -54,7 +57,7 @@ public class SubcategoryActivity extends AppCompatActivity {
 
                 Intent i = new Intent(SubcategoryActivity.this, ArticleActivity.class);
 
-                Article article = articles.get((int) idArticle-1);
+                Article article = articles.get((int) idArticle - 1);
                 Bundle args = new Bundle();
                 args.putSerializable("article", article);
                 i.putExtras(args);
