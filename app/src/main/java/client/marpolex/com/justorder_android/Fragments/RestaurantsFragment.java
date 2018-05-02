@@ -3,6 +3,8 @@ package client.marpolex.com.justorder_android.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,9 +46,9 @@ public class RestaurantsFragment extends Fragment {
         //Recycler view
         recyclerView = (RecyclerView) myView.findViewById(R.id.recycler_view);
         rAdapter = new RestaurantsAdapter(restaurants);
-        //RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        //recyclerView.setLayoutManager(rLayoutManager);
-        //recyclerView.setItemAnimator(new DefaultItemAnimator());
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(rLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(rAdapter);
 
         rAdapter.setOnItemClickListener(new View.OnClickListener() {
