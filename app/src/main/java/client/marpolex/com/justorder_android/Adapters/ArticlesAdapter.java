@@ -19,22 +19,8 @@ import client.marpolex.com.justorder_android.R;
  */
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
-    private List<Article> articleList;
     protected View.OnClickListener onClickListener;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, description, pvp;
-        public ImageView img, addToCart;
-
-        public MyViewHolder(View view) {
-            super(view);
-            name = (TextView) view.findViewById(R.id.tvName);
-            description = (TextView) view.findViewById(R.id.tvDescription);
-            pvp = (TextView) view.findViewById(R.id.tvPVP);
-            img = (ImageView) view.findViewById(R.id.ivImg);
-            addToCart = (ImageView) view.findViewById(R.id.ivAddToCart);
-        }
-    }
+    private List<Article> articleList;
 
     public ArticlesAdapter(List<Article> articleList) {
         this.articleList = articleList;
@@ -53,7 +39,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
         holder.name.setText(article.getName());
         holder.description.setText(article.getDescription());
-        holder.pvp.setText(article.getBase_price()+"€");
+        holder.pvp.setText(article.getBase_price() + "€");
 
         Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
     }
@@ -70,5 +56,19 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     @Override
     public long getItemId(int position) {
         return articleList.get(position).getId();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView name, description, pvp;
+        public ImageView img, addToCart;
+
+        public MyViewHolder(View view) {
+            super(view);
+            name = (TextView) view.findViewById(R.id.tvName);
+            description = (TextView) view.findViewById(R.id.tvDescription);
+            pvp = (TextView) view.findViewById(R.id.tvPVP);
+            img = (ImageView) view.findViewById(R.id.ivImg);
+            addToCart = (ImageView) view.findViewById(R.id.ivAddToCart);
+        }
     }
 }

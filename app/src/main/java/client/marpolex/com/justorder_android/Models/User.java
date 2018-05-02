@@ -62,15 +62,15 @@ public class User extends SugarRecord<User> {
         return age;
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 }

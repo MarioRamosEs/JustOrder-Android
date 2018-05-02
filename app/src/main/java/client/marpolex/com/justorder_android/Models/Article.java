@@ -1,6 +1,5 @@
 package client.marpolex.com.justorder_android.Models;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

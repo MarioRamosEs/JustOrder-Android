@@ -1,19 +1,13 @@
 package client.marpolex.com.justorder_android.Fragments;
 
-import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -40,9 +34,9 @@ public class RestaurantsFragment extends Fragment {
         return myView;
     }
 
-    public void onCreate(){
+    public void onCreate() {
         restaurants = Restaurant.listAll(Restaurant.class);
-        if(restaurants.size() == 0){ //DEBUG Carga los restaurantes de ejemplo
+        if (restaurants.size() == 0) { //DEBUG Carga los restaurantes de ejemplo
             loadSampleData();
             restaurants = Restaurant.listAll(Restaurant.class);
         }
@@ -64,14 +58,14 @@ public class RestaurantsFragment extends Fragment {
                 Fragment restaurantFragment = new RestaurantFragment();
                 restaurantFragment.setArguments(args);
 
-                getFragmentManager().beginTransaction().replace(R.id.content_frame, restaurantFragment).addToBackStack( "tag" ).commit();
+                getFragmentManager().beginTransaction().replace(R.id.content_frame, restaurantFragment).addToBackStack("tag").commit();
             }
         });
         //End Recycler view
     }
 
-    public void loadSampleData(){
-        Restaurant restaurant = new Restaurant("Taverna Serengeti", "Muralla de Sant Llorenç, 16, 08302 Mataró", "18:00-02:00", "http://www.funcionaris.cat/Clientes/Imagenes/225/7.jpg",4 );
+    public void loadSampleData() {
+        Restaurant restaurant = new Restaurant("Taverna Serengeti", "Muralla de Sant Llorenç, 16, 08302 Mataró", "18:00-02:00", "http://www.funcionaris.cat/Clientes/Imagenes/225/7.jpg", 4);
         restaurant.save();
         Restaurant restaurant2 = new Restaurant("The Drunk Monk", "Via Europa, 30, 08303 Mataró", "18:00-02:00", "https://media-cdn.tripadvisor.com/media/photo-s/03/5b/7a/e2/drunk-monk.jpg", 3.8f);
         restaurant2.save();

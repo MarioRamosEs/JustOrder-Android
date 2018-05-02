@@ -16,19 +16,8 @@ import client.marpolex.com.justorder_android.R;
  */
 
 public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdapter.MyViewHolder> {
-    private List<Subcategory> subcategoryList;
     protected View.OnClickListener onClickListener;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, direction, openingHours;
-
-        public MyViewHolder(View view) {
-            super(view);
-            name = (TextView) view.findViewById(R.id.tvName);
-            direction = (TextView) view.findViewById(R.id.tvDescription);
-            openingHours = (TextView) view.findViewById(R.id.tvOpeningHours);
-        }
-    }
+    private List<Subcategory> subcategoryList;
 
     public SubcategoriesAdapter(List<Subcategory> subcategoryList) {
         this.subcategoryList = subcategoryList;
@@ -59,5 +48,16 @@ public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdap
     @Override
     public long getItemId(int position) {
         return subcategoryList.get(position).getId();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView name, direction, openingHours;
+
+        public MyViewHolder(View view) {
+            super(view);
+            name = (TextView) view.findViewById(R.id.tvName);
+            direction = (TextView) view.findViewById(R.id.tvDescription);
+            openingHours = (TextView) view.findViewById(R.id.tvOpeningHours);
+        }
     }
 }

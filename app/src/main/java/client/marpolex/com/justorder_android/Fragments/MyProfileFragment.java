@@ -1,8 +1,8 @@
 package client.marpolex.com.justorder_android.Fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +27,7 @@ public class MyProfileFragment extends Fragment {
         return myView;
     }
 
-    public void onCreate(){
+    public void onCreate() {
         //Set profile data
         TextView name = (TextView) myView.findViewById(R.id.tvName);
         TextView surname = (TextView) myView.findViewById(R.id.tvSurname);
@@ -39,9 +39,9 @@ public class MyProfileFragment extends Fragment {
 
         name.setText(user.getName());
         surname.setText(user.getSurname());
-        expPoints.setText(user.getExpPoints()+" "+getString(R.string.expPoints));
-        age.setText(user.getAge()+" "+getString(R.string.yersold));
-        switch (user.getGender()){
+        expPoints.setText(user.getExpPoints() + " " + getString(R.string.expPoints));
+        age.setText(user.getAge() + " " + getString(R.string.yersold));
+        switch (user.getGender()) {
             case 0:
                 gender.setText("Indefinido");
                 break;

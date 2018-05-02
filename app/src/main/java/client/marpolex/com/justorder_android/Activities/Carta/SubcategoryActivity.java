@@ -1,8 +1,8 @@
-package client.marpolex.com.justorder_android.Activities;
+package client.marpolex.com.justorder_android.Activities.Carta;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +11,7 @@ import android.view.View;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
-import client.marpolex.com.justorder_android.Adapters.SubcategoriesAdapter;
 import client.marpolex.com.justorder_android.Models.Article;
-import client.marpolex.com.justorder_android.Models.Category;
 import client.marpolex.com.justorder_android.Models.ShoppingCart;
 import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
 import client.marpolex.com.justorder_android.Models.Subcategory;

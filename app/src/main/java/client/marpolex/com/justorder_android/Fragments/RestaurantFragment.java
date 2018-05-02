@@ -2,9 +2,9 @@ package client.marpolex.com.justorder_android.Fragments;
 
 import android.content.Intent;
 import android.graphics.Point;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +13,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
 
-import client.marpolex.com.justorder_android.Activities.MenuActivity;
+import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
 import client.marpolex.com.justorder_android.Models.Restaurant;
 import client.marpolex.com.justorder_android.R;
 
@@ -31,7 +32,7 @@ public class RestaurantFragment extends Fragment {
         return myView;
     }
 
-    public void onCreate(){
+    public void onCreate() {
         final long idRestaurant = getArguments().getLong("idRestaurant");
         loadRestaurantInfo(idRestaurant);
 
@@ -46,16 +47,16 @@ public class RestaurantFragment extends Fragment {
         });
     }
 
-    private void loadRestaurantInfo(long idRestaurant){
-        Log.d("Loading restaurant", idRestaurant+"");
+    private void loadRestaurantInfo(long idRestaurant) {
+        Log.d("Loading restaurant", idRestaurant + "");
 
         Restaurant restaurant = Restaurant.findById(Restaurant.class, idRestaurant);
 
         TextView name = (TextView) myView.findViewById(R.id.tvName);
         TextView direction = (TextView) myView.findViewById(R.id.tvDescription);
         TextView openingHours = (TextView) myView.findViewById(R.id.tvOpeningHours);
-        ImageView imageView = (ImageView)  myView.findViewById(R.id.ivRestaurant);
-        RatingBar ratingBar = (RatingBar)  myView.findViewById(R.id.ratingBar);
+        ImageView imageView = (ImageView) myView.findViewById(R.id.ivRestaurant);
+        RatingBar ratingBar = (RatingBar) myView.findViewById(R.id.ratingBar);
 
         name.setText(restaurant.getName());
         direction.setText(restaurant.getDirection());

@@ -16,19 +16,8 @@ import client.marpolex.com.justorder_android.R;
  */
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder> {
-    private List<Restaurant> restaurantsList;
     protected View.OnClickListener onClickListener;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, direction, openingHours;
-
-        public MyViewHolder(View view) {
-            super(view);
-            name = (TextView) view.findViewById(R.id.tvName);
-            direction = (TextView) view.findViewById(R.id.tvDescription);
-            openingHours = (TextView) view.findViewById(R.id.tvOpeningHours);
-        }
-    }
+    private List<Restaurant> restaurantsList;
 
     public RestaurantsAdapter(List<Restaurant> restaurantsList) {
         this.restaurantsList = restaurantsList;
@@ -61,5 +50,16 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @Override
     public long getItemId(int position) {
         return restaurantsList.get(position).getId();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView name, direction, openingHours;
+
+        public MyViewHolder(View view) {
+            super(view);
+            name = (TextView) view.findViewById(R.id.tvName);
+            direction = (TextView) view.findViewById(R.id.tvDescription);
+            openingHours = (TextView) view.findViewById(R.id.tvOpeningHours);
+        }
     }
 }

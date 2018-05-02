@@ -14,7 +14,7 @@ public class ShoppingCartClient {
         return shoppingCart;
     }
 
-    public static void resetShoppingCart(){
+    public static void resetShoppingCart() {
         shoppingCart = null;
     }
 }

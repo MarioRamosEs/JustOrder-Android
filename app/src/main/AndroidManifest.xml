@@ -43,10 +43,10 @@
             android:name=".Activities.MainActivity"
             android:label="@string/tus_restaurantes"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.MenuActivity" />
-        <activity android:name=".Activities.CategoryActivity" />
-        <activity android:name=".Activities.SubcategoryActivity" />
-        <activity android:name=".Activities.ArticleActivity"></activity>
+        <activity android:name=".Activities.Carta.MenuActivity" />
+        <activity android:name=".Activities.Carta.CategoryActivity" />
+        <activity android:name=".Activities.Carta.SubcategoryActivity" />
+        <activity android:name=".Activities.Carta.ArticleActivity"></activity>
     </application>
 
 </manifest>

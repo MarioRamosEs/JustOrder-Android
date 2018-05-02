@@ -1,13 +1,12 @@
-package client.marpolex.com.justorder_android.Activities;
+package client.marpolex.com.justorder_android.Activities.Carta;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toolbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,15 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.Adapters.CategoriesAdapter;
-import client.marpolex.com.justorder_android.Models.Article;
 import client.marpolex.com.justorder_android.Models.Category;
-import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
 public class MenuActivity extends AppCompatActivity {
 
     List<Category> categoryList;
-    int idRestaurent = 0;
+    int idRestaurant = 0;
     String nameRestaurant = "Restaurant test";
 
     @Override
@@ -35,7 +32,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        categoryList = loadData(); //Toda la carta
+        categoryList = loadData(idRestaurant); //Toda la carta
 
         /*Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
@@ -54,7 +51,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MenuActivity.this, CategoryActivity.class);
 
-                Category category =  ((Category) adapterView.getItemAtPosition(i));
+                Category category = ((Category) adapterView.getItemAtPosition(i));
                 Bundle args = new Bundle();
                 args.putSerializable("category", category);
                 intent.putExtras(args);
@@ -64,13 +61,13 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
-    private List<Category> loadData() {
+    private List<Category> loadData(int idRestaurant) { //TODO cargar id Restaurant
         List<Category> categoryList = new ArrayList<Category>();
 
         //Cargar JSON
         String json = null;
         try {
-            InputStream is = getAssets().open("example.json");
+            InputStream is = getAssets().open("Restaurant_1_cart.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

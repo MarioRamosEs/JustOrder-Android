@@ -4,6 +4,7 @@
   "timezone_type": 3,
   "timezone": "UTC"
  },
+ "restaurantId":1,
  "products": {
   "mode": "product_type&product_subtype",
   "types": [

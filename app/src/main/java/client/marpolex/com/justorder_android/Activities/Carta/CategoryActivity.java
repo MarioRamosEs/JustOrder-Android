@@ -1,22 +1,17 @@
-package client.marpolex.com.justorder_android.Activities;
+package client.marpolex.com.justorder_android.Activities.Carta;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import java.util.List;
 
-import client.marpolex.com.justorder_android.Adapters.RestaurantsAdapter;
 import client.marpolex.com.justorder_android.Adapters.SubcategoriesAdapter;
-import client.marpolex.com.justorder_android.Fragments.RestaurantFragment;
 import client.marpolex.com.justorder_android.Models.Category;
-import client.marpolex.com.justorder_android.Models.Restaurant;
 import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
@@ -34,7 +29,7 @@ public class CategoryActivity extends AppCompatActivity {
 
         //Obtencion de datos
         Bundle b = getIntent().getExtras();
-        category = (Category)b.getSerializable("category");
+        category = (Category) b.getSerializable("category");
         subcategories = category.getSubcategories();
         //End obtencion de datos
 
@@ -56,7 +51,7 @@ public class CategoryActivity extends AppCompatActivity {
 
                 Intent i = new Intent(CategoryActivity.this, SubcategoryActivity.class);
 
-                Subcategory subcategory = subcategories.get((int) idSubcategory-1);
+                Subcategory subcategory = subcategories.get((int) idSubcategory - 1);
                 Bundle args = new Bundle();
                 args.putSerializable("subcategory", subcategory);
                 i.putExtras(args);
