@@ -17,6 +17,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.orm.SugarApp;
+import com.orm.SugarContext;
+
 import client.marpolex.com.justorder_android.Fragments.MyProfileFragment;
 import client.marpolex.com.justorder_android.Fragments.RestaurantsFragment;
 import client.marpolex.com.justorder_android.Fragments.ScanFragment;
@@ -31,6 +34,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_your_restaurants);
+
+
+
+        SugarContext.init(this);
 
         setTitle("Just Order");
 

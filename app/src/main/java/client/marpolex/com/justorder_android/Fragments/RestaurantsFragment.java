@@ -136,5 +136,7 @@ public class RestaurantsFragment extends Fragment {
         }
 
         Restaurant.saveInTx(restaurantList);
+
+        //restaurantList.get(0).save();
     }
 }
