@@ -1,5 +1,9 @@
 package client.marpolex.com.justorder_android.Models;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +13,23 @@ import java.util.List;
  */
 
 public class Subcategory implements Serializable {
-    long id;
+    int id;
     String name;
     List<Article> articleList = new ArrayList<>();
 
-    public Subcategory(long id, String name, List<Article> articleList) {
-        this.id = id;
-        this.name = name;
-        this.articleList = articleList;
+    public Subcategory(JSONObject jsonObject) {
+        try {
+            id = jsonObject.getInt("id");
+            name = jsonObject.getString("name");
+            JSONArray articles = jsonObject.getJSONArray("articles");
+
+            for (int i = 0; i < articles.length(); i++) {
+                articleList.add(new Article(articles.getJSONObject(i)));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public long getId() {

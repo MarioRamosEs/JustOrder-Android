@@ -1,0 +1,40 @@
+{
+ "created_at": {
+  "date": "2018-04-08 14:44:21.667356",
+  "timezone_type": 3,
+  "timezone": "UTC"
+ },
+ "restaurantId":1,
+ "products": {
+  "mode": "product_type&product_subtype",
+  "types": [
+   {
+    "id":1,
+    "name":"Beguda",
+    "image":"http://marf.es/justOrderTemp/beer.png",
+    "subCategories":[
+     {
+      "id":1,
+      "name":"COCA-COLA 3",
+      "articles":[
+       {
+        "id": 1,
+        "name": "Coca-Cola Zero 0.5L",
+        "description": "Sin azucar",
+        "ref_code": "P001",
+        "base_price": 2,
+        "tax_type": "IVA",
+        "image": "https://i.imgur.com/eriiyy9.png",
+        "product_type": "BEGUDA",
+        "product_subtype": "COCA-COLA",
+        "created_at": "2016-01-12 20:35:46",
+        "updated_at": "2017-08-11 17:29:22",
+        "rating":"3"
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

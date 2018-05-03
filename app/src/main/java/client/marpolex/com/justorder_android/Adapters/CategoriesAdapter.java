@@ -1,9 +1,6 @@
 package client.marpolex.com.justorder_android.Adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +10,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.Models.Category;
@@ -27,18 +23,18 @@ public class CategoriesAdapter extends ArrayAdapter<Category> {
     List<Category> categories;
     Context context;
 
-    public CategoriesAdapter(Context context,  List<Category> categories) {
+    public CategoriesAdapter(Context context, List<Category> categories) {
         super(context, R.layout.category_grid, categories);
         this.categories = categories;
         this.context = context;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View item = inflater.inflate(R.layout.category_grid,null);
+        View item = inflater.inflate(R.layout.category_grid, null);
 
-        TextView name = (TextView)  item.findViewById(R.id.tvCategoryName);
+        TextView name = (TextView) item.findViewById(R.id.tvCategoryName);
         ImageView img = (ImageView) item.findViewById(R.id.ivCategoryImg);
 
         name.setText(categories.get(position).getName());

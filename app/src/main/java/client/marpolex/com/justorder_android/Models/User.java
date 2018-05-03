@@ -6,7 +6,7 @@ import com.orm.SugarRecord;
  * Created by mario on 28/03/2018.
  */
 
-public class User extends SugarRecord<User> {
+public class User extends SugarRecord {
     String name;
     String surname;
     int expPoints;
@@ -62,15 +62,15 @@ public class User extends SugarRecord<User> {
         return age;
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     public String getToken() {
         return token;
     }
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 }

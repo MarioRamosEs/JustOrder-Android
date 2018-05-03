@@ -1,0 +1,28 @@
+{
+ "Restaurants":[
+  {
+   "id": "1",
+   "name": "Taverna Serengeti",
+   "direction": "Muralla de Sant Llorenç, 16, 08302 Mataró",
+   "openingHours": "18:00-02:00",
+   "imgUrl": "http://www.funcionaris.cat/Clientes/Imagenes/225/7.jpg",
+   "rating": "4"
+  },
+  {
+   "id": "2",
+   "name": "The Drunk Monk",
+   "direction": "Via Europa, 30, 08303 Mataró",
+   "openingHours": "18:00-02:00",
+   "imgUrl": "https://media-cdn.tripadvisor.com/media/photo-s/03/5b/7a/e2/drunk-monk.jpg",
+   "rating": "3.8f"
+  },
+  {
+   "id": "3",
+   "name": "The Beer Mugs",
+   "direction": "Carrer de Montserrat, 21, 08302 Mataró",
+   "openingHours": "19:30-02:30",
+   "imgUrl": "https://i.imgur.com/TDJmFlM.jpg",
+   "rating": "2.2f"
+  }
+ ]
+}
