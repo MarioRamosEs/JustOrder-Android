@@ -19,11 +19,11 @@ public class Restaurant extends SugarRecord {
     String openingHours;
     String imgUrl;
     float rating;
-    //int idRestaurant;
+    int idRestaurant;
 
     public Restaurant(JSONObject jsonObject) {
         try {
-            //idRestaurant = jsonObject.getInt("id");
+            idRestaurant = jsonObject.getInt("id");
             name = jsonObject.getString("name");
             imgUrl = jsonObject.getString("imgUrl");
             direction = jsonObject.getString("direction");

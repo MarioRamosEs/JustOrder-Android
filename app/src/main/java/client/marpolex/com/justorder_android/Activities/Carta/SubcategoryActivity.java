@@ -37,8 +37,8 @@ public class SubcategoryActivity extends AppCompatActivity {
         articles = subcategory.getArticleList();
         //End obtencion de datos
 
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setTitle(subcategory.getName());
+       // getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //getSupportActionBar().setTitle(subcategory.getName());
 
         //Recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);

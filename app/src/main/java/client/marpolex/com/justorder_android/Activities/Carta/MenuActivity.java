@@ -24,7 +24,7 @@ import client.marpolex.com.justorder_android.R;
 public class MenuActivity extends AppCompatActivity {
 
     List<Category> categoryList;
-    int idRestaurant = 0;
+    int idRestaurant;
     String nameRestaurant = "Restaurant test";
 
     @Override
@@ -32,6 +32,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        idRestaurant = (int) getIntent().getLongExtra("idRestaurant", 0);
         categoryList = loadData(idRestaurant); //Toda la carta
 
         /*Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,11 +64,12 @@ public class MenuActivity extends AppCompatActivity {
 
     private List<Category> loadData(int idRestaurant) { //TODO cargar id Restaurant
         List<Category> categoryList = new ArrayList<Category>();
+        Log.d("carta", "loadData: Cargando carta del restaurante "+idRestaurant);
 
         //Cargar JSON
         String json = null;
         try {
-            InputStream is = getAssets().open("Restaurant_1_cart.json");
+            InputStream is = getAssets().open("Restaurant_"+idRestaurant+"_cart.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

@@ -42,6 +42,7 @@ public class RestaurantFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), MenuActivity.class);
                 intent.putExtra("idRestaurant", idRestaurant);
+                Log.d("test", "onClick: "+idRestaurant);
                 startActivity(intent);
             }
         });
