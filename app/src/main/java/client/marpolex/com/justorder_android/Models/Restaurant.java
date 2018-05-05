@@ -66,4 +66,8 @@ public class Restaurant extends SugarRecord {
     public float getRating() {
         return rating;
     }
+
+    public int getIdRestaurant() {
+        return idRestaurant;
+    }
 }

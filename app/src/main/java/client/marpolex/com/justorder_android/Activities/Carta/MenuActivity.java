@@ -23,29 +23,32 @@ import java.util.List;
 
 import client.marpolex.com.justorder_android.Adapters.CategoriesAdapter;
 import client.marpolex.com.justorder_android.Models.Category;
+import client.marpolex.com.justorder_android.Models.Restaurant;
 import client.marpolex.com.justorder_android.R;
 
 public class MenuActivity extends AppCompatActivity  {
 
     List<Category> categoryList;
     int idRestaurant;
-    String nameRestaurant = "Restaurant test";
     private Toolbar toolbar;
+    private Restaurant restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        idRestaurant = (int) getIntent().getLongExtra("idRestaurant", 0);
+        categoryList = loadData(idRestaurant); //Toda la carta
+        restaurant = Restaurant.find(Restaurant.class, "id_restaurant = ?", idRestaurant+"").get(0);
+
         //TOOLBAR
         toolbar = (Toolbar) findViewById(R.id.tool_bar);  // Attaching the layout to the toolbar object
         setSupportActionBar(toolbar); // Setting toolbar as the ActionBar with setSupportActionBar() call
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
+        getSupportActionBar().setTitle(restaurant.getName());
         //END TOOLBAR
-
-        idRestaurant = (int) getIntent().getLongExtra("idRestaurant", 0);
-        categoryList = loadData(idRestaurant); //Toda la carta
 
         final CategoriesAdapter cAdapter = new CategoriesAdapter(this, categoryList);
         final GridView lstElements = (GridView) findViewById(R.id.gvCategory);
