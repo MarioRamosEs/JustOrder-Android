@@ -84,7 +84,14 @@ public class MenuActivity extends AppCompatActivity  {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_cart) {
+            Intent intent = new Intent(MenuActivity.this, cartSummaryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_search) {
+            //Todo Busqueda
+            Log.d("TODO", "onOptionsItemSelected: Busqueda TODO");
             return true;
         }
 

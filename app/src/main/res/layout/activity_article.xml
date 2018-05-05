@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     tools:context="client.marpolex.com.justorder_android.Activities.Carta.ArticleActivity">
 
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar_menu" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -28,17 +33,5 @@
 
 
     </ScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/bnGoToCart"
-        android:layout_width="56dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        app:backgroundTint="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_cart_white_48dp" />
 
 </android.support.constraint.ConstraintLayout>

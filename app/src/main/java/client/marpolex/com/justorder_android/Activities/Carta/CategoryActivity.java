@@ -8,6 +8,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.List;
@@ -30,18 +33,19 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        //TOOLBAR
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);  // Attaching the layout to the toolbar object
-        setSupportActionBar(toolbar); // Setting toolbar as the ActionBar with setSupportActionBar() call
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setSubtitleTextColor(Color.WHITE);
-        //END TOOLBAR
-
         //Obtencion de datos
         Bundle b = getIntent().getExtras();
         category = (Category) b.getSerializable("category");
         subcategories = category.getSubcategories();
         //End obtencion de datos
+
+        //TOOLBAR
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);  // Attaching the layout to the toolbar object
+        setSupportActionBar(toolbar); // Setting toolbar as the ActionBar with setSupportActionBar() call
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setSubtitleTextColor(Color.WHITE);
+        getSupportActionBar().setTitle(category.getName());
+        //END TOOLBAR
 
         //Recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -67,5 +71,34 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
         //End Recycler view
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_cart) {
+            Intent intent = new Intent(CategoryActivity.this, cartSummaryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_search) {
+            //Todo Busqueda
+            Log.d("TODO", "onOptionsItemSelected: Busqueda TODO");
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

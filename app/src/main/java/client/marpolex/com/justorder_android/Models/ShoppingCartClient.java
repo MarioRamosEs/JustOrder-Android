@@ -1,9 +1,5 @@
 package client.marpolex.com.justorder_android.Models;
 
-/**
- * Created by mario on 16/04/2018.
- */
-
 public class ShoppingCartClient {
     private static ShoppingCart shoppingCart = null;
 

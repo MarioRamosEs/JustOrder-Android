@@ -1,8 +1,14 @@
 package client.marpolex.com.justorder_android.Activities.Carta;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -16,6 +22,7 @@ import client.marpolex.com.justorder_android.R;
 
 public class ArticleActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private Article article;
     private ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
 
@@ -28,6 +35,14 @@ public class ArticleActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         article = (Article) b.getSerializable("article");
         //End obtencion de datos
+
+        //TOOLBAR
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);  // Attaching the layout to the toolbar object
+        setSupportActionBar(toolbar); // Setting toolbar as the ActionBar with setSupportActionBar() call
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setSubtitleTextColor(Color.WHITE);
+        getSupportActionBar().setTitle(article.getName());
+        //END TOOLBAR
 
         loadArticleInfo();
     }
@@ -46,5 +61,34 @@ public class ArticleActivity extends AppCompatActivity {
         Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(imageView); //.centerCrop()
 
         ratingBar.setRating((float) article.getRating());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_cart) {
+            Intent intent = new Intent(ArticleActivity.this, cartSummaryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.action_search) {
+            //Todo Busqueda
+            Log.d("TODO", "onOptionsItemSelected: Busqueda TODO");
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
