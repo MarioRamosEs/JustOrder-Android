@@ -66,7 +66,7 @@ public class ArticleActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_toolbar_menu, menu);
+        getMenuInflater().inflate(R.menu.article_toolbar_menu, menu);
         return true;
     }
 
@@ -83,9 +83,9 @@ public class ArticleActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
-        if (id == R.id.action_search) {
-            //Todo Busqueda
-            Log.d("TODO", "onOptionsItemSelected: Busqueda TODO");
+        if (id == R.id.action_share) {
+            //Todo Share
+            Log.d("TODO", "onOptionsItemSelected: Share TODO");
             return true;
         }
 

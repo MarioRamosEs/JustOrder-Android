@@ -76,17 +76,6 @@
             android:text="bnReview"
             android:textColor="@color/white" />
 
-        <Button
-            android:id="@+id/bnShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:text="bnShare"
-            android:textColor="@color/white" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
