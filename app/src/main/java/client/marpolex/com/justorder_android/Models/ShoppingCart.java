@@ -46,4 +46,14 @@ public class ShoppingCart {
     public Map<Article, Integer> getShoppingMap() {
         return shoppingMap;
     }
+
+    public float getTotalPrice(){
+        float totalPrice = 0;
+        Object[] obj = shoppingMap.keySet().toArray();
+        for (Object o : obj) {
+            Article articleTemp = (Article) o;
+            totalPrice += (articleTemp.getBase_price() * getQuantity(articleTemp));
+        }
+        return totalPrice;
+    }
 }

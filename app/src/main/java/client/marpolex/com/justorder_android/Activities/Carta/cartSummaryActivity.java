@@ -9,11 +9,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import client.marpolex.com.justorder_android.Activities.MainActivity;
 import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
 import client.marpolex.com.justorder_android.Adapters.SummaryArticlesAdapter;
 import client.marpolex.com.justorder_android.Models.Article;
@@ -56,21 +59,21 @@ public class cartSummaryActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(summaryArticlesAdapter);
 
-        /*aAdapter.setOnItemClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long idArticle = aAdapter.getItemId(recyclerView.getChildAdapterPosition(v));
-
-                Intent i = new Intent(SubcategoryActivity.this, ArticleActivity.class);
-
-                Article article = articles.get((int) idArticle - 1);
-                Bundle args = new Bundle();
-                args.putSerializable("article", article);
-                i.putExtras(args);
-
-                startActivity(i);
-            }
-        });*/
+        TextView tvTotalPrice = (TextView) findViewById(R.id.tvTotalPrice);
+        float totalPrice = ShoppingCartClient.getShoppingCart().getTotalPrice();
+        tvTotalPrice.setText(getString(R.string.totalPrice)+" "+totalPrice+"€");
         //End Recycler view
+
+        //Boton aceptar pedido
+        Button btnSendCommand = (Button) findViewById(R.id.btnSendCommand);
+        btnSendCommand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO Enviar comanda
+                Intent intent = new Intent(cartSummaryActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        //End boton aceptar pedido
     }
 }

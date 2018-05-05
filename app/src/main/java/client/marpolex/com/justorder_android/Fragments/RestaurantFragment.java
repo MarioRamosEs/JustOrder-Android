@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
 import client.marpolex.com.justorder_android.Models.Restaurant;
+import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
 import client.marpolex.com.justorder_android.R;
 
 
@@ -40,6 +41,7 @@ public class RestaurantFragment extends Fragment {
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ShoppingCartClient.resetShoppingCart();
                 Intent intent = new Intent(getActivity().getApplicationContext(), MenuActivity.class);
                 intent.putExtra("idRestaurant", idRestaurant);
                 Log.d("test", "onClick: "+idRestaurant);
