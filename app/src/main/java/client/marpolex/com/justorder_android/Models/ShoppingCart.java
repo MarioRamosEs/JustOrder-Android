@@ -16,7 +16,6 @@ public class ShoppingCart {
     }
 
     public void addArticle(Article article) {
-
         //Miro si hay un articulo con el mismo id que el que me pasan.
         Object[] obj = shoppingMap.keySet().toArray();
         for (Object o : obj) {
@@ -44,4 +43,7 @@ public class ShoppingCart {
         else Log.d("ShoppingMap", "Quantity not correct");
     }
 
+    public Map<Article, Integer> getShoppingMap() {
+        return shoppingMap;
+    }
 }
