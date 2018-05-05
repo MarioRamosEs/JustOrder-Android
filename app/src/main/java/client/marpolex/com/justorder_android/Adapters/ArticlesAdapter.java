@@ -1,10 +1,15 @@
 package client.marpolex.com.justorder_android.Adapters;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -12,7 +17,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.Models.Article;
+import client.marpolex.com.justorder_android.Models.ShoppingCart;
+import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
 import client.marpolex.com.justorder_android.R;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by mario on 28/03/2018.
@@ -34,14 +43,22 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        Article article = articleList.get(position);
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        final Article article = articleList.get(position);
 
         holder.name.setText(article.getName());
         holder.description.setText(article.getDescription());
         holder.pvp.setText(article.getBase_price() + "€");
 
         Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
+
+        holder.addToCart.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
+                shoppingCart.addArticle(article);
+                //Log.d(TAG, "ShoppingCart: "+shoppingCart.hashCode());
+            }
+        });
     }
 
     @Override

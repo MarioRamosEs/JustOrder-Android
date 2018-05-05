@@ -2,6 +2,8 @@ package client.marpolex.com.justorder_android.Models;
 
 public class ShoppingCartClient {
     private static ShoppingCart shoppingCart = null;
+    
+    private ShoppingCartClient(){}
 
     public static ShoppingCart getShoppingCart() {
         if (shoppingCart == null) {
