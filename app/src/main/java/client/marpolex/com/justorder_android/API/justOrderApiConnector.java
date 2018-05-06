@@ -50,14 +50,22 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     request.put("password", params[2]);
 
                     apiUrl = new URL(baseUrl + "/api/login");
+                    //cambiar a post
+                    break;
+                case "sites":
+                     apiUrl = new URL(baseUrl + "/api/sites");
+                     //cambiar a get
                     break;
             }
+
+            //STRING METHOD
 
             conn = (HttpURLConnection) this.apiUrl.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("JWT-TOKEN", (token == null) ? "" : token);
 
             //SEND
             Writer writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
