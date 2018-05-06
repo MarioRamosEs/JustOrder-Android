@@ -24,12 +24,13 @@ import java.util.List;
 import client.marpolex.com.justorder_android.Adapters.CategoriesAdapter;
 import client.marpolex.com.justorder_android.Models.Category;
 import client.marpolex.com.justorder_android.Models.Restaurant;
+import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
 import client.marpolex.com.justorder_android.R;
 
 public class MenuActivity extends AppCompatActivity  {
 
     List<Category> categoryList;
-    int idRestaurant;
+    int idRestaurant, idTable;
     private Toolbar toolbar;
     private Restaurant restaurant;
 
@@ -39,8 +40,14 @@ public class MenuActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_menu);
 
         idRestaurant = (int) getIntent().getLongExtra("idRestaurant", 0);
+        idTable = (int) getIntent().getLongExtra("idTable", -1);
+
         categoryList = loadData(idRestaurant); //Toda la carta
         restaurant = Restaurant.find(Restaurant.class, "id_restaurant = ?", idRestaurant+"").get(0);
+
+        //Establecer el idRestaurant y idTable en ShoppingCart
+        ShoppingCartClient.getShoppingCart().setRestaurantId(idRestaurant);
+        ShoppingCartClient.getShoppingCart().setTableId(idTable);
 
         //TOOLBAR
         toolbar = (Toolbar) findViewById(R.id.tool_bar);  // Attaching the layout to the toolbar object

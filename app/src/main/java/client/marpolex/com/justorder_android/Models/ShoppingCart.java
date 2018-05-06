@@ -14,6 +14,7 @@ public class ShoppingCart {
     ShoppingCart() {
         shoppingMap = new HashMap<>();
     }
+    private int restaurantId, tableId;
 
     public void addArticle(Article article) {
         //Miro si hay un articulo con el mismo id que el que me pasan.
@@ -55,5 +56,21 @@ public class ShoppingCart {
             totalPrice += (articleTemp.getBase_price() * getQuantity(articleTemp));
         }
         return totalPrice;
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public int getTableId() {
+        return tableId;
+    }
+
+    public void setTableId(int tableId) {
+        this.tableId = tableId;
     }
 }

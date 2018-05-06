@@ -8,10 +8,16 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +26,7 @@ import client.marpolex.com.justorder_android.Activities.MainActivity;
 import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
 import client.marpolex.com.justorder_android.Adapters.SummaryArticlesAdapter;
 import client.marpolex.com.justorder_android.Models.Article;
+import client.marpolex.com.justorder_android.Models.ArticleSummary;
 import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
 import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
@@ -70,10 +77,38 @@ public class cartSummaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO Enviar comanda
+
+                String json = "{" + generalInfoToJson() + cartSummaryToJson() + "}";
+
+                Log.d("cartSummaryToJson", json);
+
                 Intent intent = new Intent(cartSummaryActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
         //End boton aceptar pedido
+    }
+
+    private String cartSummaryToJson(){
+        List<ArticleSummary> articleActivity = new ArrayList<>();
+
+        Object[] obj = shoppingMap.keySet().toArray();
+        for (Object o : obj) {
+            Article articleTemp = (Article) o;
+            articleActivity.add(new ArticleSummary(articleTemp.getId(), ShoppingCartClient.getShoppingCart().getQuantity(articleTemp)));
+        }
+
+        Type type = new TypeToken<List<ArticleSummary>>() {}.getType();
+        Gson gson = new Gson();
+        return " \"cartSummary\":" + gson.toJson(articleActivity, type);
+    }
+
+    private String generalInfoToJson(){
+        String temp;
+
+        temp =  " \"site_id\":\""   + ShoppingCartClient.getShoppingCart().getRestaurantId() + "\", ";
+        temp += " \"table_id\":\""  + ShoppingCartClient.getShoppingCart().getTableId()      + "\", ";
+
+        return temp;
     }
 }
