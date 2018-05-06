@@ -40,7 +40,7 @@ public class MyProfileFragment extends Fragment {
         name.setText(user.getName());
         surname.setText(user.getSurname());
         expPoints.setText(user.getExpPoints() + " " + getString(R.string.expPoints));
-        age.setText(user.getAge() + " " + getString(R.string.yersold));
+        age.setText(user.getBirthDate());
         switch (user.getGender()) {
             case 0:
                 gender.setText("Indefinido");

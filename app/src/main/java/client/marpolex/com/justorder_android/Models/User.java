@@ -3,22 +3,22 @@ package client.marpolex.com.justorder_android.Models;
 import com.orm.SugarRecord;
 
 public class User extends SugarRecord {
-    String name;
-    String surname;
-    int expPoints;
-    int gender;
-    int age;
-    String token;
+   private String name;
+   private String surname;
+   private int expPoints;
+   private String birthDate;
+   private int gender;
+   private String token;
 
     public User() {
     }
 
-    public User(String name, String surname, int expPoints, int gender, int age, String token) {
+    public User(String name, String surname, int expPoints, int gender, String birthDate, String token) {
         this.name = name;
         this.surname = surname;
         this.expPoints = expPoints;
         this.gender = gender;
-        this.age = age;
+        this.birthDate = birthDate;
         this.token = token;
     }
 
@@ -54,12 +54,8 @@ public class User extends SugarRecord {
         this.gender = gender;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+    public String getBirthDate() {
+        return birthDate;
     }
 
     public String getToken() {

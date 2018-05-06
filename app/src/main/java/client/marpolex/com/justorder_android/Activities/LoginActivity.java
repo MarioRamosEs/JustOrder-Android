@@ -77,12 +77,10 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Test:
-                User user = new User("Mario", "Ramos", 100, 1, 20, "tempToken"); //todo cambiar edad por fecha nacimiento
-                user.save();
-                LoginActivity.this.goToMainActivity();
+                mEmailView.setText("mario.ramos@mataro.epiaedu.cat");
+                mPasswordView.setText("123456");
                 break;
             case R.id.email_sign_in_button:
-                Log.d("debug", "onClick: email_sign_in_button");
                 attemptLogin();
                 break;
         }
@@ -90,12 +88,13 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
 
     public void goToMainActivity() {
         dialogLoding.show();
+        User user = User.listAll(User.class).get(0); //Obtiene el primer usuario. Solo debería haber uno.
+        apiConnector.setToken(user.getToken());
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivityForResult(i, 0001);
     }
 
     private void attemptLogin() {
-        //Attempt to login//Disable everything until response
         lockInterface();
         this.apiConnector.attemptLogin(this.mEmailView.getText().toString(), this.mPasswordView.getText().toString(), this);
     }
@@ -120,15 +119,14 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
                 Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
                 unLockInterface();
             } else {            //Username and password OK
-                apiConnector.setToken(response.getString("token"));
                 apiConnector.clearCallbackActivity();
 
                 JSONObject userJson = response.getJSONObject("user");
-                User user = new User(userJson.getString("name"), userJson.getString("surnames"), userJson.getInt("exp"), userJson.getInt("gender"), 20, response.getString("token"));
+                User user = new User(userJson.getString("name"), userJson.getString("surnames"), userJson.getInt("exp"), userJson.getInt("gender"), userJson.getString("birthdate"), response.getString("token"));
                 user.save();
 
-                Log.d("attemptLogin", "Login usuario "+user.getName());
-                LoginActivity.this.goToMainActivity();
+                Log.d("attemptLogin", "Login usuario " + user.getName());
+                goToMainActivity();
             }
             Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
@@ -140,14 +138,13 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
         }
     }
 
-
-    private void lockInterface(){
+    private void lockInterface() {
         this.email_sign_in_button.setEnabled(false);
         this.mPasswordView.setEnabled(false);
         this.mEmailView.setEnabled(false);
     }
 
-    private void unLockInterface(){
+    private void unLockInterface() {
         this.email_sign_in_button.setEnabled(true);
         this.mPasswordView.setEnabled(true);
         this.mEmailView.setEnabled(true);
