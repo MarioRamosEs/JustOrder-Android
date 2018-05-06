@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -23,12 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 import client.marpolex.com.justorder_android.Activities.MainActivity;
-import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
 import client.marpolex.com.justorder_android.Adapters.SummaryArticlesAdapter;
 import client.marpolex.com.justorder_android.Models.Article;
 import client.marpolex.com.justorder_android.Models.ArticleSummary;
-import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
-import client.marpolex.com.justorder_android.Models.Subcategory;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 import client.marpolex.com.justorder_android.R;
 
 public class cartSummaryActivity extends AppCompatActivity {

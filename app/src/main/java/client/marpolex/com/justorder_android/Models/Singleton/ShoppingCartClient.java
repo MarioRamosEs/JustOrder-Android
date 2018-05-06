@@ -1,4 +1,4 @@
-package client.marpolex.com.justorder_android.Models;
+package client.marpolex.com.justorder_android.Models.Singleton;
 
 public class ShoppingCartClient {
     private static ShoppingCart shoppingCart = null;

@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import client.marpolex.com.justorder_android.Models.Article;
-import client.marpolex.com.justorder_android.Models.ShoppingCart;
-import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 import client.marpolex.com.justorder_android.R;
 
 public class ArticleActivity extends AppCompatActivity {

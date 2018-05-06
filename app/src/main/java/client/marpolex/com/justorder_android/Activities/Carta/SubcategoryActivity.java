@@ -17,8 +17,8 @@ import java.util.List;
 
 import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
 import client.marpolex.com.justorder_android.Models.Article;
-import client.marpolex.com.justorder_android.Models.ShoppingCart;
-import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
