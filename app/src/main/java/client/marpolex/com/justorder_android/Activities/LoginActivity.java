@@ -3,27 +3,39 @@ package client.marpolex.com.justorder_android.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.orm.SugarContext;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+
+import client.marpolex.com.justorder_android.API.justOrderApiConnector;
+import client.marpolex.com.justorder_android.API.justOrderApiInterface;
 import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements OnClickListener {
+public class LoginActivity extends AppCompatActivity implements OnClickListener, justOrderApiInterface {
     ProgressDialog dialogLoding;
+    justOrderApiConnector apiConnector;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private Button email_sign_in_button;
     private View mProgressView;
     private View mLoginFormView;
 
@@ -37,20 +49,33 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         dialogLoding = ProgressDialog.show(LoginActivity.this, "", "Cargando, por favor espere...", true);
         dialogLoding.hide();
 
+        //Si hay un usuario en la BDD pasa directamente a MainActivity
+        if (User.listAll(User.class).size() > 0) {
+            goToMainActivity();
+        }
+
+        //-----------------------------------------------------------------
         //Listener botones
         findViewById(R.id.btn_Test).setOnClickListener(this);
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
 
-        if (User.listAll(User.class).size() > 0) { //Si hay un usuario en la BDD pasa directamente a MainActivity
-            goToMainActivity();
+        //Instanciate a new apiConnector
+        try {
+            this.apiConnector = new justOrderApiConnector();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
 
-        //mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        //mPasswordView = (EditText) findViewById(R.id.password);
+        //INTERNET USE POLICY
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        //Bindear vistas
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
+        email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
         //mLoginFormView = findViewById(R.id.login_form);
         //mProgressView = findViewById(R.id.login_progress);
-
-
     }
 
     @Override
@@ -63,6 +88,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 break;
             case R.id.email_sign_in_button:
                 Log.d("debug", "onClick: email_sign_in_button");
+                attemptLogin();
                 break;
         }
     }
@@ -73,11 +99,50 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         startActivityForResult(i, 0001);
     }
 
+    private void attemptLogin(){
+
+        //Attempt to login//Disable everything until response
+        this.email_sign_in_button.setEnabled(false);
+        this.mPasswordView.setEnabled(false);
+        this.mEmailView.setEnabled(false);
+
+        this.apiConnector.attemptLogin(this.mEmailView.getText().toString(), this.mPasswordView.getText().toString(), this);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == 0001) { //Si volvemos de la main activity porque han cerrado la sesión
             dialogLoding.hide();
+        }
+    }
+
+    @Override
+    public void attemptLogin_response(String jsonResponse) {
+        Log.d("login", "attemptLogin_response: "+jsonResponse);
+        //Response of login attempt
+        try {
+            JSONObject response = new JSONObject(jsonResponse);
+            if(response.getString("status").equals("failed")){
+                //Login failed
+                this.email_sign_in_button.setEnabled(true);
+                this.mPasswordView.setEnabled(true);
+                this.mEmailView.setEnabled(true);
+            }else{
+                //Username and password OK
+                //Save the token
+                this.apiConnector.setToken(response.getString("token"));
+                this.apiConnector.clearCallbackActivity();
+
+                //todo hacer login con el usuario
+                User user = new User("Mario", "Ramos", 100, 1, 20, "tempToken");
+                user.save();
+                LoginActivity.this.goToMainActivity();
+            }
+            Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            //JSON couldn't be parsed or no connection to api server
+            Toast.makeText(this.getApplicationContext(), "Error with API", Toast.LENGTH_SHORT).show();
         }
     }
 }
