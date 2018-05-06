@@ -16,10 +16,6 @@ import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 import client.marpolex.com.justorder_android.R;
 
-/**
- * Created by mario on 28/03/2018.
- */
-
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
     protected View.OnClickListener onClickListener;
     private List<Article> articleList;
@@ -49,7 +45,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             public void onClick(View v) {
                 ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
                 shoppingCart.addArticle(article);
-                //Log.d(TAG, "ShoppingCart: "+shoppingCart.hashCode());
             }
         });
     }

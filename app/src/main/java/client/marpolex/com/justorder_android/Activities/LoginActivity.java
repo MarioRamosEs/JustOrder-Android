@@ -45,6 +45,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
 
         SugarContext.init(this);
 
+        //Instanciate a new apiConnector
+        apiConnector = justOrderApiConnectorClient.getJustOrderApiConnector();
+
         dialogLoding = ProgressDialog.show(LoginActivity.this, "", "Cargando, por favor espere...", true);
         dialogLoding.hide();
 
@@ -57,9 +60,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
         //Listener botones
         findViewById(R.id.btn_Test).setOnClickListener(this);
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
-
-        //Instanciate a new apiConnector
-        apiConnector = justOrderApiConnectorClient.getJustOrderApiConnector();
 
         //INTERNET USE POLICY
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -114,11 +114,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
         try {
             JSONObject response = new JSONObject(jsonResponse);
             boolean success = response.getBoolean("success");
-            if (!success) {     //Login failed
+            if (!success) {             //Login failed
                 //Log.d("attemptLogin", response.getString("message"));
                 Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
                 unLockInterface();
-            } else {            //Username and password OK
+            } else {                    //Username and password OK
                 apiConnector.clearCallbackActivity();
 
                 JSONObject userJson = response.getJSONObject("user");
@@ -129,11 +129,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
                 goToMainActivity();
             }
             Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
-        } catch (JSONException e) {
-            //JSON couldn't be parsed or no connection to api server
-            Log.d("attemptLogin", "Error al conectar con la API");
+        } catch (JSONException e) {     //JSON couldn't be parsed or no connection to api server
             Log.d("attemptLogin", e.toString());
-            //Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
             unLockInterface();
         }
     }

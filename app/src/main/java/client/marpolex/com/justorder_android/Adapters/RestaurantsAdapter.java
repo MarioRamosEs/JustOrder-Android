@@ -1,19 +1,20 @@
 package client.marpolex.com.justorder_android.Adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import client.marpolex.com.justorder_android.Models.Restaurant;
 import client.marpolex.com.justorder_android.R;
-
-/**
- * Created by mario on 28/03/2018.
- */
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder> {
     protected View.OnClickListener onClickListener;
@@ -35,7 +36,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         Restaurant restaurant = restaurantsList.get(position);
         holder.name.setText(restaurant.getName());
         holder.direction.setText(restaurant.getDirection());
-        holder.openingHours.setText(restaurant.getOpeningHours());
+        holder.ratingBar.setRating(restaurant.getRating());
+        Picasso.get().load(restaurant.getLogo()).placeholder(R.drawable.logo).into(holder.logo);
     }
 
     @Override
@@ -53,13 +55,16 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, direction, openingHours;
+        public TextView name, direction;
+        public ImageView logo;
+        public RatingBar ratingBar;
 
         public MyViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(R.id.tvName);
-            direction = (TextView) view.findViewById(R.id.tvDescription);
-            openingHours = (TextView) view.findViewById(R.id.tvOpeningHours);
+            name =      (TextView)  view.findViewById(R.id.tvName);
+            direction = (TextView)  view.findViewById(R.id.tvDescription);
+            logo =      (ImageView) view.findViewById(R.id.ivImg2);
+            ratingBar = (RatingBar) view.findViewById(R.id.ratingBar2);
         }
     }
 }
