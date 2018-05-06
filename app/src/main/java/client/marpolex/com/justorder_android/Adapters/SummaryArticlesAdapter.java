@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.Models.Article;
-import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 import client.marpolex.com.justorder_android.R;
 
 import static android.content.ContentValues.TAG;

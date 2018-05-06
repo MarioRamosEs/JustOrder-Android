@@ -1,9 +1,11 @@
-package client.marpolex.com.justorder_android.Models;
+package client.marpolex.com.justorder_android.Models.Singleton;
 
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import client.marpolex.com.justorder_android.Models.Article;
 
 import static android.content.ContentValues.TAG;
 

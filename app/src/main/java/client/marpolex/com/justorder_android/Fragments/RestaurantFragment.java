@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
 import client.marpolex.com.justorder_android.Models.Restaurant;
-import client.marpolex.com.justorder_android.Models.ShoppingCartClient;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 import client.marpolex.com.justorder_android.R;
 
 

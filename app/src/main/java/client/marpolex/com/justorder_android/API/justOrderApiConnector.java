@@ -16,6 +16,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static android.content.ContentValues.TAG;
+
 public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
     private URL apiUrl;
     private final String baseUrl = "https://webapp.justorder.ovh";
@@ -47,7 +49,7 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     request.put("email", params[1]);
                     request.put("password", params[2]);
 
-                    apiUrl = new URL(baseUrl+"/api/login");
+                    apiUrl = new URL(baseUrl + "/api/login");
                     break;
             }
 
@@ -64,7 +66,13 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
             //END SEND
 
             //RECEIVE
-            InputStream inputStream = conn.getInputStream();
+            InputStream inputStream;
+            int status = conn.getResponseCode();
+            Log.d(TAG, "ResponseCode: " + status);
+
+            if (status != HttpURLConnection.HTTP_OK) inputStream = conn.getErrorStream();
+            else inputStream = conn.getInputStream();
+
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
                 Log.w("api_response", "Empty response");
@@ -80,7 +88,7 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                 Log.w("api_response", "Empty response");
                 return null;
             }
-            if (this.callBackActivity == null) {
+            if (callBackActivity == null) {
                 Log.w("api_response", "No callback defined");
                 return null;
             }
@@ -91,7 +99,7 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     //this.callBackActivity.getStatus_response(buffer.toString(), 0);
                     break;
                 case "login":
-                    this.callBackActivity.attemptLogin_response(buffer.toString());
+                    callBackActivity.attemptLogin_response(buffer.toString());
                     break;
             }
 

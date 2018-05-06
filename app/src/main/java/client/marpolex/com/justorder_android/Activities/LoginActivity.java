@@ -18,10 +18,9 @@ import com.orm.SugarContext;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-
 import client.marpolex.com.justorder_android.API.justOrderApiConnector;
 import client.marpolex.com.justorder_android.API.justOrderApiInterface;
+import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
 import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
@@ -30,7 +29,7 @@ import client.marpolex.com.justorder_android.R;
  */
 public class LoginActivity extends AppCompatActivity implements OnClickListener, justOrderApiInterface {
     ProgressDialog dialogLoding;
-    justOrderApiConnector apiConnector;
+    private static justOrderApiConnector apiConnector;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -60,11 +59,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
 
         //Instanciate a new apiConnector
-        try {
-            this.apiConnector = new justOrderApiConnector();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        apiConnector = justOrderApiConnectorClient.getJustOrderApiConnector();
 
         //INTERNET USE POLICY
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -82,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_Test:
-                User user = new User("Mario", "Ramos", 100, 1, 20, "tempToken");
+                User user = new User("Mario", "Ramos", 100, 1, 20, "tempToken"); //todo cambiar edad por fecha nacimiento
                 user.save();
                 LoginActivity.this.goToMainActivity();
                 break;
@@ -99,13 +94,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
         startActivityForResult(i, 0001);
     }
 
-    private void attemptLogin(){
-
+    private void attemptLogin() {
         //Attempt to login//Disable everything until response
-        this.email_sign_in_button.setEnabled(false);
-        this.mPasswordView.setEnabled(false);
-        this.mEmailView.setEnabled(false);
-
+        lockInterface();
         this.apiConnector.attemptLogin(this.mEmailView.getText().toString(), this.mPasswordView.getText().toString(), this);
     }
 
@@ -119,31 +110,47 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
 
     @Override
     public void attemptLogin_response(String jsonResponse) {
-        Log.d("login", "attemptLogin_response: "+jsonResponse);
+        Log.d("attemptLogin", "attemptLogin_response: " + jsonResponse);
         //Response of login attempt
         try {
             JSONObject response = new JSONObject(jsonResponse);
-            if(response.getString("status").equals("failed")){
-                //Login failed
-                this.email_sign_in_button.setEnabled(true);
-                this.mPasswordView.setEnabled(true);
-                this.mEmailView.setEnabled(true);
-            }else{
-                //Username and password OK
-                //Save the token
-                this.apiConnector.setToken(response.getString("token"));
-                this.apiConnector.clearCallbackActivity();
+            boolean success = response.getBoolean("success");
+            if (!success) {     //Login failed
+                //Log.d("attemptLogin", response.getString("message"));
+                Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                unLockInterface();
+            } else {            //Username and password OK
+                apiConnector.setToken(response.getString("token"));
+                apiConnector.clearCallbackActivity();
 
-                //todo hacer login con el usuario
-                User user = new User("Mario", "Ramos", 100, 1, 20, "tempToken");
+                JSONObject userJson = response.getJSONObject("user");
+                User user = new User(userJson.getString("name"), userJson.getString("surnames"), userJson.getInt("exp"), userJson.getInt("gender"), 20, response.getString("token"));
                 user.save();
+
+                Log.d("attemptLogin", "Login usuario "+user.getName());
                 LoginActivity.this.goToMainActivity();
             }
             Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
             //JSON couldn't be parsed or no connection to api server
-            Toast.makeText(this.getApplicationContext(), "Error with API", Toast.LENGTH_SHORT).show();
+            Log.d("attemptLogin", "Error al conectar con la API");
+            Log.d("attemptLogin", e.toString());
+            //Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
+            unLockInterface();
         }
+    }
+
+
+    private void lockInterface(){
+        this.email_sign_in_button.setEnabled(false);
+        this.mPasswordView.setEnabled(false);
+        this.mEmailView.setEnabled(false);
+    }
+
+    private void unLockInterface(){
+        this.email_sign_in_button.setEnabled(true);
+        this.mPasswordView.setEnabled(true);
+        this.mEmailView.setEnabled(true);
     }
 }
 
