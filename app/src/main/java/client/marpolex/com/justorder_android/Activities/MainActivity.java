@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_your_restaurants);
 
-        SugarContext.init(this);
+        //SugarContext.init(this);
 
         setTitle("Just Order");
 

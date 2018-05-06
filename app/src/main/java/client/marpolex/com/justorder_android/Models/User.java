@@ -2,10 +2,6 @@ package client.marpolex.com.justorder_android.Models;
 
 import com.orm.SugarRecord;
 
-/**
- * Created by mario on 28/03/2018.
- */
-
 public class User extends SugarRecord {
     String name;
     String surname;
