@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
     public void goToMainActivity() {
         dialogLoding.show();
         User user = User.listAll(User.class).get(0); //Obtiene el primer usuario. Solo debería haber uno.
+        Log.d("Token", user.getToken());
         apiConnector.setToken(user.getToken());
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivityForResult(i, 0001);

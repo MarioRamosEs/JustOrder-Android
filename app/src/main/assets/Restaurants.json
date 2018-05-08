@@ -4,28 +4,88 @@
       "id": "1",
       "name": "Taverna Serengeti",
       "direction": "Muralla de Sant Llorenç, 16, 08302 Mataró",
-      "openingHours": "18:00-02:00",
+      "schedule": "18:00-02:00",
       "imgUrl": "http://www.funcionaris.cat/Clientes/Imagenes/225/7.jpg",
       "logo": "https://i.imgur.com/2tjmXE8.jpg",
-      "rating": "4"
+      "rating": "4",
+      "ratings": [
+        {
+          "id": 1,
+          "rating": 1,
+          "comment": "Mola mucho look",
+          "created_at": "2017-03-21 06:13:52",
+          "user": {
+            "id": 1,
+            "username": "AlexP",
+            "name": "Alex",
+            "surnames": "Paredes Martinez",
+            "email": "alex.paredes@mataro.epiaedu.cat",
+            "gender": 2,
+            "birthdate": "1998-12-11",
+            "exp": 0,
+            "img": "",
+            "created_at": "2021-07-08 15:12:31"
+          }
+        }
+      ]
     },
     {
       "id": "2",
       "name": "The Drunk Monk",
       "direction": "Via Europa, 30, 08303 Mataró",
-      "openingHours": "18:00-02:00",
+      "schedule": "18:00-02:00",
       "imgUrl": "https://media-cdn.tripadvisor.com/media/photo-s/03/5b/7a/e2/drunk-monk.jpg",
       "logo": "https://i.imgur.com/NenDzMH.jpg",
-      "rating": "3.8f"
+      "rating": "3.8f",
+      "ratings": [
+        {
+          "id": 1,
+          "rating": 2,
+          "comment": "Mola mucho look",
+          "created_at": "2017-03-21 06:13:52",
+          "user": {
+            "id": 1,
+            "username": "AlexP",
+            "name": "Alex",
+            "surnames": "Paredes 2",
+            "email": "alex.paredes@mataro.epiaedu.cat",
+            "gender": 2,
+            "birthdate": "1998-12-11",
+            "exp": 0,
+            "img": "",
+            "created_at": "2021-07-08 15:12:31"
+          }
+        }
+      ]
     },
     {
       "id": "3",
       "name": "The Beer Mugs",
       "direction": "Carrer de Montserrat, 21, 08302 Mataró",
-      "openingHours": "19:30-02:30",
+      "schedule": "19:30-02:30",
       "imgUrl": "https://i.imgur.com/TDJmFlM.jpg",
       "logo": "https://i.imgur.com/iYyuGlo.jpg",
-      "rating": "2.2f"
+      "rating": "2.2f",
+      "ratings": [
+        {
+          "id": 1,
+          "rating": 3,
+          "comment": "Mola mucho look",
+          "created_at": "2017-03-21 06:13:52",
+          "user": {
+            "id": 1,
+            "username": "AlexP",
+            "name": "Alex",
+            "surnames": "Paredes 3",
+            "email": "alex.paredes@mataro.epiaedu.cat",
+            "gender": 2,
+            "birthdate": "1998-12-11",
+            "exp": 0,
+            "img": "",
+            "created_at": "2021-07-08 15:12:31"
+          }
+        }
+      ]
     }
   ]
 }

@@ -83,16 +83,6 @@ public class RestaurantsFragment extends Fragment {
         //End Recycler view
     }
 
-    /*public void loadSampleData() {
-        Restaurant restaurant = new Restaurant("Taverna Serengeti", "Muralla de Sant Llorenç, 16, 08302 Mataró", "18:00-02:00", "http://www.funcionaris.cat/Clientes/Imagenes/225/7.jpg", 4);
-        restaurant.save();
-        Restaurant restaurant2 = new Restaurant("The Drunk Monk", "Via Europa, 30, 08303 Mataró", "18:00-02:00", "https://media-cdn.tripadvisor.com/media/photo-s/03/5b/7a/e2/drunk-monk.jpg", 3.8f);
-        restaurant2.save();
-        Restaurant restaurant3 = new Restaurant("The Beer Mugs", "Carrer de Montserrat, 21, 08302 Mataró", "19:30-02:30", "https://i.imgur.com/TDJmFlM.jpg", 2.2f);
-        restaurant3.save();
-        Log.d("SugarORM", "Sample data loaded.");
-    }*/
-
     private void loadRestaurants(){ //Carga los restaurantes de un JSON
         Log.d(TAG, "loadRestaurants: ");
         List<Restaurant> restaurantList = new ArrayList<Restaurant>();
@@ -136,7 +126,5 @@ public class RestaurantsFragment extends Fragment {
         }
 
         Restaurant.saveInTx(restaurantList);
-
-        //restaurantList.get(0).save();
     }
 }

@@ -22,6 +22,7 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
     private URL apiUrl;
     private final String baseUrl = "https://webapp.justorder.ovh";
     private String token = "";
+    private String requestMethod;
     private justOrderApiInterface callBackActivity;
 
     public justOrderApiConnector() throws MalformedURLException {
@@ -50,19 +51,18 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     request.put("password", params[2]);
 
                     apiUrl = new URL(baseUrl + "/api/login");
-                    //cambiar a post
+                    requestMethod = "POST";
                     break;
                 case "sites":
                      apiUrl = new URL(baseUrl + "/api/sites");
-                     //cambiar a get
+                    requestMethod = "GET";
                     break;
             }
 
             //STRING METHOD
-
             conn = (HttpURLConnection) this.apiUrl.openConnection();
             conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod(requestMethod);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("JWT-TOKEN", (token == null) ? "" : token);
