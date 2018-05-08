@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JustOrder</string>
+    <string name="app_name">Just Order</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">email</string>
