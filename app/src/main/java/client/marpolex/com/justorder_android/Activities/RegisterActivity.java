@@ -4,12 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.orm.SugarContext;
 
@@ -19,7 +21,7 @@ import client.marpolex.com.justorder_android.Models.Rating;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
 import client.marpolex.com.justorder_android.R;
 
-public class RegisterActivity extends AppCompatActivity implements OnClickListener {
+public class RegisterActivity extends AppCompatActivity implements OnClickListener, justOrderApiInterface {
     ProgressDialog dialogLoding;
     private static justOrderApiConnector apiConnector;
 
@@ -58,6 +60,17 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
     public void goToMainActivity() {
         dialogLoding.show();
         //TODO hacer registro con la api
+
+    }
+
+    @Override
+    public void attemptLogin_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptRegister_response(String jsonResponse) {
+        Log.d("attemptRegister", "attemptRegister_response: " + jsonResponse);
         Intent i = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(i);
     }

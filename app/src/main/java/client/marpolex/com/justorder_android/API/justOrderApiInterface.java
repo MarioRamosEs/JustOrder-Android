@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.API;
 
 public interface justOrderApiInterface {
-    public void attemptLogin_response(String jsonResponse);
+    void attemptLogin_response(String jsonResponse);
+    void attemptRegister_response(String jsonResponse);
 }

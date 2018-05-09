@@ -47,10 +47,21 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     request.put("token", this.token);
                     break;*/
                 case "login":
-                    request.put("email", params[1]);
+                    request.put("email",    params[1]);
                     request.put("password", params[2]);
 
                     apiUrl = new URL(baseUrl + "/api/login");
+                    requestMethod = "POST";
+                    break;
+                case "register":
+                    request.put("email",        params[1]);
+                    request.put("password",     params[2]);
+                    request.put("name",         params[3]);
+                    request.put("surnames",     params[4]);
+                    request.put("birth_date",   params[5]);
+                    request.put("gender",       params[6]);
+
+                    apiUrl = new URL(baseUrl + "/api/register");
                     requestMethod = "POST";
                     break;
                 case "sites":
@@ -108,6 +119,9 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     break;
                 case "login":
                     callBackActivity.attemptLogin_response(buffer.toString());
+                    break;
+                case "register":
+                    callBackActivity.attemptRegister_response(buffer.toString());
                     break;
             }
 
