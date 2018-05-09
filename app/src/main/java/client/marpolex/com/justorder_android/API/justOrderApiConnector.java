@@ -33,6 +33,11 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
         this.doInBackground("login", username, password);
     }
 
+    public void attemptRegister(String email, String password, String name, String surname, String birthDate, int gender, justOrderApiInterface activity){
+        this.callBackActivity = activity;
+        //TODO this.doInBackground("login", username, password);
+    }
+
     @Override
     protected JSONObject doInBackground(String... params) {
         JSONObject request = new JSONObject();

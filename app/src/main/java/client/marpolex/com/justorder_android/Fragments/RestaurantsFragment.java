@@ -27,10 +27,6 @@ import client.marpolex.com.justorder_android.R;
 
 import static android.content.ContentValues.TAG;
 
-/**
- * Created by mario on 22/03/2018.
- */
-
 public class RestaurantsFragment extends Fragment {
 
     View myView;

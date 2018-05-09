@@ -57,15 +57,34 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
         }*/
     }
 
-    public void goToMainActivity() {
+    public void attemptRegister(){
         dialogLoding.show();
-        //TODO hacer registro con la api
 
+        EditText email = (EditText) findViewById(R.id.email);
+        EditText password = (EditText) findViewById(R.id.password);
+        EditText name = (EditText) findViewById(R.id.edtName);
+        EditText surname = (EditText) findViewById(R.id.edtSurnames);
+        EditText birthDate = (EditText) findViewById(R.id.edtBirthDate);
+
+        apiConnector.attemptRegister(email.getText().toString(), password.getText().toString(), name.getText().toString(), surname.getText().toString(), birthDate.getText().toString(), getGender(), this);
+    }
+
+    public int getGender(){
+        RadioButton rb1 = (RadioButton) findViewById(R.id.rbGender1);
+        RadioButton rb2 = (RadioButton) findViewById(R.id.rbGender2);
+        RadioButton rb3 = (RadioButton) findViewById(R.id.rbGender3);
+
+        if(rb1.isChecked()) return 1;
+        if(rb2.isChecked()) return 2;
+        if(rb3.isChecked()) return 3;
+        return 1;
     }
 
     @Override
     public void attemptLogin_response(String jsonResponse) {
+        dialogLoding.hide();
 
+        //TODO mirar si la respuesta es buena o no. Mostrar mensaje. Cerrar la activity
     }
 
     @Override
