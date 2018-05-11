@@ -1,0 +1,217 @@
+[
+  {
+    "id": 1,
+    "name": "Taverna Serengeti",
+    "direction": "Muralla de Sant Llorenç, 16, 08302 Mataró",
+    "img": "http:\/\/www.funcionaris.cat\/Clientes\/Imagenes\/225\/7.jpg",
+    "logo": "https:\/\/i.imgur.com\/2tjmXE8.jpg",
+    "schedule": "Todos los días abierto, de 9am a 23pm.",
+    "rating": "2.0f",
+    "ratings": [
+      {
+        "id": 1,
+        "rating": 0,
+        "comment": "Mola mucho look",
+        "created_at": "2013-05-01 21:35:54",
+        "user": {
+          "id": 1,
+          "username": "AlexP",
+          "name": "Alex",
+          "surnames": "Paredes Martinez",
+          "email": "alex.paredes@mataro.epiaedu.cat",
+          "gender": 2,
+          "birthdate": "1998-12-11",
+          "exp": 0,
+          "img": "",
+          "created_at": "2007-02-19 10:55:52"
+        }
+      },
+      {
+        "id": 4,
+        "rating": 1,
+        "comment": "Mola mucho look",
+        "created_at": "2011-06-21 17:32:26",
+        "user": {
+          "id": 2,
+          "username": "MarioR",
+          "name": "Mario",
+          "surnames": "Ramos Montesinos",
+          "email": "mario.ramos@mataro.epiaedu.cat",
+          "gender": 0,
+          "birthdate": "1997-12-10",
+          "exp": 0,
+          "img": "",
+          "created_at": "2005-03-14 13:56:02"
+        }
+      },
+      {
+        "id": 7,
+        "rating": 5,
+        "comment": "Mola mucho look",
+        "created_at": "2014-06-20 04:30:09",
+        "user": {
+          "id": 3,
+          "username": "PolM",
+          "name": "Pol",
+          "surnames": "Moragas Corredor",
+          "email": "pol.moragas@mataro.epiaedu.cat",
+          "gender": 1,
+          "birthdate": "1985-12-14",
+          "exp": 0,
+          "img": "",
+          "created_at": "2012-09-23 02:38:41"
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Restaurant xDé",
+    "direction": "Passeig LMAO",
+    "img": "https:\/\/1481698044.rsc.cdn77.org\/wp-content\/uploads\/2016\/05\/adobe-xd-3.png",
+    "logo": "http:\/\/imagenestop.net\/wp-content\/uploads\/2016\/11\/6-1.jpeg",
+    "schedule": "Todos los días cerrado.",
+    "rating": "2.3f",
+    "ratings": [
+      {
+        "id": 2,
+        "rating": 5,
+        "comment": "Mola mucho look",
+        "created_at": "2009-02-18 06:35:15",
+        "user": {
+          "id": 1,
+          "username": "AlexP",
+          "name": "Alex",
+          "surnames": "Paredes Martinez",
+          "email": "alex.paredes@mataro.epiaedu.cat",
+          "gender": 2,
+          "birthdate": "1998-12-11",
+          "exp": 0,
+          "img": "",
+          "created_at": "2007-02-19 10:55:52"
+        }
+      },
+      {
+        "id": 5,
+        "rating": 0,
+        "comment": "Mola mucho look",
+        "created_at": "2017-06-20 21:55:18",
+        "user": {
+          "id": 2,
+          "username": "MarioR",
+          "name": "Mario",
+          "surnames": "Ramos Montesinos",
+          "email": "mario.ramos@mataro.epiaedu.cat",
+          "gender": 0,
+          "birthdate": "1997-12-10",
+          "exp": 0,
+          "img": "",
+          "created_at": "2005-03-14 13:56:02"
+        }
+      },
+      {
+        "id": 8,
+        "rating": 2,
+        "comment": "Mola mucho look",
+        "created_at": "2006-06-06 23:42:31",
+        "user": {
+          "id": 3,
+          "username": "PolM",
+          "name": "Pol",
+          "surnames": "Moragas Corredor",
+          "email": "pol.moragas@mataro.epiaedu.cat",
+          "gender": 1,
+          "birthdate": "1985-12-14",
+          "exp": 0,
+          "img": "",
+          "created_at": "2012-09-23 02:38:41"
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "The Beer Mugs",
+    "direction": "Carrer de Montserrat, 21, 08302 Mataró",
+    "img": "https:\/\/i.imgur.com\/TDJmFlM.jpg",
+    "logo": "https:\/\/i.imgur.com\/iYyuGlo.jpg",
+    "schedule": "19:30-02:30",
+    "rating": "3.0f",
+    "ratings": [
+      {
+        "id": 3,
+        "rating": 2,
+        "comment": "Mola mucho look",
+        "created_at": "2015-09-30 15:44:30",
+        "user": {
+          "id": 1,
+          "username": "AlexP",
+          "name": "Alex",
+          "surnames": "Paredes Martinez",
+          "email": "alex.paredes@mataro.epiaedu.cat",
+          "gender": 2,
+          "birthdate": "1998-12-11",
+          "exp": 0,
+          "img": "",
+          "created_at": "2007-02-19 10:55:52"
+        }
+      },
+      {
+        "id": 6,
+        "rating": 4,
+        "comment": "Mola mucho look",
+        "created_at": "2019-11-18 21:55:07",
+        "user": {
+          "id": 2,
+          "username": "MarioR",
+          "name": "Mario",
+          "surnames": "Ramos Montesinos",
+          "email": "mario.ramos@mataro.epiaedu.cat",
+          "gender": 0,
+          "birthdate": "1997-12-10",
+          "exp": 0,
+          "img": "",
+          "created_at": "2005-03-14 13:56:02"
+        }
+      },
+      {
+        "id": 9,
+        "rating": 3,
+        "comment": "Mola mucho look",
+        "created_at": "2009-12-19 19:30:04",
+        "user": {
+          "id": 3,
+          "username": "PolM",
+          "name": "Pol",
+          "surnames": "Moragas Corredor",
+          "email": "pol.moragas@mataro.epiaedu.cat",
+          "gender": 1,
+          "birthdate": "1985-12-14",
+          "exp": 0,
+          "img": "",
+          "created_at": "2012-09-23 02:38:41"
+        }
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "WillyRestarex",
+    "direction": "C\/ WillyRex",
+    "img": "http:\/\/www.cuadernodelyeti.com\/videojuegos\/wp-content\/uploads\/willyrex2.jpg",
+    "logo": "https:\/\/vignette.wikia.nocookie.net\/youtubepedia\/images\/c\/c6\/Willyrex_logo.png\/revision\/latest?cb=20160709163457&path-prefix=es",
+    "schedule": "No abrimos nunca, ni te acerques.",
+    "rating": null,
+    "ratings": []
+  },
+  {
+    "id": 5,
+    "name": "The Drunk Monk",
+    "direction": "Via Europa, 30, 08303 Mataró",
+    "img": "https:\/\/media-cdn.tripadvisor.com\/media\/photo-s\/03\/5b\/7a\/e2\/drunk-monk.jpg",
+    "logo": "https:\/\/i.imgur.com\/NenDzMH.jpg",
+    "schedule": "18:00-02:00",
+    "rating": null,
+    "ratings": []
+  }
+]

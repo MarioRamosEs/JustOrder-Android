@@ -83,6 +83,11 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
         }
     }
 
+    @Override
+    public void getRestaurants_response(String jsonResponse) {
+
+    }
+
     public void attemptRegister() {
         lockInterface();
         dialogLoding.show();

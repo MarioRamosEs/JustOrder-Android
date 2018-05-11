@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,19 +21,25 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.marpolex.com.justorder_android.API.justOrderApiConnector;
+import client.marpolex.com.justorder_android.API.justOrderApiInterface;
+import client.marpolex.com.justorder_android.Activities.LoginActivity;
 import client.marpolex.com.justorder_android.Adapters.RestaurantsAdapter;
 import client.marpolex.com.justorder_android.Models.Category;
 import client.marpolex.com.justorder_android.Models.Restaurant;
+import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
 import client.marpolex.com.justorder_android.R;
 
 import static android.content.ContentValues.TAG;
 
-public class RestaurantsFragment extends Fragment {
+public class RestaurantsFragment extends Fragment implements justOrderApiInterface {
 
     View myView;
+    ProgressDialog dialogLoding;
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private List<Restaurant> restaurants;
+    private static justOrderApiConnector apiConnector;
 
     @Nullable
     @Override
@@ -83,10 +90,10 @@ public class RestaurantsFragment extends Fragment {
         Log.d(TAG, "loadRestaurants: ");
         List<Restaurant> restaurantList = new ArrayList<Restaurant>();
 
-        //Cargar JSON
+        //Leer JSON
         String json = null;
         try {
-            InputStream is = getActivity().getAssets().open("Restaurants.json");
+            InputStream is = getActivity().getAssets().open("Restaurants_test.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -98,6 +105,7 @@ public class RestaurantsFragment extends Fragment {
             Log.e("JSON", "Error al cargar el JSON de Restaurantes");
         }
 
+        /*
         //Preparar el JSON Object
         JSONObject object = null; //Creamos un objeto JSON a partir de la cadena
         try {
@@ -105,10 +113,13 @@ public class RestaurantsFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        */
 
+        //Preparar JSON Array
         JSONArray restaurants = null;
         try {
-            restaurants = object.getJSONArray("Restaurants");
+            restaurants = new JSONArray(json);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -122,5 +133,26 @@ public class RestaurantsFragment extends Fragment {
         }
 
         Restaurant.saveInTx(restaurantList);
+    }
+
+    private void loadRestaurantsApi(){
+        apiConnector = justOrderApiConnectorClient.getJustOrderApiConnector();
+        dialogLoding = ProgressDialog.show(getActivity(), "", "Cargando, por favor espere...", true);
+        apiConnector.getRestaurants(this);
+    }
+
+    @Override
+    public void attemptLogin_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptRegister_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void getRestaurants_response(String jsonResponse) {
+
     }
 }

@@ -1,6 +1,9 @@
 package client.marpolex.com.justorder_android.Models;
 
+import android.util.Log;
+
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,23 +24,26 @@ public class Restaurant extends SugarRecord {
     private String logo;
     private float rating;
     private int idRestaurant;
-    private List<Rating> ratings = new ArrayList<>();
+
+    @Ignore
+    private List<Rating> ratings;
+    private String ratingsJson;
 
     public Restaurant(JSONObject jsonObject) {
         try {
             idRestaurant = jsonObject.getInt("id");
             name = jsonObject.getString("name");
-            imgUrl = jsonObject.getString("imgUrl");
+            imgUrl = jsonObject.getString("img");
             logo = jsonObject.getString("logo");
             direction = jsonObject.getString("direction");
             openingHours = jsonObject.getString("schedule"); //Divergencia en nombre
-            rating = (float) jsonObject.getDouble("rating");
+            if (jsonObject.isNull("rating")) rating = 0;
+            else rating = (float) jsonObject.getDouble("rating");
 
-            JSONArray jsonRatings = jsonObject.getJSONArray("ratings");
-            for (int i = 0; i < jsonRatings.length(); i++) {
-                ratings.add(new Rating(jsonRatings.getJSONObject(i)));
-            }
+            ratingsJson = jsonObject.getJSONArray("ratings").toString();
+            loadRatingList();
         } catch (JSONException e) {
+            Log.d("Restaurant", "Restaurant: peto aqui");
             e.printStackTrace();
         }
     }
@@ -50,10 +56,11 @@ public class Restaurant extends SugarRecord {
         this.rating = rating;
         this.logo = logo;
         this.ratings = ratings;
+        loadRatingList();
     }
 
     public Restaurant() {
-
+        loadRatingList();
     }
 
     public String getName() {
@@ -86,5 +93,19 @@ public class Restaurant extends SugarRecord {
 
     public List<Rating> getRatings() {
         return ratings;
+    }
+
+    private void loadRatingList() {
+        ratings = new ArrayList<>();
+        if (ratingsJson != null) {
+            try {
+                JSONArray jsonRatings = new JSONArray(ratingsJson);
+                for (int i = 0; i < jsonRatings.length(); i++) {
+                    ratings.add(new Rating(jsonRatings.getJSONObject(i)));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
