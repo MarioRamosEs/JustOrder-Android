@@ -47,7 +47,8 @@
         <activity android:name=".Activities.Carta.CategoryActivity" />
         <activity android:name=".Activities.Carta.SubcategoryActivity" />
         <activity android:name=".Activities.Carta.ArticleActivity" />
-        <activity android:name=".Activities.Carta.cartSummaryActivity"></activity>
+        <activity android:name=".Activities.Carta.cartSummaryActivity" />
+        <activity android:name=".Activities.RegisterActivity" />
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@
     <!-- Strings related to login -->
     <string name="prompt_email">email</string>
     <string name="prompt_password">Contraseña</string>
-    <string name="action_sign_in">Inicio de sesión o registro</string>
+    <string name="action_sign_in">Inicio de sesión</string>
     <string name="action_sign_in_short">Inicio de sesión</string>
     <string name="error_invalid_email">Email invalido</string>
     <string name="error_invalid_password">Contraseña demasiado corta</string>
@@ -33,4 +33,11 @@
     <string name="logout">Cerrar Sesión</string>
     <string name="cartSummary">Resumen del pedido</string>
     <string name="totalPrice">Precio total:</string>
+    <string name="Undefined">Indefinido</string>
+    <string name="men">Hombre</string>
+    <string name="women">Mujer</string>
+    <string name="gender">Género:</string>
+    <string name="register">Registro</string>
+    <string name="BirthDateInput">Fecha de nacimiento (YYYY-MM-DD)</string>
+    <string name="name">Nombre</string>
 </resources>

@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
         //Listener botones
         findViewById(R.id.btn_Test).setOnClickListener(this);
         findViewById(R.id.email_sign_in_button).setOnClickListener(this);
+        findViewById(R.id.btn_Register).setOnClickListener(this);
 
         //INTERNET USE POLICY
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -69,8 +70,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
-        //mLoginFormView = findViewById(R.id.login_form);
-        //mProgressView = findViewById(R.id.login_progress);
     }
 
     @Override
@@ -83,7 +82,15 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
             case R.id.email_sign_in_button:
                 attemptLogin();
                 break;
+            case R.id.btn_Register:
+                goToRegister();
+                break;
         }
+    }
+
+    private void goToRegister() {
+        Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(i);
     }
 
     public void goToMainActivity() {
@@ -97,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
 
     private void attemptLogin() {
         lockInterface();
-        this.apiConnector.attemptLogin(this.mEmailView.getText().toString(), this.mPasswordView.getText().toString(), this);
+        apiConnector.attemptLogin(this.mEmailView.getText().toString(), this.mPasswordView.getText().toString(), this);
     }
 
     @Override
@@ -135,6 +142,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
             Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
             unLockInterface();
         }
+    }
+
+    @Override
+    public void attemptRegister_response(String jsonResponse) {
+
     }
 
     private void lockInterface() {
