@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,9 +22,7 @@ import java.util.List;
 
 import client.marpolex.com.justorder_android.API.justOrderApiConnector;
 import client.marpolex.com.justorder_android.API.justOrderApiInterface;
-import client.marpolex.com.justorder_android.Activities.LoginActivity;
 import client.marpolex.com.justorder_android.Adapters.RestaurantsAdapter;
-import client.marpolex.com.justorder_android.Models.Category;
 import client.marpolex.com.justorder_android.Models.Restaurant;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
 import client.marpolex.com.justorder_android.R;
@@ -50,19 +47,23 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
     }
 
     public void onCreate() {
+        dialogLoding = ProgressDialog.show(getActivity(), "", "Cargando, por favor espere...", true);
         try {
             restaurants = Restaurant.listAll(Restaurant.class);
-        }catch (Exception e){
-            loadRestaurants();
+        } catch (Exception e) {
+            loadRestaurantsApi();
             restaurants = Restaurant.listAll(Restaurant.class);
         }
 
-        if (restaurants.size() == 0) { //DEBUG Carga los restaurantes de ejemplo
-            //loadSampleData();
-            loadRestaurants();
+        if (restaurants.size() == 0) {
+            loadRestaurantsApi();
             restaurants = Restaurant.listAll(Restaurant.class);
         }
 
+        loadRestaurantsInRecycler();
+    }
+
+    private void loadRestaurantsInRecycler() {
         //Recycler view
         recyclerView = (RecyclerView) myView.findViewById(R.id.recycler_view);
         rAdapter = new RestaurantsAdapter(restaurants);
@@ -84,9 +85,11 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
             }
         });
         //End Recycler view
+
+        dialogLoding.hide();
     }
 
-    private void loadRestaurants(){ //Carga los restaurantes de un JSON
+    private void loadRestaurants(String jsonResponse) { //Carga los restaurantes de un JSON
         Log.d(TAG, "loadRestaurants: ");
         List<Restaurant> restaurantList = new ArrayList<Restaurant>();
 
@@ -135,9 +138,8 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
         Restaurant.saveInTx(restaurantList);
     }
 
-    private void loadRestaurantsApi(){
+    private void loadRestaurantsApi() {
         apiConnector = justOrderApiConnectorClient.getJustOrderApiConnector();
-        dialogLoding = ProgressDialog.show(getActivity(), "", "Cargando, por favor espere...", true);
         apiConnector.getRestaurants(this);
     }
 
@@ -153,6 +155,8 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
 
     @Override
     public void getRestaurants_response(String jsonResponse) {
-
+        Log.d("getRestaurants_response", jsonResponse);
+        loadRestaurants(jsonResponse);
+        loadRestaurantsInRecycler();
     }
 }
