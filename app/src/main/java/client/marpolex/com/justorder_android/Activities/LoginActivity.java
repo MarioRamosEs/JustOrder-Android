@@ -70,8 +70,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         email_sign_in_button = (Button) findViewById(R.id.email_sign_in_button);
-        //mLoginFormView = findViewById(R.id.login_form);
-        //mProgressView = findViewById(R.id.login_progress);
     }
 
     @Override
@@ -106,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
 
     private void attemptLogin() {
         lockInterface();
-        this.apiConnector.attemptLogin(this.mEmailView.getText().toString(), this.mPasswordView.getText().toString(), this);
+        apiConnector.attemptLogin(this.mEmailView.getText().toString(), this.mPasswordView.getText().toString(), this);
     }
 
     @Override
