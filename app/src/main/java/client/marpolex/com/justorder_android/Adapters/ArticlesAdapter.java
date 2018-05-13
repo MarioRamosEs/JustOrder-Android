@@ -39,7 +39,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         holder.description.setText(article.getDescription());
         holder.pvp.setText(article.getBase_price() + "€");
 
-        Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
+        if(! article.getImage().isEmpty())
+            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
 
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

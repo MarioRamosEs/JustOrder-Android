@@ -38,7 +38,9 @@ public class CategoriesAdapter extends ArrayAdapter<Category> {
         ImageView img = (ImageView) item.findViewById(R.id.ivCategoryImg);
 
         name.setText(categories.get(position).getName());
-        Picasso.get().load(categories.get(position).getImg()).placeholder(R.drawable.logo).into(img);
+
+        if(! categories.get(position).getImg().isEmpty())
+            Picasso.get().load(categories.get(position).getImg()).placeholder(R.drawable.logo).into(img);
 
         return item;
     }

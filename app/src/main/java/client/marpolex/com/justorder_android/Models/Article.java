@@ -27,16 +27,21 @@ public class Article implements Serializable {
         try {
             id = jsonObject.getInt("id");
             name = jsonObject.getString("name");
-            description = jsonObject.getString("description");
             ref_code = jsonObject.getString("ref_code");
             base_price = jsonObject.getDouble("base_price");
             tax_type = jsonObject.getString("tax_type");
-            image = jsonObject.getString("image");
             product_type = jsonObject.getString("product_type");
             product_subtype = jsonObject.getString("product_subtype");
             created_at = jsonObject.getString("created_at");
             updated_at = jsonObject.getString("updated_at");
             rating = jsonObject.getDouble("rating");
+
+            if(jsonObject.isNull("description")) description = "";
+            else description = jsonObject.getString("description");
+
+            if(jsonObject.isNull("image")) image = "";
+            else image = jsonObject.getString("image");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

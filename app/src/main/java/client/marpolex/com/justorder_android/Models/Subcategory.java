@@ -13,13 +13,13 @@ import java.util.List;
  */
 
 public class Subcategory implements Serializable {
-    int id;
     String name;
     List<Article> articleList = new ArrayList<>();
+    long id;
 
-    public Subcategory(JSONObject jsonObject) {
+    public Subcategory(JSONObject jsonObject, long id) {
+        this.id = id;
         try {
-            id = jsonObject.getInt("id");
             name = jsonObject.getString("name");
             JSONArray articles = jsonObject.getJSONArray("articles");
 
@@ -32,15 +32,15 @@ public class Subcategory implements Serializable {
         }
     }
 
-    public long getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
 
     public List<Article> getArticleList() {
         return articleList;
+    }
+
+    public long getId() {
+        return id;
     }
 }

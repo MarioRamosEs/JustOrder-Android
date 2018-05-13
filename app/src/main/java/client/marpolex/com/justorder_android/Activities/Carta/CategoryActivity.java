@@ -62,7 +62,7 @@ public class CategoryActivity extends AppCompatActivity {
 
                 Intent i = new Intent(CategoryActivity.this, SubcategoryActivity.class);
 
-                Subcategory subcategory = subcategories.get((int) idSubcategory - 1);
+                Subcategory subcategory = subcategories.get((int) idSubcategory);
                 Bundle args = new Bundle();
                 args.putSerializable("subcategory", subcategory);
                 i.putExtras(args);

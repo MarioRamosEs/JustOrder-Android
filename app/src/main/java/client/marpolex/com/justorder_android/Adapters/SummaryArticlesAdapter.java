@@ -43,7 +43,8 @@ public class SummaryArticlesAdapter extends RecyclerView.Adapter<SummaryArticles
         holder.pvp.setText(article.getBase_price() * quantity + "€");
         holder.uds.setText(quantity+"");
 
-        Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
+        if(! article.getImage().isEmpty())
+            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
 
         holder.removeFromCart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

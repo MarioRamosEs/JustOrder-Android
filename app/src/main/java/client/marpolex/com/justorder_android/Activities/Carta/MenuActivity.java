@@ -132,9 +132,11 @@ public class MenuActivity extends AppCompatActivity  {
             e.printStackTrace();
         }
 
+
+
         JSONArray categories = null;
         try {
-            JSONObject products = object.getJSONObject("products");
+            JSONObject products = object.getJSONObject("catalog").getJSONObject("products");
             categories = products.getJSONArray("types");
         } catch (JSONException e) {
             e.printStackTrace();

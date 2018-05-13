@@ -1,40 +1,191 @@
 {
- "created_at": {
-  "date": "2018-04-08 14:44:21.667356",
-  "timezone_type": 3,
-  "timezone": "UTC"
- },
- "restaurantId":1,
- "products": {
-  "mode": "product_type&product_subtype",
-  "types": [
-   {
-    "id":1,
-    "name":"Beguda",
-    "image":"http://marf.es/justOrderTemp/beer.png",
-    "subCategories":[
-     {
-      "id":1,
-      "name":"COCA-COLA 2",
-      "articles":[
-       {
-        "id": 1,
-        "name": "Coca-Cola Zero 0.5L",
-        "description": "Sin azucar",
-        "ref_code": "P001",
-        "base_price": 2,
-        "tax_type": "IVA",
-        "image": "https://i.imgur.com/eriiyy9.png",
-        "product_type": "BEGUDA",
-        "product_subtype": "COCA-COLA",
-        "created_at": "2016-01-12 20:35:46",
-        "updated_at": "2017-08-11 17:29:22",
-        "rating":"3"
-       }
+  "success": true,
+  "message": "Retrieving catalog from site Restaurant xDé",
+  "catalog": {
+    "created_at": {
+      "date": "2018-05-13 16:53:42.433577",
+      "timezone_type": 3,
+      "timezone": "UTC"
+    },
+    "products": {
+      "mode": "product_type&product_subtype",
+      "types": [
+        {
+          "name": "BEGUDA",
+          "image": "",
+          "subCategories": [
+            {
+              "name": "COCA-COLA",
+              "articles": [
+                {
+                  "id": 1,
+                  "name": "Coca-Cola Zero 0.5L",
+                  "description": null,
+                  "ref_code": "",
+                  "base_price": 2,
+                  "tax_type": "IVA",
+                  "image": null,
+                  "product_type": "BEGUDA",
+                  "product_subtype": "COCA-COLA",
+                  "created_at": "2001-12-25 09:33:46",
+                  "updated_at": "2008-08-04 22:31:59",
+                  "rating":"3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "HAMBURGUESAS",
+          "image": "",
+          "subCategories": [
+            {
+              "name": "VEDELLA",
+              "articles": [
+                {
+                  "id": 2,
+                  "name": "Hamburguesa de Bacon",
+                  "description": null,
+                  "ref_code": "",
+                  "base_price": 4.2,
+                  "tax_type": "AVI",
+                  "image": null,
+                  "product_type": "HAMBURGUESAS",
+                  "product_subtype": "VEDELLA",
+                  "created_at": "2011-03-28 17:28:49",
+                  "updated_at": "2009-03-28 12:28:47",
+                  "rating":"3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "TAPAS",
+          "image": "",
+          "subCategories": [
+            {
+              "name": "PATATES",
+              "articles": [
+                {
+                  "id": 3,
+                  "name": "Patates Braves",
+                  "description": null,
+                  "ref_code": "",
+                  "base_price": 3.59,
+                  "tax_type": "ROFL",
+                  "image": null,
+                  "product_type": "TAPAS",
+                  "product_subtype": "PATATES",
+                  "created_at": "2011-07-28 04:56:35",
+                  "updated_at": "2017-08-04 21:10:49",
+                  "rating":"3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "LLAMINADURES",
+          "image": "",
+          "subCategories": [
+            {
+              "name": "DOLCES",
+              "articles": [
+                {
+                  "id": 4,
+                  "name": "Piruleta de maduixa",
+                  "description": null,
+                  "ref_code": "",
+                  "base_price": 0.99,
+                  "tax_type": "LMAO",
+                  "image": null,
+                  "product_type": "LLAMINADURES",
+                  "product_subtype": "DOLCES",
+                  "created_at": "2022-09-15 05:26:42",
+                  "updated_at": "2008-03-02 11:09:27",
+                  "rating":"3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ENTREPANS",
+          "image": "",
+          "subCategories": [
+            {
+              "name": "CALENTS",
+              "articles": [
+                {
+                  "id": 5,
+                  "name": "Entrepà de formatge i llom",
+                  "description": null,
+                  "ref_code": "",
+                  "base_price": 4.7,
+                  "tax_type": "LOL",
+                  "image": null,
+                  "product_type": "ENTREPANS",
+                  "product_subtype": "CALENTS",
+                  "created_at": "2021-11-25 14:51:39",
+                  "updated_at": "2019-08-11 11:23:09",
+                  "rating":"3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PLATS CUINATS",
+          "image": "",
+          "subCategories": [
+            {
+              "name": "CATALANS",
+              "articles": [
+                {
+                  "id": 6,
+                  "name": "Espaguetis a la carbonara",
+                  "description": null,
+                  "ref_code": "",
+                  "base_price": 5.59,
+                  "tax_type": "XD",
+                  "image": null,
+                  "product_type": "PLATS CUINATS",
+                  "product_subtype": "CATALANS",
+                  "created_at": "2020-11-15 10:07:47",
+                  "updated_at": "2023-04-27 13:20:53",
+                  "rating":"3"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "MENJAR CADUCAT",
+          "image": "",
+          "subCategories": [
+            {
+              "name": "XD",
+              "articles": [
+                {
+                  "id": 7,
+                  "name": "Truita francesa",
+                  "description": null,
+                  "ref_code": "",
+                  "base_price": 5.5,
+                  "tax_type": "KYS",
+                  "image": null,
+                  "product_type": "MENJAR CADUCAT",
+                  "product_subtype": "XD",
+                  "created_at": "2014-05-30 06:08:07",
+                  "updated_at": "2016-01-20 13:26:26",
+                  "rating":"3"
+                }
+              ]
+            }
+          ]
+        }
       ]
-     }
-    ]
-   }
-  ]
- }
+    }
+  }
 }
