@@ -33,9 +33,14 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
         this.doInBackground("login", username, password);
     }
 
-    public void attemptRegister(String email, String password, String name, String surname, String birthDate, int gender, justOrderApiInterface activity){
+    public void attemptRegister(String email, String password, String name, String surname, String birthDate, int gender, justOrderApiInterface activity) {
         this.callBackActivity = activity;
-        //TODO this.doInBackground("login", username, password);
+        this.doInBackground("register", email, password, name, surname, birthDate, gender + "");
+    }
+
+    public void getRestaurants(justOrderApiInterface activity) {
+        this.callBackActivity = activity;
+        this.doInBackground("getRestaurants");
     }
 
     @Override
@@ -46,31 +51,31 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
         BufferedReader reader = null;
         try {
             switch (params[0]) {
-                /*case "status":
-                case "statusWithRequestCode":
-                    request.put("query", "status");
-                    request.put("token", this.token);
-                    break;*/
                 case "login":
-                    request.put("email",    params[1]);
+                    request.put("email", params[1]);
                     request.put("password", params[2]);
 
                     apiUrl = new URL(baseUrl + "/api/login");
                     requestMethod = "POST";
                     break;
                 case "register":
-                    request.put("email",        params[1]);
-                    request.put("password",     params[2]);
-                    request.put("name",         params[3]);
-                    request.put("surnames",     params[4]);
-                    request.put("birth_date",   params[5]);
-                    request.put("gender",       params[6]);
+                    request.put("email", params[1]);
+                    request.put("password", params[2]);
+                    request.put("name", params[3]);
+                    request.put("surnames", params[4]);
+                    request.put("birthdate", params[5]);
+                    request.put("gender", params[6]);
+                    request.put("username", params[1]);
 
                     apiUrl = new URL(baseUrl + "/api/register");
                     requestMethod = "POST";
                     break;
                 case "sites":
-                     apiUrl = new URL(baseUrl + "/api/sites");
+                    apiUrl = new URL(baseUrl + "/api/sites");
+                    requestMethod = "GET";
+                    break;
+                case "getRestaurants":
+                    apiUrl = new URL(baseUrl + "/api/sites");
                     requestMethod = "GET";
                     break;
             }
@@ -119,14 +124,14 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
             //END RECEIVE
 
             switch (params[0]) {
-                case "status":
-                    //this.callBackActivity.getStatus_response(buffer.toString(), 0);
-                    break;
                 case "login":
                     callBackActivity.attemptLogin_response(buffer.toString());
                     break;
                 case "register":
                     callBackActivity.attemptRegister_response(buffer.toString());
+                    break;
+                case "getRestaurants":
+                    callBackActivity.getRestaurants_response(buffer.toString());
                     break;
             }
 

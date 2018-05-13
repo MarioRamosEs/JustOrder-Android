@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,26 +14,29 @@ import android.view.ViewGroup;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.marpolex.com.justorder_android.API.justOrderApiConnector;
+import client.marpolex.com.justorder_android.API.justOrderApiInterface;
 import client.marpolex.com.justorder_android.Adapters.RestaurantsAdapter;
-import client.marpolex.com.justorder_android.Models.Category;
 import client.marpolex.com.justorder_android.Models.Restaurant;
+import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
 import client.marpolex.com.justorder_android.R;
 
 import static android.content.ContentValues.TAG;
 
-public class RestaurantsFragment extends Fragment {
+public class RestaurantsFragment extends Fragment implements justOrderApiInterface {
 
     View myView;
+    ProgressDialog dialogLoding;
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private List<Restaurant> restaurants;
+    private static justOrderApiConnector apiConnector;
 
     @Nullable
     @Override
@@ -43,19 +47,23 @@ public class RestaurantsFragment extends Fragment {
     }
 
     public void onCreate() {
+        dialogLoding = ProgressDialog.show(getActivity(), "", "Cargando, por favor espere...", true);
         try {
             restaurants = Restaurant.listAll(Restaurant.class);
-        }catch (Exception e){
-            loadRestaurants();
+        } catch (Exception e) {
+            loadRestaurantsApi();
             restaurants = Restaurant.listAll(Restaurant.class);
         }
 
-        if (restaurants.size() == 0) { //DEBUG Carga los restaurantes de ejemplo
-            //loadSampleData();
-            loadRestaurants();
+        if (restaurants.size() == 0) {
+            loadRestaurantsApi();
             restaurants = Restaurant.listAll(Restaurant.class);
         }
 
+        loadRestaurantsInRecycler();
+    }
+
+    private void loadRestaurantsInRecycler() {
         //Recycler view
         recyclerView = (RecyclerView) myView.findViewById(R.id.recycler_view);
         rAdapter = new RestaurantsAdapter(restaurants);
@@ -77,16 +85,18 @@ public class RestaurantsFragment extends Fragment {
             }
         });
         //End Recycler view
+
+        dialogLoding.hide();
     }
 
-    private void loadRestaurants(){ //Carga los restaurantes de un JSON
+    private void loadRestaurants(String jsonResponse) { //Carga los restaurantes de un JSON
         Log.d(TAG, "loadRestaurants: ");
         List<Restaurant> restaurantList = new ArrayList<Restaurant>();
 
-        //Cargar JSON
+        //Leer JSON
         String json = null;
         try {
-            InputStream is = getActivity().getAssets().open("Restaurants.json");
+            InputStream is = getActivity().getAssets().open("Restaurants_test.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -98,6 +108,7 @@ public class RestaurantsFragment extends Fragment {
             Log.e("JSON", "Error al cargar el JSON de Restaurantes");
         }
 
+        /*
         //Preparar el JSON Object
         JSONObject object = null; //Creamos un objeto JSON a partir de la cadena
         try {
@@ -105,10 +116,13 @@ public class RestaurantsFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        */
 
+        //Preparar JSON Array
         JSONArray restaurants = null;
         try {
-            restaurants = object.getJSONArray("Restaurants");
+            restaurants = new JSONArray(json);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -122,5 +136,27 @@ public class RestaurantsFragment extends Fragment {
         }
 
         Restaurant.saveInTx(restaurantList);
+    }
+
+    private void loadRestaurantsApi() {
+        apiConnector = justOrderApiConnectorClient.getJustOrderApiConnector();
+        apiConnector.getRestaurants(this);
+    }
+
+    @Override
+    public void attemptLogin_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptRegister_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void getRestaurants_response(String jsonResponse) {
+        Log.d("getRestaurants_response", jsonResponse);
+        loadRestaurants(jsonResponse);
+        loadRestaurantsInRecycler();
     }
 }

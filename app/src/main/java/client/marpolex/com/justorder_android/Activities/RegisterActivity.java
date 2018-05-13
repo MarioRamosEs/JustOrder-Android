@@ -44,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
         rbGender1.toggle();
 
         registerButton = findViewById(R.id.btn_Register);
+        registerButton.setOnClickListener(this);
     }
 
     @Override
@@ -83,6 +84,11 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
         }
     }
 
+    @Override
+    public void getRestaurants_response(String jsonResponse) {
+
+    }
+
     public void attemptRegister() {
         lockInterface();
         dialogLoding.show();
@@ -101,9 +107,9 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
         RadioButton rb2 = findViewById(R.id.rbGender2);
         RadioButton rb3 = findViewById(R.id.rbGender3);
 
-        if (rb1.isChecked()) return 1;
-        if (rb2.isChecked()) return 2;
-        if (rb3.isChecked()) return 3;
+        if (rb1.isChecked()) return 0;
+        if (rb2.isChecked()) return 1;
+        if (rb3.isChecked()) return 2;
         return 1;
     }
 
