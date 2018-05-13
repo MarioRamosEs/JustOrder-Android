@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.vision.barcode.Barcode;
 import com.orm.SugarApp;
 import com.orm.SugarContext;
 
@@ -27,9 +28,10 @@ import client.marpolex.com.justorder_android.Fragments.ScanFragment;
 import client.marpolex.com.justorder_android.Fragments.SettingsFragment;
 import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
+import client.marpolex.com.justorder_android.TableReader.barcode.BarcodeTracker;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, BarcodeTracker.BarcodeGraphicTrackerCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,5 +162,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onDetectedQrCode(Barcode barcode) {
+        Log.d("QR", "onDetectedQrCode: " +barcode.displayValue);
     }
 }
