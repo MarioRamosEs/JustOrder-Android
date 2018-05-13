@@ -118,12 +118,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
     @Override
     public void attemptLogin_response(String jsonResponse) {
         Log.d("attemptLogin", "attemptLogin_response: " + jsonResponse);
-        //Response of login attempt
+
         try {
             JSONObject response = new JSONObject(jsonResponse);
             boolean success = response.getBoolean("success");
             if (!success) {             //Login failed
-                //Log.d("attemptLogin", response.getString("message"));
                 Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
                 unLockInterface();
             } else {                    //Username and password OK

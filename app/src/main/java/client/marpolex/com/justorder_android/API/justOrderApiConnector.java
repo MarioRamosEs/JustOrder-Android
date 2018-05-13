@@ -63,8 +63,9 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     request.put("password", params[2]);
                     request.put("name", params[3]);
                     request.put("surnames", params[4]);
-                    request.put("birth_date", params[5]);
+                    request.put("birthdate", params[5]);
                     request.put("gender", params[6]);
+                    request.put("username", params[1]);
 
                     apiUrl = new URL(baseUrl + "/api/register");
                     requestMethod = "POST";
