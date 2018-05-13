@@ -153,6 +153,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
 
     }
 
+    @Override
+    public void getCatalog_response(String jsonResponse) {
+
+    }
+
     private void lockInterface() {
         this.email_sign_in_button.setEnabled(false);
         this.mPasswordView.setEnabled(false);

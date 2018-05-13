@@ -151,4 +151,9 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
         loadRestaurants(jsonResponse);
         loadRestaurantsInRecycler();
     }
+
+    @Override
+    public void getCatalog_response(String jsonResponse) {
+
+    }
 }

@@ -21,18 +21,22 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import client.marpolex.com.justorder_android.API.justOrderApiConnector;
+import client.marpolex.com.justorder_android.API.justOrderApiInterface;
 import client.marpolex.com.justorder_android.Adapters.CategoriesAdapter;
 import client.marpolex.com.justorder_android.Models.Category;
 import client.marpolex.com.justorder_android.Models.Restaurant;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
+import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
 import client.marpolex.com.justorder_android.R;
 
-public class MenuActivity extends AppCompatActivity  {
+public class MenuActivity extends AppCompatActivity implements justOrderApiInterface {
 
     List<Category> categoryList;
     int idRestaurant, idTable;
     private Toolbar toolbar;
     private Restaurant restaurant;
+    private static justOrderApiConnector apiConnector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +45,6 @@ public class MenuActivity extends AppCompatActivity  {
 
         idRestaurant = (int) getIntent().getLongExtra("idRestaurant", 0);
         idTable = (int) getIntent().getLongExtra("idTable", -1);
-
-        categoryList = loadData(idRestaurant); //Toda la carta
         restaurant = Restaurant.find(Restaurant.class, "id_restaurant = ?", idRestaurant+"").get(0);
 
         //Establecer el idRestaurant y idTable en ShoppingCart
@@ -57,23 +59,13 @@ public class MenuActivity extends AppCompatActivity  {
         getSupportActionBar().setTitle(restaurant.getName());
         //END TOOLBAR
 
-        final CategoriesAdapter cAdapter = new CategoriesAdapter(this, categoryList);
-        final GridView lstElements = (GridView) findViewById(R.id.gvCategory);
-        lstElements.setAdapter(cAdapter);
+        attemptGetCart();
+    }
 
-        lstElements.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MenuActivity.this, CategoryActivity.class);
-
-                Category category = ((Category) adapterView.getItemAtPosition(i));
-                Bundle args = new Bundle();
-                args.putSerializable("category", category);
-                intent.putExtras(args);
-
-                startActivity(intent);
-            }
-        });
+    private void attemptGetCart(){
+        //TODO cargando
+        apiConnector = justOrderApiConnectorClient.getJustOrderApiConnector();
+        apiConnector.attemptGetCatalog(idRestaurant, this);
     }
 
     @Override
@@ -105,10 +97,10 @@ public class MenuActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-    private List<Category> loadData(int idRestaurant) { //TODO cargar id Restaurant
+    private List<Category> loadData(String jsonResponse) { //TODO cargar id Restaurant
         List<Category> categoryList = new ArrayList<Category>();
-        Log.d("carta", "loadData: Cargando carta del restaurante " + idRestaurant);
 
+        /*
         //Cargar JSON
         String json = null;
         try {
@@ -123,16 +115,15 @@ public class MenuActivity extends AppCompatActivity  {
             json = null;
             Log.e("JSON", "Error al cargar el JSON");
         }
+        */
 
         //Preparar el JSON Object
         JSONObject object = null; //Creamos un objeto JSON a partir de la cadena
         try {
-            object = new JSONObject(json);
+            object = new JSONObject(jsonResponse);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
 
         JSONArray categories = null;
         try {
@@ -151,5 +142,47 @@ public class MenuActivity extends AppCompatActivity  {
         }
 
         return categoryList;
+    }
+
+    @Override
+    public void attemptLogin_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptRegister_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void getRestaurants_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void getCatalog_response(String jsonResponse) {
+        Log.d("getCatalog_response: ", jsonResponse);
+        categoryList = loadData(jsonResponse);
+        updateRecycler();
+    }
+
+    private void updateRecycler(){
+        final CategoriesAdapter cAdapter = new CategoriesAdapter(this, categoryList);
+        final GridView lstElements = (GridView) findViewById(R.id.gvCategory);
+        lstElements.setAdapter(cAdapter);
+
+        lstElements.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MenuActivity.this, CategoryActivity.class);
+
+                Category category = ((Category) adapterView.getItemAtPosition(i));
+                Bundle args = new Bundle();
+                args.putSerializable("category", category);
+                intent.putExtras(args);
+
+                startActivity(intent);
+            }
+        });
     }
 }

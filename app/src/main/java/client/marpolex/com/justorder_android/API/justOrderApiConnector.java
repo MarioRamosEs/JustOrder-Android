@@ -43,6 +43,11 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
         this.doInBackground("getRestaurants");
     }
 
+    public void attemptGetCatalog(int idRestaurant, justOrderApiInterface activity){
+        this.callBackActivity = activity;
+        this.doInBackground("getCatalog", idRestaurant+"");
+    }
+
     @Override
     protected JSONObject doInBackground(String... params) {
         JSONObject request = new JSONObject();
@@ -74,6 +79,10 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     apiUrl = new URL(baseUrl + "/api/sites");
                     requestMethod = "GET";
                     break;
+                case "getCatalog":
+                    apiUrl = new URL(baseUrl + "/api/catalog/"+params[1]);
+                    requestMethod = "GET";
+                    break;
             }
 
             //STRING METHOD
@@ -91,10 +100,6 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                 writer.close();
             }
             //END SEND
-
-            Log.d(TAG, "XDDDDDDDDDDDDDDDDD");
-            Log.d(TAG, "apiUrl: "+apiUrl);
-            Log.d(TAG, "requestMethod: "+requestMethod);
 
             //RECEIVE
             InputStream inputStream;
@@ -131,6 +136,9 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     break;
                 case "register":
                     callBackActivity.attemptRegister_response(buffer.toString());
+                    break;
+                case "getCatalog":
+                    callBackActivity.getCatalog_response(buffer.toString());
                     break;
                 case "getRestaurants":
                     callBackActivity.getRestaurants_response(buffer.toString());
