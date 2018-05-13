@@ -70,10 +70,6 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     apiUrl = new URL(baseUrl + "/api/register");
                     requestMethod = "POST";
                     break;
-                case "sites":
-                    apiUrl = new URL(baseUrl + "/api/sites");
-                    requestMethod = "GET";
-                    break;
                 case "getRestaurants":
                     apiUrl = new URL(baseUrl + "/api/sites");
                     requestMethod = "GET";
@@ -82,17 +78,23 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
 
             //STRING METHOD
             conn = (HttpURLConnection) this.apiUrl.openConnection();
-            conn.setDoOutput(true);
+            conn.setDoOutput((requestMethod != "GET"));
             conn.setRequestMethod(requestMethod);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("JWT-TOKEN", (token == null) ? "" : token);
 
             //SEND
-            Writer writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
-            writer.write(request.toString());
-            writer.close();
+            if(requestMethod != "GET") {
+                Writer writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
+                writer.write(request.toString());
+                writer.close();
+            }
             //END SEND
+
+            Log.d(TAG, "XDDDDDDDDDDDDDDDDD");
+            Log.d(TAG, "apiUrl: "+apiUrl);
+            Log.d(TAG, "requestMethod: "+requestMethod);
 
             //RECEIVE
             InputStream inputStream;

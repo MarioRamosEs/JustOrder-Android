@@ -93,6 +93,7 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
         Log.d(TAG, "loadRestaurants: ");
         List<Restaurant> restaurantList = new ArrayList<Restaurant>();
 
+/*
         //Leer JSON
         String json = null;
         try {
@@ -107,21 +108,12 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
             json = null;
             Log.e("JSON", "Error al cargar el JSON de Restaurantes");
         }
-
-        /*
-        //Preparar el JSON Object
-        JSONObject object = null; //Creamos un objeto JSON a partir de la cadena
-        try {
-            object = new JSONObject(json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        */
+*/
 
         //Preparar JSON Array
         JSONArray restaurants = null;
         try {
-            restaurants = new JSONArray(json);
+            restaurants = new JSONArray(jsonResponse);
 
         } catch (JSONException e) {
             e.printStackTrace();
