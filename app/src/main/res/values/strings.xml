@@ -40,4 +40,6 @@
     <string name="register">Registro</string>
     <string name="BirthDateInput">Fecha de nacimiento (YYYY-MM-DD)</string>
     <string name="name">Nombre</string>
+    <string name="title_activity_main2">TableActivity</string>
+    <string name="table">Mesa</string>
 </resources>

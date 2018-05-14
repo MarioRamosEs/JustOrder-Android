@@ -18,8 +18,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.vision.barcode.Barcode;
 import com.orm.SugarApp;
 import com.orm.SugarContext;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import client.marpolex.com.justorder_android.Fragments.MyProfileFragment;
 import client.marpolex.com.justorder_android.Fragments.RestaurantsFragment;
@@ -27,9 +31,10 @@ import client.marpolex.com.justorder_android.Fragments.ScanFragment;
 import client.marpolex.com.justorder_android.Fragments.SettingsFragment;
 import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
+import client.marpolex.com.justorder_android.TableReader.barcode.BarcodeTracker;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, BarcodeTracker.BarcodeGraphicTrackerCallback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,5 +165,20 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onDetectedQrCode(Barcode barcode) {
+        Log.d("QR", "onDetectedQrCode: " +barcode.displayValue);
+        try {
+            JSONObject data = new JSONObject(barcode.displayValue);
+            Intent intent = new Intent(this, TableActivity.class);
+            intent.putExtra("restaurantId", data.getInt("idRestaurant"));
+            intent.putExtra("tableId", data.getInt("idTable"));
+            startActivity(intent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }
