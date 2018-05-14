@@ -1,4 +1,4 @@
-package client.marpolex.com.justorder_android.Fragments;
+package client.marpolex.com.justorder_android.Activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,9 @@ import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import client.marpolex.com.justorder_android.R;
@@ -39,38 +43,27 @@ import client.marpolex.com.justorder_android.TableReader.barcode.BarcodeTrackerF
 import client.marpolex.com.justorder_android.TableReader.camera.CameraSource;
 import client.marpolex.com.justorder_android.TableReader.camera.CameraSourcePreview;
 
-/**
- * Created by mario on 22/03/2018.
- */
+public class QrScanActivity extends AppCompatActivity implements BarcodeTracker.BarcodeGraphicTrackerCallback {
 
-public class ScanFragment extends Fragment implements BarcodeTracker.BarcodeGraphicTrackerCallback{
-
-    View myView;
     private static final String TAG = "Barcode-reader";
     private static final int RC_HANDLE_GMS = 9001;
     private static final int RC_HANDLE_CAMERA_PERM = 2;
-    public static final String BarcodeObject = "Barcode";
-
     private CameraSource mCameraSource;
     private CameraSourcePreview mPreview;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.scan, container, false);
-        onCreate();
-        return myView;
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_qr_scan);
 
-    private void onCreate() {
-        mPreview = (CameraSourcePreview) myView.findViewById(R.id.preview);
+        mPreview = (CameraSourcePreview) findViewById(R.id.preview);
 
         boolean autoFocus = true;
         boolean useFlash = false;
 
         // Check for the camera permission before accessing the camera.  If the
         // permission is not granted yet, request permission.
-        int rc = ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA);
+        int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         if (rc == PackageManager.PERMISSION_GRANTED) {
             createCameraSource(autoFocus, useFlash);
         } else {
@@ -78,12 +71,6 @@ public class ScanFragment extends Fragment implements BarcodeTracker.BarcodeGrap
         }
     }
 
-    @Override
-    public void onDetectedQrCode(Barcode barcode) {
-        if (barcode != null) {
-            Log.d(TAG, "onDetectedQrCode: " + barcode);
-        }
-    }
 
     // Handles the requesting of the camera permission.
     private void requestCameraPermission() {
@@ -91,9 +78,9 @@ public class ScanFragment extends Fragment implements BarcodeTracker.BarcodeGrap
 
         final String[] permissions = new String[]{Manifest.permission.CAMERA};
 
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.CAMERA)) {
-            ActivityCompat.requestPermissions(getActivity(), permissions, RC_HANDLE_CAMERA_PERM);
+            ActivityCompat.requestPermissions(this, permissions, RC_HANDLE_CAMERA_PERM);
         }
     }
 
@@ -105,7 +92,7 @@ public class ScanFragment extends Fragment implements BarcodeTracker.BarcodeGrap
      */
     @SuppressLint("InlinedApi")
     private void createCameraSource(boolean autoFocus, boolean useFlash) {
-        Context context = getContext();
+        Context context = this;
 
         // A barcode detector is created to track barcodes.  An associated multi-processor instance
         // is set to receive the barcode detection results, track the barcodes, and maintain
@@ -114,7 +101,7 @@ public class ScanFragment extends Fragment implements BarcodeTracker.BarcodeGrap
         BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(context)
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
                 .build();
-        BarcodeTrackerFactory barcodeFactory = new BarcodeTrackerFactory(getContext());
+        BarcodeTrackerFactory barcodeFactory = new BarcodeTrackerFactory(this);
         barcodeDetector.setProcessor(new MultiProcessor.Builder<>(barcodeFactory).build());
 
         if (!barcodeDetector.isOperational()) {
@@ -145,7 +132,7 @@ public class ScanFragment extends Fragment implements BarcodeTracker.BarcodeGrap
         DisplayMetrics metrics = new DisplayMetrics();
         //getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        CameraSource.Builder builder = new CameraSource.Builder(getContext(), barcodeDetector)
+        CameraSource.Builder builder = new CameraSource.Builder(this, barcodeDetector)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedPreviewSize(metrics.widthPixels, metrics.heightPixels)
                 .setRequestedFps(24.0f);
@@ -233,7 +220,7 @@ public class ScanFragment extends Fragment implements BarcodeTracker.BarcodeGrap
             }
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Multitracker sample")
                 .setMessage("No tengo permisos de camara")
                 .setPositiveButton("ok", listener)
@@ -248,10 +235,10 @@ public class ScanFragment extends Fragment implements BarcodeTracker.BarcodeGrap
     private void startCameraSource() throws SecurityException {
         // check that the device has play services available.
         int code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
-                getContext());
+                this);
         if (code != ConnectionResult.SUCCESS) {
             Dialog dlg =
-                    GoogleApiAvailability.getInstance().getErrorDialog(getActivity(), code, RC_HANDLE_GMS);
+                    GoogleApiAvailability.getInstance().getErrorDialog(this, code, RC_HANDLE_GMS);
             dlg.show();
         }
 
@@ -266,4 +253,17 @@ public class ScanFragment extends Fragment implements BarcodeTracker.BarcodeGrap
         }
     }
 
+    @Override
+    public void onDetectedQrCode(Barcode barcode) {
+        Log.d("QR", "onDetectedQrCode: " +barcode.displayValue);
+        try {
+            JSONObject data = new JSONObject(barcode.displayValue);
+            Intent intent = new Intent(this, TableActivity.class);
+            intent.putExtra("restaurantId", data.getInt("idRestaurant"));
+            intent.putExtra("tableId", data.getInt("idTable"));
+            startActivity(intent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
