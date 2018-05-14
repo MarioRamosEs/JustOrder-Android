@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
 import client.marpolex.com.justorder_android.R;
 
 public class TableActivity extends AppCompatActivity {
@@ -31,6 +34,17 @@ public class TableActivity extends AppCompatActivity {
 
         TextView tvNumMesa = findViewById(R.id.tvNumMesa);
         tvNumMesa.setText(getString(R.string.table)+tableId);
+
+        Button newOrder = findViewById(R.id.btnNewOrder);
+        newOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MenuActivity.class);
+                intent.putExtra("restaurantId", restaurantId);
+                intent.putExtra("tableId", tableId);
+                startActivity(intent);
+            }
+        });
     }
 
 }
