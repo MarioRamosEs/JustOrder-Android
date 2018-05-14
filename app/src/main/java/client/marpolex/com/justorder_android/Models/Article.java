@@ -34,7 +34,6 @@ public class Article implements Serializable {
             product_subtype = jsonObject.getString("product_subtype");
             created_at = jsonObject.getString("created_at");
             updated_at = jsonObject.getString("updated_at");
-            rating = jsonObject.getDouble("rating");
 
             if(jsonObject.isNull("description")) description = "";
             else description = jsonObject.getString("description");
@@ -42,6 +41,8 @@ public class Article implements Serializable {
             if(jsonObject.isNull("image")) image = "";
             else image = jsonObject.getString("image");
 
+            if(jsonObject.has("rating")) rating = jsonObject.getDouble("rating");
+            else rating = 0;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -93,5 +94,23 @@ public class Article implements Serializable {
 
     public double getRating() {
         return rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", ref_code='" + ref_code + '\'' +
+                ", base_price=" + base_price +
+                ", tax_type='" + tax_type + '\'' +
+                ", image='" + image + '\'' +
+                ", product_type='" + product_type + '\'' +
+                ", product_subtype='" + product_subtype + '\'' +
+                ", created_at='" + created_at + '\'' +
+                ", updated_at='" + updated_at + '\'' +
+                ", rating=" + rating +
+                '}';
     }
 }

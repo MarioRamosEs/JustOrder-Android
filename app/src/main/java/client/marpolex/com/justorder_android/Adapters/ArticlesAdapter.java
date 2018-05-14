@@ -1,6 +1,7 @@
 package client.marpolex.com.justorder_android.Adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final Article article = articleList.get(position);
+
+        Log.d("Articulo", article.toString());
 
         holder.name.setText(article.getName());
         holder.description.setText(article.getDescription());
