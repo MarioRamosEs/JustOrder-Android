@@ -19,22 +19,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.vision.barcode.Barcode;
-import com.orm.SugarApp;
-import com.orm.SugarContext;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import client.marpolex.com.justorder_android.Fragments.MyProfileFragment;
 import client.marpolex.com.justorder_android.Fragments.RestaurantsFragment;
-import client.marpolex.com.justorder_android.Fragments.ScanFragment;
 import client.marpolex.com.justorder_android.Fragments.SettingsFragment;
 import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 import client.marpolex.com.justorder_android.TableReader.barcode.BarcodeTracker;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, BarcodeTracker.BarcodeGraphicTrackerCallback {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +51,6 @@ public class MainActivity extends AppCompatActivity
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigationView.setCheckedItem(R.id.nav_scan);
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new ScanFragment()).commit();
-            }
-        });
 
         navigationView.setCheckedItem(R.id.nav_restaurants);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new RestaurantsFragment()).commit(); //Iniciar con Restaurantes seleccionado
@@ -128,7 +116,14 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, new MyProfileFragment()).commit();
         } else if (id == R.id.nav_scan) {
-            fragmentManager.beginTransaction().replace(R.id.content_frame, new ScanFragment()).commit();
+            //Volver a restaurantes
+            final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setCheckedItem(R.id.nav_restaurants);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new RestaurantsFragment()).commit();
+
+            //Abrir la cámara
+            Intent intent = new Intent(this, QrScanActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_settings) {
             fragmentManager.beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
         } else if (id == R.id.nav_share) {
@@ -167,18 +162,5 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onDetectedQrCode(Barcode barcode) {
-        Log.d("QR", "onDetectedQrCode: " +barcode.displayValue);
-        try {
-            JSONObject data = new JSONObject(barcode.displayValue);
-            Intent intent = new Intent(this, TableActivity.class);
-            intent.putExtra("restaurantId", data.getInt("idRestaurant"));
-            intent.putExtra("tableId", data.getInt("idTable"));
-            startActivity(intent);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-    }
 }

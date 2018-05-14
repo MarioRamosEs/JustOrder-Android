@@ -4,21 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="client.marpolex.com.justorder_android.Activities.Carta.MenuActivity">
+    tools:context="client.marpolex.com.justorder_android.Activities.QrScanActivity">
 
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/toolbar_menu" />
-
-    <GridView
-        android:id="@+id/gvCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:numColumns="2"
+    <client.marpolex.com.justorder_android.TableReader.camera.CameraSourcePreview
+        android:id="@+id/preview"
+        android:layout_width="395dp"
+        android:layout_height="618dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

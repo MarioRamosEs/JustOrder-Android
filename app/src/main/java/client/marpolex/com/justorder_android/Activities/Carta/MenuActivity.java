@@ -46,6 +46,7 @@ public class MenuActivity extends AppCompatActivity implements justOrderApiInter
         //Obtener datos
         idRestaurant = getIntent().getIntExtra("restaurantId", -1);
         idTable = getIntent().getIntExtra("tableId", -1);
+        Log.d("idRestaurant", String.valueOf(idRestaurant));
         restaurant = Restaurant.find(Restaurant.class, "id_restaurant = ?", idRestaurant+"").get(0);
 
         //Establecer el idRestaurant y idTable en ShoppingCart

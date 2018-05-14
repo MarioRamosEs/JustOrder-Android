@@ -43,8 +43,7 @@ public class RestaurantFragment extends Fragment {
             public void onClick(View v) {
                 ShoppingCartClient.resetShoppingCart();
                 Intent intent = new Intent(getActivity().getApplicationContext(), MenuActivity.class);
-                intent.putExtra("idRestaurant", idRestaurant);
-                Log.d("test", "onClick: "+idRestaurant);
+                intent.putExtra("restaurantId", (int) idRestaurant);
                 startActivity(intent);
             }
         });
