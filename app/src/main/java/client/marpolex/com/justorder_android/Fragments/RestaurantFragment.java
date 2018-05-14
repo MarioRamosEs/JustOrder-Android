@@ -70,9 +70,9 @@ public class RestaurantFragment extends Fragment {
         //Para que la imagen encaje perfecto
         Resources r = getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 221, r.getDisplayMetrics());
-
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+
         Picasso.get().load(restaurant.getImgUrl()).placeholder(R.drawable.logo).resize(size.x, (int)px).into(imageView); //.centerCrop()
 
         ratingBar.setRating(restaurant.getRating());

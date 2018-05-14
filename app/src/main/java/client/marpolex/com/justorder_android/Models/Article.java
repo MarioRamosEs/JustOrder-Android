@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 public class Article implements Serializable {
     private long id;
+    private int recyclerId;
     private String name;
     private String description;
     private String ref_code;
@@ -23,7 +24,8 @@ public class Article implements Serializable {
     private String updated_at;
     private double rating;
 
-    public Article(JSONObject jsonObject) {
+    public Article(JSONObject jsonObject, int recyclerId) {
+        this.recyclerId = recyclerId;
         try {
             id = jsonObject.getInt("id");
             name = jsonObject.getString("name");
@@ -94,6 +96,10 @@ public class Article implements Serializable {
 
     public double getRating() {
         return rating;
+    }
+
+    public int getRecyclerId() {
+        return recyclerId;
     }
 
     @Override

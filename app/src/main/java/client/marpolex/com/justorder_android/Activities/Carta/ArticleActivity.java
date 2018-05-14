@@ -1,12 +1,14 @@
 package client.marpolex.com.justorder_android.Activities.Carta;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -59,8 +61,14 @@ public class ArticleActivity extends AppCompatActivity {
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
 
+        //Para que la imagen encaje perfecto
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, r.getDisplayMetrics());
+        Point screenSize = new Point();
+        getWindowManager().getDefaultDisplay().getSize(screenSize);
+
         if(! article.getImage().isEmpty())
-            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(imageView); //.centerCrop()
+            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).resize(screenSize.x, (int)px).into(imageView); //.centerCrop()
 
         ratingBar.setRating((float) article.getRating());
     }

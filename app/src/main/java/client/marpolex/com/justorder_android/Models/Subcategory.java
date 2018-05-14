@@ -24,7 +24,7 @@ public class Subcategory implements Serializable {
             JSONArray articles = jsonObject.getJSONArray("articles");
 
             for (int i = 0; i < articles.length(); i++) {
-                articleList.add(new Article(articles.getJSONObject(i)));
+                articleList.add(new Article(articles.getJSONObject(i), i));
             }
 
         } catch (JSONException e) {

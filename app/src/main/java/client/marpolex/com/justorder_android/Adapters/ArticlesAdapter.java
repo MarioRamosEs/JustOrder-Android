@@ -62,7 +62,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     @Override
     public long getItemId(int position) {
-        return articleList.get(position).getId();
+        return articleList.get(position).getRecyclerId();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
