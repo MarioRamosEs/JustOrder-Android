@@ -36,8 +36,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final Article article = articleList.get(position);
 
-        Log.d("Articulo", article.toString());
-
         holder.name.setText(article.getName());
         holder.description.setText(article.getDescription());
         holder.pvp.setText(article.getBase_price() + "€");

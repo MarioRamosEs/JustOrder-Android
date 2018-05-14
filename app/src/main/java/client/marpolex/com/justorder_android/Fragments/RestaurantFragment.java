@@ -1,11 +1,13 @@
 package client.marpolex.com.justorder_android.Fragments;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,9 +66,14 @@ public class RestaurantFragment extends Fragment {
         direction.setText(restaurant.getDirection());
         openingHours.setText(restaurant.getOpeningHours());
 
+
+        //Para que la imagen encaje perfecto
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 221, r.getDisplayMetrics());
+
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
-        Picasso.get().load(restaurant.getImgUrl()).placeholder(R.drawable.logo).resize(size.x, 700).into(imageView); //.centerCrop()
+        Picasso.get().load(restaurant.getImgUrl()).placeholder(R.drawable.logo).resize(size.x, (int)px).into(imageView); //.centerCrop()
 
         ratingBar.setRating(restaurant.getRating());
     }
