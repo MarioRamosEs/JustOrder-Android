@@ -50,6 +50,10 @@
         <activity android:name=".Activities.Carta.ArticleActivity" />
         <activity android:name=".Activities.Carta.cartSummaryActivity" />
         <activity android:name=".Activities.RegisterActivity" />
+        <activity
+            android:name=".Activities.TableActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

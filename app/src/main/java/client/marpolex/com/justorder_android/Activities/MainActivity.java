@@ -22,6 +22,9 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.orm.SugarApp;
 import com.orm.SugarContext;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import client.marpolex.com.justorder_android.Fragments.MyProfileFragment;
 import client.marpolex.com.justorder_android.Fragments.RestaurantsFragment;
 import client.marpolex.com.justorder_android.Fragments.ScanFragment;
@@ -167,5 +170,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDetectedQrCode(Barcode barcode) {
         Log.d("QR", "onDetectedQrCode: " +barcode.displayValue);
+        try {
+            JSONObject data = new JSONObject(barcode.displayValue);
+            Intent intent = new Intent(this, TableActivity.class);
+            intent.putExtra("restaurantId", data.getInt("idRestaurant"));
+            intent.putExtra("tableId", data.getInt("idTable"));
+            startActivity(intent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }
