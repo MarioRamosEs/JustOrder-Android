@@ -2,21 +2,30 @@ package client.marpolex.com.justorder_android.Models.Singleton;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import client.marpolex.com.justorder_android.Models.Article;
+import client.marpolex.com.justorder_android.Models.ArticleSummary;
 
 import static android.content.ContentValues.TAG;
 
 public class ShoppingCart {
     //Map articulo cantidad
     private Map<Article, Integer> shoppingMap;
+    private int restaurantId, tableId;
 
     ShoppingCart() {
         shoppingMap = new HashMap<>();
     }
-    private int restaurantId, tableId;
 
     public void addArticle(Article article) {
         //Miro si hay un articulo con el mismo id que el que me pasan.
@@ -75,4 +84,28 @@ public class ShoppingCart {
     public void setTableId(int tableId) {
         this.tableId = tableId;
     }
+
+    public String cartSummaryToJson(){
+        List<ArticleSummary> articleActivity = new ArrayList<>();
+
+        Object[] obj = shoppingMap.keySet().toArray();
+        for (Object o : obj) {
+            Article articleTemp = (Article) o;
+            articleActivity.add(new ArticleSummary(articleTemp.getId(), ShoppingCartClient.getShoppingCart().getQuantity(articleTemp)));
+        }
+
+        Type type = new TypeToken<List<ArticleSummary>>() {}.getType();
+        Gson gson = new Gson();
+        return gson.toJson(articleActivity, type);
+    }
+
+    /*
+    private String generalInfoToJson(){
+        String temp;
+
+        temp =  " \"site_id\":\""   + ShoppingCartClient.getShoppingCart().getRestaurantId() + "\", ";
+        temp += " \"table_id\":\""  + ShoppingCartClient.getShoppingCart().getTableId()      + "\", ";
+
+        return temp;
+    }*/
 }

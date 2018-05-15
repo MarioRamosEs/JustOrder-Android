@@ -168,6 +168,11 @@ public class MenuActivity extends AppCompatActivity implements justOrderApiInter
         updateRecycler();
     }
 
+    @Override
+    public void attemptOrder_response(String jsonResponse) {
+
+    }
+
     private void updateRecycler(){
         final CategoriesAdapter cAdapter = new CategoriesAdapter(this, categoryList);
         final GridView lstElements = (GridView) findViewById(R.id.gvCategory);

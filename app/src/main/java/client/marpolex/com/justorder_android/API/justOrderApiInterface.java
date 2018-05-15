@@ -5,4 +5,5 @@ public interface justOrderApiInterface {
     void attemptRegister_response(String jsonResponse);
     void getRestaurants_response(String jsonResponse);
     void getCatalog_response(String jsonResponse);
+    void attemptOrder_response(String jsonResponse);
 }

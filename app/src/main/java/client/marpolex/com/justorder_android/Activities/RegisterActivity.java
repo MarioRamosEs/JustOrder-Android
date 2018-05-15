@@ -94,6 +94,11 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
 
     }
 
+    @Override
+    public void attemptOrder_response(String jsonResponse) {
+
+    }
+
     public void attemptRegister() {
         lockInterface();
         dialogLoding.show();

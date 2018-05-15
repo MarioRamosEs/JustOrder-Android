@@ -15,6 +15,11 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
+
+import client.marpolex.com.justorder_android.Models.Article;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 
 import static android.content.ContentValues.TAG;
 
@@ -46,6 +51,13 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
     public void attemptGetCatalog(int idRestaurant, justOrderApiInterface activity){
         this.callBackActivity = activity;
         this.doInBackground("getCatalog", idRestaurant+"");
+    }
+
+    public void attemptOrder(justOrderApiInterface activity){
+        this.callBackActivity = activity;
+        ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
+        this.doInBackground("attemptOrder", shoppingCart.getRestaurantId()+"", shoppingCart.getTableId()+"",
+                shoppingCart.cartSummaryToJson());
     }
 
     @Override
@@ -82,6 +94,14 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                 case "getCatalog":
                     apiUrl = new URL(baseUrl + "/api/catalog/"+params[1]);
                     requestMethod = "GET";
+                    break;
+                case "attemptOrder":
+                    request.put("site_id", params[1]);
+                    request.put("table_id", params[2]);
+                    request.put("products", params[3]);
+
+                    apiUrl = new URL(baseUrl + "/api/tables/"+params[1]); //RestaurantId
+                    requestMethod = "POST";
                     break;
             }
 
@@ -142,6 +162,9 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     break;
                 case "getRestaurants":
                     callBackActivity.getRestaurants_response(buffer.toString());
+                    break;
+                case "attemptOrder":
+                    callBackActivity.attemptOrder_response(buffer.toString());
                     break;
             }
 
