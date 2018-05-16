@@ -72,6 +72,7 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
         newOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("new order", "onClick: btnNewOrder");
                 Intent intent = new Intent(v.getContext(), MenuActivity.class);
                 intent.putExtra("restaurantId", restaurantId);
                 intent.putExtra("tableId", tableId);

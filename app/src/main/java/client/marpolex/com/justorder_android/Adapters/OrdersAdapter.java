@@ -13,8 +13,6 @@ import java.util.List;
 
 import client.marpolex.com.justorder_android.Models.Article;
 import client.marpolex.com.justorder_android.Models.Order;
-import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
-import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 import client.marpolex.com.justorder_android.R;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHolder> {
@@ -43,8 +41,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         holder.tvPaid.setText(order.getPaid());
         holder.tvOrderedBy.setText(order.getOrderedBy());
 
-        // if (!article.getImage().isEmpty())
-        //    Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
+        if (!article.getImage().isEmpty())
+            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
     }
 
     @Override

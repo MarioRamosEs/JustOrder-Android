@@ -105,7 +105,7 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     request.put("table_id", params[2]);
                     request.put("products", params[3]);
 
-                    apiUrl = new URL(baseUrl + "/api/tables/" + params[1]); //RestaurantId
+                    apiUrl = new URL(baseUrl + "/api/sites/" + params[1] + "/tables/" + params[2]);
                     requestMethod = "POST";
                     break;
                 case "attemptGetTable":
