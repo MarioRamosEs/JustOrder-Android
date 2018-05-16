@@ -37,13 +37,13 @@ public class Article implements Serializable {
             //created_at = jsonObject.getString("created_at");
             //updated_at = jsonObject.getString("updated_at");
 
-            if(jsonObject.isNull("description")) description = "";
+            if (jsonObject.isNull("description")) description = "";
             else description = jsonObject.getString("description");
 
-            if(jsonObject.isNull("image")) image = "";
+            if (jsonObject.isNull("image")) image = "";
             else image = jsonObject.getString("image");
 
-            if(jsonObject.has("rating")) rating = jsonObject.getDouble("rating");
+            if (jsonObject.has("rating")) rating = jsonObject.getDouble("rating");
             else rating = 0;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -114,8 +114,8 @@ public class Article implements Serializable {
                 ", image='" + image + '\'' +
                 ", product_type='" + product_type + '\'' +
                 ", product_subtype='" + product_subtype + '\'' +
-                ", created_at='" + created_at + '\'' +
-                ", updated_at='" + updated_at + '\'' +
+                // ", created_at='" + created_at + '\'' +
+                // ", updated_at='" + updated_at + '\'' +
                 ", rating=" + rating +
                 '}';
     }
