@@ -48,16 +48,21 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
         this.doInBackground("getRestaurants");
     }
 
-    public void attemptGetCatalog(int idRestaurant, justOrderApiInterface activity){
+    public void attemptGetCatalog(int idRestaurant, justOrderApiInterface activity) {
         this.callBackActivity = activity;
-        this.doInBackground("getCatalog", idRestaurant+"");
+        this.doInBackground("getCatalog", idRestaurant + "");
     }
 
-    public void attemptOrder(justOrderApiInterface activity){
+    public void attemptOrder(justOrderApiInterface activity) {
         this.callBackActivity = activity;
         ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
-        this.doInBackground("attemptOrder", shoppingCart.getRestaurantId()+"", shoppingCart.getTableId()+"",
-                shoppingCart.cartSummaryToJson());
+        this.doInBackground("attemptOrder", shoppingCart.getRestaurantId() + "", shoppingCart.getTableId() + "", shoppingCart.cartSummaryToJson());
+    }
+
+    public void attemptGetTable(int restaurantId, int tableId, justOrderApiInterface activity) {
+        this.callBackActivity = activity;
+        ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
+        this.doInBackground("attemptGetTable", restaurantId + "", tableId + "", shoppingCart.cartSummaryToJson());
     }
 
     @Override
@@ -92,7 +97,7 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     requestMethod = "GET";
                     break;
                 case "getCatalog":
-                    apiUrl = new URL(baseUrl + "/api/catalog/"+params[1]);
+                    apiUrl = new URL(baseUrl + "/api/catalog/" + params[1]);
                     requestMethod = "GET";
                     break;
                 case "attemptOrder":
@@ -100,8 +105,12 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     request.put("table_id", params[2]);
                     request.put("products", params[3]);
 
-                    apiUrl = new URL(baseUrl + "/api/tables/"+params[1]); //RestaurantId
+                    apiUrl = new URL(baseUrl + "/api/tables/" + params[1]); //RestaurantId
                     requestMethod = "POST";
+                    break;
+                case "attemptGetTable":
+                    apiUrl = new URL(baseUrl + "/api/sites/" + params[1] + "/tables/" + params[2]);
+                    requestMethod = "GET";
                     break;
             }
 
@@ -114,7 +123,7 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
             conn.setRequestProperty("JWT-TOKEN", (token == null) ? "" : token);
 
             //SEND
-            if(requestMethod != "GET") {
+            if (requestMethod != "GET") {
                 Writer writer = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream(), "UTF-8"));
                 writer.write(request.toString());
                 writer.close();
@@ -165,6 +174,9 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     break;
                 case "attemptOrder":
                     callBackActivity.attemptOrder_response(buffer.toString());
+                    break;
+                case "attemptGetTable":
+                    callBackActivity.attemptGetTable_response(buffer.toString());
                     break;
             }
 

@@ -169,6 +169,11 @@ public class MenuActivity extends AppCompatActivity implements justOrderApiInter
     }
 
     @Override
+    public void attemptGetTable_response(String jsonResponse) {
+
+    }
+
+    @Override
     public void attemptOrder_response(String jsonResponse) {
 
     }

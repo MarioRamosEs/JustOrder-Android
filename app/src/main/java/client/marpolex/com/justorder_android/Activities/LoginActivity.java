@@ -159,6 +159,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
     }
 
     @Override
+    public void attemptGetTable_response(String jsonResponse) {
+
+    }
+
+    @Override
     public void attemptOrder_response(String jsonResponse) {
 
     }

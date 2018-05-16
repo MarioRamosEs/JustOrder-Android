@@ -41,6 +41,6 @@
     <string name="BirthDateInput">Fecha de nacimiento (YYYY-MM-DD)</string>
     <string name="name">Nombre</string>
     <string name="title_activity_main2">TableActivity</string>
-    <string name="table">Pedidos mesa</string>
+    <string name="table">Pedidos mesa </string>
     <string name="help">Ayuda</string>
 </resources>

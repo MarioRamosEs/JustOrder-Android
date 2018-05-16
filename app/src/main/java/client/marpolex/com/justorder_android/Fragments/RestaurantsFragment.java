@@ -158,6 +158,11 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
     }
 
     @Override
+    public void attemptGetTable_response(String jsonResponse) {
+
+    }
+
+    @Override
     public void attemptOrder_response(String jsonResponse) {
 
     }
