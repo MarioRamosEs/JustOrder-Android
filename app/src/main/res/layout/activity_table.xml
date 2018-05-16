@@ -28,7 +28,7 @@
         android:id="@+id/btnNewOrder"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="wrap_content"
         android:layout_margin="0dp"
         android:background="@color/colorPrimary"
         android:text="Nuevo pedido"

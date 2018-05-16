@@ -3,8 +3,6 @@ package client.marpolex.com.justorder_android.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,15 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.API.justOrderApiInterface;
-import client.marpolex.com.justorder_android.Activities.Carta.CategoryActivity;
 import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
-import client.marpolex.com.justorder_android.Activities.Carta.SubcategoryActivity;
 import client.marpolex.com.justorder_android.Adapters.OrdersAdapter;
-import client.marpolex.com.justorder_android.Adapters.SubcategoriesAdapter;
 import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
-import client.marpolex.com.justorder_android.Models.Subcategory;
-import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
 public class TableActivity extends AppCompatActivity implements justOrderApiInterface {
@@ -63,8 +56,6 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
         dialogLoding.show();
         justOrderApiConnectorClient.getJustOrderApiConnector().attemptGetTable(restaurantId, tableId, this);
 
-        //Log.d("Mesa", "restaurantId: "+restaurantId+" - tableId: "+tableId);
-
         TextView tvNumMesa = findViewById(R.id.tvNumMesa);
         tvNumMesa.setText(getString(R.string.table) + " " + tableId);
 
@@ -84,8 +75,8 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
     private void updateOrderList(JSONArray jsonArray) {
         try {
             JSONArray tableContents = jsonArray.getJSONObject(0).getJSONArray("table_contents");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                orderList.add(new Order(tableContents.getJSONObject(0)));
+            for (int i = 0; i < tableContents.length(); i++) {
+                orderList.add(new Order(tableContents.getJSONObject(i)));
             }
         } catch (JSONException e) {
             e.printStackTrace();

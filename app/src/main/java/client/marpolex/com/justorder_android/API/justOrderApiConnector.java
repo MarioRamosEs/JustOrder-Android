@@ -3,6 +3,7 @@ package client.marpolex.com.justorder_android.API;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -15,9 +16,7 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Map;
 
-import client.marpolex.com.justorder_android.Models.Article;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 
@@ -101,9 +100,12 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     requestMethod = "GET";
                     break;
                 case "attemptOrder":
+                    JSONArray jsonArray = new JSONArray(params[3]);
                     request.put("site_id", params[1]);
                     request.put("table_id", params[2]);
-                    request.put("products", params[3]);
+                    request.put("products", jsonArray);
+
+                    Log.d("attemptOrder", request.toString());
 
                     apiUrl = new URL(baseUrl + "/api/sites/" + params[1] + "/tables/" + params[2]);
                     requestMethod = "POST";
