@@ -41,6 +41,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         holder.tvStatus.setText(order.getStatus());
         holder.tvPaid.setText(order.getPaid());
         holder.tvOrderedBy.setText(order.getOrderedBy());
+        holder.tvQuantity.setText(order.getQuantity() + "uds");
+        holder.tvPasePrice.setText(String.format("%.2f", article.getBase_price())+"€");
 
         if (!article.getImage().isEmpty())
             Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
@@ -56,7 +58,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvName, tvStatus, tvPaid, tvOrderedBy, tvPvp;
+        public TextView tvName, tvStatus, tvPaid, tvOrderedBy, tvPvp, tvQuantity, tvPasePrice;
         public ImageView img;
 
         public MyViewHolder(View view) {
@@ -67,6 +69,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
             tvOrderedBy = view.findViewById(R.id.tvOrderedBy);
             tvPvp = view.findViewById(R.id.tvPVP);
             img = view.findViewById(R.id.ivImg);
+            tvQuantity = view.findViewById(R.id.tvQuantity);
+            tvPasePrice = view.findViewById(R.id.tvBasePrice);
         }
     }
 }
