@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,15 +11,28 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import client.marpolex.com.justorder_android.API.justOrderApiInterface;
 import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
+import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
+import client.marpolex.com.justorder_android.Models.Subcategory;
+import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
 public class TableActivity extends AppCompatActivity implements justOrderApiInterface {
 
+    ProgressDialog dialogLoding;
     int restaurantId, tableId;
+    List<Order> orderList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +49,14 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
         //End obtener datos
 
         //Llamada a la API
+        dialogLoding = ProgressDialog.show(TableActivity.this, "", "Cargando, por favor espere...", true);
+        dialogLoding.show();
         justOrderApiConnectorClient.getJustOrderApiConnector().attemptGetTable(restaurantId, tableId, this);
 
         Log.d("Mesa", "restaurantId: "+restaurantId+" - tableId: "+tableId);
 
         TextView tvNumMesa = findViewById(R.id.tvNumMesa);
-        tvNumMesa.setText(getString(R.string.table)+tableId);
+        tvNumMesa.setText(getString(R.string.table)+" "+tableId);
 
         Button newOrder = findViewById(R.id.btnNewOrder);
         newOrder.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +68,16 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
                 startActivity(intent);
             }
         });
+    }
+
+    private void updateOrderList(JSONArray jsonArray){
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                orderList.add(new Order(jsonArray.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void updateRecyclerView(){
@@ -86,5 +112,22 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
     @Override
     public void attemptGetTable_response(String jsonResponse) {
         Log.d("GetTable_response", jsonResponse);
+        dialogLoding.hide();
+
+        try {
+            JSONObject response = new JSONObject(jsonResponse);
+            boolean success = response.getBoolean("success");
+            if (!success) {             //Response failed
+                Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+            } else {                    //Response OK
+                justOrderApiConnectorClient.getJustOrderApiConnector().clearCallbackActivity();
+                updateOrderList(response.getJSONArray("tables"));
+                updateRecyclerView();
+            }
+            Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {     //JSON couldn't be parsed or no connection to api server
+            Log.d("GetTable_response", e.toString());
+            Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
+        }
     }
 }
