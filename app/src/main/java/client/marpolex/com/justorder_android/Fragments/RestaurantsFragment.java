@@ -12,11 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orm.SugarRecord;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,11 +48,13 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
 
     public void onCreate() {
         dialogLoding = ProgressDialog.show(getActivity(), "", "Cargando, por favor espere...", true);
+
         try {
-            restaurants = Restaurant.listAll(Restaurant.class);
-        } catch (Exception e) {
+            SugarRecord.deleteAll(Restaurant.class);
             loadRestaurantsApi();
             restaurants = Restaurant.listAll(Restaurant.class);
+        } catch (Exception e) {
+            Log.d(TAG, "ERROR SUGAR ORM");
         }
 
         if (restaurants.size() == 0) {
@@ -121,7 +123,7 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
 
         for (int i = 0; i < restaurants.length(); i++) {
             try {
-                restaurantList.add(new Restaurant(restaurants.getJSONObject(i)));
+                restaurantList.add(new Restaurant(restaurants.getJSONObject(i).getJSONObject("site")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

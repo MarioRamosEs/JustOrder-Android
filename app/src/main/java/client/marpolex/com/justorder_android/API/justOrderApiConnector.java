@@ -92,7 +92,7 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     requestMethod = "POST";
                     break;
                 case "getRestaurants":
-                    apiUrl = new URL(baseUrl + "/api/sites");
+                    apiUrl = new URL(baseUrl + "/api/discovered");
                     requestMethod = "GET";
                     break;
                 case "getCatalog":
