@@ -10,7 +10,7 @@ public class Order {
     private int paid;
     private String status;
     private int quantity;
-    private int userJustOrder;
+    private String userJustOrder;
     private boolean isWaiter;
     private Article product;
 
@@ -24,9 +24,9 @@ public class Order {
             isWaiter = jsonObject.getBoolean("is_waiter");
 
             if (jsonObject.isNull("user_justorder"))
-                userJustOrder = -1;
+                userJustOrder = "";
             else
-                userJustOrder = jsonObject.getInt("user_justorder");
+                userJustOrder = jsonObject.getJSONObject("user_justorder").getString("name")+" "+jsonObject.getJSONObject("user_justorder").getString("surnames");
 
             product = new Article(jsonObject.getJSONObject("product"), -1);
 
@@ -55,15 +55,19 @@ public class Order {
         return quantity;
     }
 
-    public int getUserJustOrder() {
-        return userJustOrder;
-    }
-
     public boolean isWaiter() {
         return isWaiter;
     }
 
     public Article getProduct() {
         return product;
+    }
+
+    public String getOrderedBy(){
+        if (isWaiter){
+            if(userJustOrder.isEmpty()) return "TPV";
+            else return "Camarero";
+        }
+        else return userJustOrder;
     }
 }

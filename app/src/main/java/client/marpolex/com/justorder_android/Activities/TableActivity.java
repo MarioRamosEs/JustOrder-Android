@@ -53,7 +53,7 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
         dialogLoding.show();
         justOrderApiConnectorClient.getJustOrderApiConnector().attemptGetTable(restaurantId, tableId, this);
 
-        Log.d("Mesa", "restaurantId: "+restaurantId+" - tableId: "+tableId);
+        //Log.d("Mesa", "restaurantId: "+restaurantId+" - tableId: "+tableId);
 
         TextView tvNumMesa = findViewById(R.id.tvNumMesa);
         tvNumMesa.setText(getString(R.string.table)+" "+tableId);
