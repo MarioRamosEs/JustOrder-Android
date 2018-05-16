@@ -47,7 +47,7 @@ public class Order {
         String response = "-";
         switch (paid) {
             case 0:
-                response = "Pentiente de pago";
+                response = "Pendiente de pago";
                 break;
             case 1:
                 response = "Pagado";

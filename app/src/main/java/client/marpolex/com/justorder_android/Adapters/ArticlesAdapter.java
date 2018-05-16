@@ -38,7 +38,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
         holder.name.setText(article.getName());
         holder.description.setText(article.getDescription());
-        holder.pvp.setText(article.getBase_price() + "€");
+        holder.pvp.setText(String.format("%.2f", article.getBase_price()) + "€");
 
         if(! article.getImage().isEmpty())
             Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);

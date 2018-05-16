@@ -36,7 +36,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         final Article article = order.getProduct();
 
         holder.tvName.setText(article.getName());
-        holder.tvPvp.setText(article.getBase_price() * order.getQuantity() + "€");
+        float finalPrice = (float) article.getBase_price() * order.getQuantity();
+        holder.tvPvp.setText(String.format("%.2f", finalPrice) + "€");
         holder.tvStatus.setText(order.getStatus());
         holder.tvPaid.setText(order.getPaid());
         holder.tvOrderedBy.setText(order.getOrderedBy());

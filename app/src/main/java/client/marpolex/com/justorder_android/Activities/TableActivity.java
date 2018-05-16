@@ -44,7 +44,6 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Estado de la mesa");
 
         //Obtener datos
         restaurantId = getIntent().getIntExtra("restaurantId", -1);
@@ -56,8 +55,7 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
         dialogLoding.show();
         justOrderApiConnectorClient.getJustOrderApiConnector().attemptGetTable(restaurantId, tableId, this);
 
-        TextView tvNumMesa = findViewById(R.id.tvNumMesa);
-        tvNumMesa.setText(getString(R.string.table) + " " + tableId);
+        getSupportActionBar().setTitle(getString(R.string.table) + " " + tableId);
 
         Button newOrder = findViewById(R.id.btnNewOrder);
         newOrder.setOnClickListener(new View.OnClickListener() {
