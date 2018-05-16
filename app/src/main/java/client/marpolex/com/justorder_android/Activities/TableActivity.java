@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.API.justOrderApiInterface;
+import client.marpolex.com.justorder_android.Activities.Carta.CategoryActivity;
 import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
+import client.marpolex.com.justorder_android.Activities.Carta.SubcategoryActivity;
+import client.marpolex.com.justorder_android.Adapters.OrdersAdapter;
+import client.marpolex.com.justorder_android.Adapters.SubcategoriesAdapter;
 import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
 import client.marpolex.com.justorder_android.Models.Subcategory;
@@ -30,9 +37,12 @@ import client.marpolex.com.justorder_android.R;
 
 public class TableActivity extends AppCompatActivity implements justOrderApiInterface {
 
-    ProgressDialog dialogLoding;
-    int restaurantId, tableId;
-    List<Order> orderList = new ArrayList<>();
+    private ProgressDialog dialogLoding;
+    private int restaurantId, tableId;
+    private List<Order> orderList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private OrdersAdapter ordersAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +66,7 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
         //Log.d("Mesa", "restaurantId: "+restaurantId+" - tableId: "+tableId);
 
         TextView tvNumMesa = findViewById(R.id.tvNumMesa);
-        tvNumMesa.setText(getString(R.string.table)+" "+tableId);
+        tvNumMesa.setText(getString(R.string.table) + " " + tableId);
 
         Button newOrder = findViewById(R.id.btnNewOrder);
         newOrder.setOnClickListener(new View.OnClickListener() {
@@ -70,18 +80,24 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
         });
     }
 
-    private void updateOrderList(JSONArray jsonArray){
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                orderList.add(new Order(jsonArray.getJSONObject(i)));
-            } catch (JSONException e) {
-                e.printStackTrace();
+    private void updateOrderList(JSONArray jsonArray) {
+        try {
+            JSONArray tableContents = jsonArray.getJSONObject(0).getJSONArray("table_contents");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                orderList.add(new Order(tableContents.getJSONObject(0)));
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
-    private void updateRecyclerView(){
-
+    private void updateRecyclerView() {
+        recyclerView = findViewById(R.id.rvOrders);
+        ordersAdapter = new OrdersAdapter(orderList);
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(rLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(ordersAdapter);
     }
 
     @Override

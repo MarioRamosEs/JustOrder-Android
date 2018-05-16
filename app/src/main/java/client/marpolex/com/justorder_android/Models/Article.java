@@ -34,8 +34,8 @@ public class Article implements Serializable {
             tax_type = jsonObject.getString("tax_type");
             product_type = jsonObject.getString("product_type");
             product_subtype = jsonObject.getString("product_subtype");
-            created_at = jsonObject.getString("created_at");
-            updated_at = jsonObject.getString("updated_at");
+            //created_at = jsonObject.getString("created_at");
+            //updated_at = jsonObject.getString("updated_at");
 
             if(jsonObject.isNull("description")) description = "";
             else description = jsonObject.getString("description");

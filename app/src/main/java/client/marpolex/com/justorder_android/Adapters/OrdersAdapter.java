@@ -27,7 +27,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_row, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_row, parent, false);
         itemView.setOnClickListener(onClickListener);
         return new MyViewHolder(itemView);
     }
@@ -38,13 +38,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         final Article article = order.getProduct();
 
         holder.tvName.setText(article.getName());
-        holder.tvPvp.setText(article.getBase_price()*order.getQuantity() + "€");
+        holder.tvPvp.setText(article.getBase_price() * order.getQuantity() + "€");
         holder.tvStatus.setText(order.getStatus());
         holder.tvPaid.setText(order.getPaid());
         holder.tvOrderedBy.setText(order.getOrderedBy());
 
-        if (!article.getImage().isEmpty())
-            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
+        // if (!article.getImage().isEmpty())
+        //    Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
     }
 
     @Override

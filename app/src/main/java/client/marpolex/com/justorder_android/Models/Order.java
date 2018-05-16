@@ -17,7 +17,7 @@ public class Order {
     public Order(JSONObject jsonObject) {
         try {
             orderId = jsonObject.getInt("id");
-            productId = jsonObject.getInt("id_product");
+            //productId = jsonObject.getInt("id_product");
             paid = jsonObject.getInt("paid");
             status = jsonObject.getString("status");
             quantity = jsonObject.getInt("quantity");
@@ -26,7 +26,7 @@ public class Order {
             if (jsonObject.isNull("user_justorder"))
                 userJustOrder = "";
             else
-                userJustOrder = jsonObject.getJSONObject("user_justorder").getString("name")+" "+jsonObject.getJSONObject("user_justorder").getString("surnames");
+                userJustOrder = jsonObject.getJSONObject("user_justorder").getString("name") + " " + jsonObject.getJSONObject("user_justorder").getString("surnames");
 
             product = new Article(jsonObject.getJSONObject("product"), -1);
 
@@ -43,8 +43,17 @@ public class Order {
         return productId;
     }
 
-    public int getPaid() {
-        return paid;
+    public String getPaid() {
+        String response = "-";
+        switch (paid) {
+            case 0:
+                response = "Pentiente de pago";
+                break;
+            case 1:
+                response = "Pagado";
+                break;
+        }
+        return response;
     }
 
     public String getStatus() {
@@ -63,11 +72,10 @@ public class Order {
         return product;
     }
 
-    public String getOrderedBy(){
-        if (isWaiter){
-            if(userJustOrder.isEmpty()) return "TPV";
+    public String getOrderedBy() {
+        if (isWaiter) {
+            if (userJustOrder.isEmpty()) return "TPV";
             else return "Camarero";
-        }
-        else return userJustOrder;
+        } else return userJustOrder;
     }
 }
