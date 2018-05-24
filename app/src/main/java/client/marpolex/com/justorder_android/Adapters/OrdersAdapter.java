@@ -1,9 +1,12 @@
 package client.marpolex.com.justorder_android.Adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,9 +47,29 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         holder.tvQuantity.setText(order.getQuantity() + "uds");
         holder.tvPasePrice.setText(String.format("%.2f", article.getBase_price())+"€");
 
+        holder.cbSelected.setOnCheckedChangeListener(null);
+        holder.cbSelected.setChecked(order.isSelectedToPay);
+        /*holder.cbSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //set your object's last status
+                order.isSelectedToPay = isChecked;
+                Log.d("", "onCheckedChanged: "+isChecked);
+            }
+        });*/
+
+        holder.cbSelected.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("", "onCheckedChanged: "+order.isSelectedToPay);
+                order.isSelectedToPay = ! order.isSelectedToPay;
+            }
+        });
+
         if (!article.getImage().isEmpty())
             Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
     }
+
 
     @Override
     public int getItemCount() {
@@ -60,6 +83,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName, tvStatus, tvPaid, tvOrderedBy, tvPvp, tvQuantity, tvPasePrice;
         public ImageView img;
+        public CheckBox cbSelected;
 
         public MyViewHolder(View view) {
             super(view);
@@ -71,6 +95,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
             img = view.findViewById(R.id.ivImg);
             tvQuantity = view.findViewById(R.id.tvQuantity);
             tvPasePrice = view.findViewById(R.id.tvBasePrice);
+            cbSelected = view.findViewById(R.id.cbSelected);
         }
     }
 }

@@ -13,6 +13,7 @@ public class Order {
     private String userJustOrder;
     private boolean isWaiter;
     private Article product;
+    public boolean isSelectedToPay = true;
 
     public Order(JSONObject jsonObject) {
         try {

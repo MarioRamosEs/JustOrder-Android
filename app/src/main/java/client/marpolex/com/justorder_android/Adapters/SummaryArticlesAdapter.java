@@ -93,4 +93,6 @@ public class SummaryArticlesAdapter extends RecyclerView.Adapter<SummaryArticles
             uds = (TextView) view.findViewById(R.id.tvUds);
         }
     }
+
+
 }
