@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -22,13 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.API.justOrderApiInterface;
-import client.marpolex.com.justorder_android.Activities.Carta.CategoryActivity;
 import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
-import client.marpolex.com.justorder_android.Activities.Carta.SubcategoryActivity;
 import client.marpolex.com.justorder_android.Adapters.OrdersAdapter;
 import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
-import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
 public class TableActivity extends AppCompatActivity implements justOrderApiInterface {
@@ -92,15 +88,15 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(ordersAdapter);
 
-        /*ordersAdapter.setOnItemClickListener(new View.OnClickListener() {
+        ordersAdapter.setOnItemClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //int adapterPosition = getAdapterPosition();
                 int position = recyclerView.getChildAdapterPosition(v);
-                orderList.get(position).isSelectedToPay = ! orderList.get(position).isSelectedToPay;
-                ordersAdapter.updateChecked();
+                orderList.get(position).isSelectedToPay = !orderList.get(position).isSelectedToPay;
+                updateRecyclerView();
+                //Log.d("ordersAdapter", +position+"-"+orderList.get(position).isSelectedToPay);
             }
-        });*/
+        });
     }
 
     @Override

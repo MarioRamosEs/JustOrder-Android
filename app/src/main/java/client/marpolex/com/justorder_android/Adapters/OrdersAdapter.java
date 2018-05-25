@@ -49,22 +49,6 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
 
         holder.cbSelected.setOnCheckedChangeListener(null);
         holder.cbSelected.setChecked(order.isSelectedToPay);
-        /*holder.cbSelected.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //set your object's last status
-                order.isSelectedToPay = isChecked;
-                Log.d("", "onCheckedChanged: "+isChecked);
-            }
-        });*/
-
-        holder.cbSelected.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("", "onCheckedChanged: "+order.isSelectedToPay);
-                order.isSelectedToPay = ! order.isSelectedToPay;
-            }
-        });
 
         if (!article.getImage().isEmpty())
             Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);

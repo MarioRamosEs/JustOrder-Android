@@ -77,6 +77,9 @@ public class SummaryArticlesAdapter extends RecyclerView.Adapter<SummaryArticles
         return articleList.get(position).getId();
     }
 
+
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, description, pvp, uds;
         public ImageView img, removeFromCart, plus, minus;
@@ -93,6 +96,4 @@ public class SummaryArticlesAdapter extends RecyclerView.Adapter<SummaryArticles
             uds = (TextView) view.findViewById(R.id.tvUds);
         }
     }
-
-
 }
