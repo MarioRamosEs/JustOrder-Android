@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.Activities;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
 import client.marpolex.com.justorder_android.Adapters.OrdersAdapter;
 import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
+import client.marpolex.com.justorder_android.PayActivity;
 import client.marpolex.com.justorder_android.R;
 
 public class TableActivity extends AppCompatActivity implements justOrderApiInterface {
@@ -67,6 +69,38 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
                 startActivity(intent);
             }
         });
+
+        Button btnPay = findViewById(R.id.btnPay);
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paySelectedItems();
+            }
+        });
+    }
+
+    private void paySelectedItems() {
+        Intent intent = new Intent(this, PayActivity.class);
+        intent.putExtra("restaurantId", restaurantId);
+        intent.putExtra("tableId", tableId);
+        intent.putExtra("ordersToPay", getSelectedOrders());
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            finish();
+            startActivity(getIntent());
+        }
+    }
+
+    private ArrayList<Order> getSelectedOrders() {
+        ArrayList<Order> selectedOrders = new ArrayList<>();
+        for (Order order : orderList) {
+            if (order.isSelectedToPay) selectedOrders.add(order);
+        }
+        return selectedOrders;
     }
 
     private void updateOrderList(JSONArray jsonArray) {
@@ -144,5 +178,10 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
             Log.d("GetTable_response", e.toString());
             Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void attemptPay_response(String jsonResponse) {
+
     }
 }

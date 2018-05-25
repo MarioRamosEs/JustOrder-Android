@@ -16,7 +16,9 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
+import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 
@@ -59,6 +61,12 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
     }
 
     public void attemptGetTable(int restaurantId, int tableId, justOrderApiInterface activity) {
+        this.callBackActivity = activity;
+        ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
+        this.doInBackground("attemptGetTable", restaurantId + "", tableId + "", shoppingCart.cartSummaryToJson());
+    }
+
+    public void attemptPay(int restaurantId, int tableId, List<Order> orderList, justOrderApiInterface activity) {
         this.callBackActivity = activity;
         ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
         this.doInBackground("attemptGetTable", restaurantId + "", tableId + "", shoppingCart.cartSummaryToJson());
@@ -113,6 +121,9 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                 case "attemptGetTable":
                     apiUrl = new URL(baseUrl + "/api/sites/" + params[1] + "/tables/" + params[2]);
                     requestMethod = "GET";
+                    break;
+                case "attemptPay":
+                    Log.d(TAG, "doInBackground: TODO"); //todo
                     break;
             }
 
@@ -179,6 +190,9 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     break;
                 case "attemptGetTable":
                     callBackActivity.attemptGetTable_response(buffer.toString());
+                    break;
+                case "attemptPay":
+                    callBackActivity.attemptPay_response(buffer.toString());
                     break;
             }
 
