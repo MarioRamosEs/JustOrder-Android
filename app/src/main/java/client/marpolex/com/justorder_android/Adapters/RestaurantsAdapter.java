@@ -1,7 +1,9 @@
 package client.marpolex.com.justorder_android.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +21,11 @@ import client.marpolex.com.justorder_android.R;
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder> {
     protected View.OnClickListener onClickListener;
     private List<Restaurant> restaurantsList;
+    private Context context;
 
-    public RestaurantsAdapter(List<Restaurant> restaurantsList) {
+    public RestaurantsAdapter(List<Restaurant> restaurantsList, Context context) {
         this.restaurantsList = restaurantsList;
+        this.context = context;
     }
 
     @Override
@@ -37,7 +41,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         holder.name.setText(restaurant.getName());
         holder.direction.setText(restaurant.getDirection());
         holder.ratingBar.setRating(restaurant.getRating());
-        Picasso.get().load(restaurant.getLogo()).placeholder(R.drawable.logo).into(holder.logo);
+        //Picasso.get().load(restaurant.getLogo()).placeholder(R.drawable.logo).into(holder.logo);
+        if (!restaurant.getLogo().isEmpty()) {
+            int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, context.getResources().getDisplayMetrics());
+            Picasso.get().load(restaurant.getLogo()).placeholder(R.drawable.logo).resize(px, px).centerCrop().into(holder.logo);
+        }
     }
 
     @Override

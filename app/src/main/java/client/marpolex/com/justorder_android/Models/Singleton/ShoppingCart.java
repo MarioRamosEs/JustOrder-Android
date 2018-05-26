@@ -21,10 +21,27 @@ import static android.content.ContentValues.TAG;
 public class ShoppingCart {
     //Map articulo cantidad
     private Map<Article, Integer> shoppingMap;
+    private ArrayList<Article> allArticles;
     private int restaurantId, tableId;
 
     ShoppingCart() {
         shoppingMap = new HashMap<>();
+        allArticles = new ArrayList<>();
+    }
+
+    public void addArticleToTotalArticles(Article article){
+        for (Article articleTemp : allArticles) {
+            if (article.getId() == articleTemp.getId()) { //Si encuentra otro igual sale de la función
+                return;
+            }
+        }
+        allArticles.add(article);
+    }
+
+    public ArrayList<Article> getAllArticles() {
+        Log.d(TAG, "getAllArticles: "+allArticles.hashCode());
+        Log.d(TAG, "getAllArticles: "+allArticles.size());
+        return allArticles;
     }
 
     public void addArticle(Article article) {

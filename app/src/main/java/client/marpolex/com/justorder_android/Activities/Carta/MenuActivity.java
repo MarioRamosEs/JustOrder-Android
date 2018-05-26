@@ -24,10 +24,13 @@ import java.util.List;
 import client.marpolex.com.justorder_android.API.justOrderApiConnector;
 import client.marpolex.com.justorder_android.API.justOrderApiInterface;
 import client.marpolex.com.justorder_android.Adapters.CategoriesAdapter;
+import client.marpolex.com.justorder_android.Models.Article;
 import client.marpolex.com.justorder_android.Models.Category;
 import client.marpolex.com.justorder_android.Models.Restaurant;
+import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
+import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
 public class MenuActivity extends AppCompatActivity implements justOrderApiInterface {
@@ -65,7 +68,6 @@ public class MenuActivity extends AppCompatActivity implements justOrderApiInter
     }
 
     private void attemptGetCart(){
-        //TODO cargando
         apiConnector = justOrderApiConnectorClient.getJustOrderApiConnector();
         apiConnector.attemptGetCatalog(idRestaurant, this);
     }
@@ -91,15 +93,15 @@ public class MenuActivity extends AppCompatActivity implements justOrderApiInter
             return true;
         }
         if (id == R.id.action_search) {
-            //Todo Busqueda
-            Log.d("TODO", "onOptionsItemSelected: Busqueda TODO");
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private List<Category> loadData(String jsonResponse) { //TODO cargar id Restaurant
+    private List<Category> loadData(String jsonResponse) {
         List<Category> categoryList = new ArrayList<Category>();
 
         /*
@@ -138,6 +140,18 @@ public class MenuActivity extends AppCompatActivity implements justOrderApiInter
         for (int i = 0; i < categories.length(); i++) {
             try {
                 categoryList.add(new Category(categories.getJSONObject(i)));
+
+                //BEGIN GET ALL ARTICLES
+                ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
+
+                for(Category category : categoryList){
+                    for(Subcategory subcategory : category.getSubcategories()){
+                        for(Article article : subcategory.getArticleList()){
+                            shoppingCart.addArticleToTotalArticles(article);
+                        }
+                    }
+                }
+                //END GET ALL ARTICLES
             } catch (JSONException e) {
                 e.printStackTrace();
             }

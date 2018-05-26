@@ -10,18 +10,6 @@
         android:id="@+id/tool_bar"
         layout="@layout/toolbar_menu" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/bnGoToCart"
-        android:layout_width="56dp"
-        android:layout_height="54dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        app:backgroundTint="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_cart_white_48dp" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
