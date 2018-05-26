@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -47,6 +48,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             public void onClick(View v) {
                 ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
                 shoppingCart.addArticle(article);
+                Toast.makeText(v.getContext(), article.getName()+" añadido. Cantidad: "+shoppingCart.getQuantity(article), Toast.LENGTH_SHORT).show();
             }
         });
     }

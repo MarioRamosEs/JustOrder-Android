@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -68,6 +67,38 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
                 startActivity(intent);
             }
         });
+
+        Button btnPay = findViewById(R.id.btnPay);
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paySelectedItems();
+            }
+        });
+    }
+
+    private void paySelectedItems() {
+        Intent intent = new Intent(this, PayActivity.class);
+        intent.putExtra("restaurantId", restaurantId);
+        intent.putExtra("tableId", tableId);
+        intent.putExtra("ordersToPay", getSelectedOrders());
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            finish();
+            startActivity(getIntent());
+        }
+    }
+
+    private ArrayList<Order> getSelectedOrders() {
+        ArrayList<Order> selectedOrders = new ArrayList<>();
+        for (Order order : orderList) {
+            if (order.isSelectedToPay) selectedOrders.add(order);
+        }
+        return selectedOrders;
     }
 
     private void updateOrderList(JSONArray jsonArray) {
@@ -83,11 +114,21 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
 
     private void updateRecyclerView() {
         recyclerView = findViewById(R.id.rvOrders);
-        ordersAdapter = new OrdersAdapter(orderList);
+        ordersAdapter = new OrdersAdapter(orderList, this);
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(rLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(ordersAdapter);
+
+        ordersAdapter.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = recyclerView.getChildAdapterPosition(v);
+                orderList.get(position).isSelectedToPay = !orderList.get(position).isSelectedToPay;
+                updateRecyclerView();
+                //Log.d("ordersAdapter", +position+"-"+orderList.get(position).isSelectedToPay);
+            }
+        });
     }
 
     @Override
@@ -124,16 +165,28 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
             JSONObject response = new JSONObject(jsonResponse);
             boolean success = response.getBoolean("success");
             if (!success) {             //Response failed
-                Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
             } else {                    //Response OK
                 justOrderApiConnectorClient.getJustOrderApiConnector().clearCallbackActivity();
                 updateOrderList(response.getJSONArray("tables"));
                 updateRecyclerView();
             }
-            Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {     //JSON couldn't be parsed or no connection to api server
             Log.d("GetTable_response", e.toString());
             Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void attemptPay_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

@@ -255,7 +255,7 @@ public class QrScanActivity extends AppCompatActivity implements BarcodeTracker.
 
     @Override
     public void onDetectedQrCode(Barcode barcode) {
-        Log.d("QR", "onDetectedQrCode: " +barcode.displayValue);
+        //Log.d("QR", "onDetectedQrCode: " +barcode.displayValue);
         try {
             JSONObject data = new JSONObject(barcode.displayValue);
             Intent intent = new Intent(this, TableActivity.class);

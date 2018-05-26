@@ -135,7 +135,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
                 Log.d("attemptLogin", "Login usuario " + user.getName());
                 goToMainActivity();
             }
-            Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {     //JSON couldn't be parsed or no connection to api server
             Log.d("attemptLogin", e.toString());
             Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
@@ -160,6 +159,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
 
     @Override
     public void attemptGetTable_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptPay_response(String jsonResponse) {
 
     }
 

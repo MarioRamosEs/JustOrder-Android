@@ -1,9 +1,14 @@
 package client.marpolex.com.justorder_android.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,9 +23,11 @@ import client.marpolex.com.justorder_android.R;
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHolder> {
     protected View.OnClickListener onClickListener;
     private List<Order> orderList;
+    private Context context;
 
-    public OrdersAdapter(List<Order> orderList) {
+    public OrdersAdapter(List<Order> orderList, Context context) {
         this.orderList = orderList;
+        this.context = context;
     }
 
     @Override
@@ -44,9 +51,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         holder.tvQuantity.setText(order.getQuantity() + "uds");
         holder.tvPasePrice.setText(String.format("%.2f", article.getBase_price())+"€");
 
-        if (!article.getImage().isEmpty())
-            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
+        holder.cbSelected.setOnCheckedChangeListener(null);
+        holder.cbSelected.setChecked(order.isSelectedToPay);
+
+        if (!article.getImage().isEmpty()) {
+            int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, context.getResources().getDisplayMetrics());
+            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).resize(px, px).centerCrop().into(holder.img);
+        }
     }
+
 
     @Override
     public int getItemCount() {
@@ -60,6 +73,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvName, tvStatus, tvPaid, tvOrderedBy, tvPvp, tvQuantity, tvPasePrice;
         public ImageView img;
+        public CheckBox cbSelected;
 
         public MyViewHolder(View view) {
             super(view);
@@ -71,6 +85,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
             img = view.findViewById(R.id.ivImg);
             tvQuantity = view.findViewById(R.id.tvQuantity);
             tvPasePrice = view.findViewById(R.id.tvBasePrice);
+            cbSelected = view.findViewById(R.id.cbSelected);
         }
     }
 }

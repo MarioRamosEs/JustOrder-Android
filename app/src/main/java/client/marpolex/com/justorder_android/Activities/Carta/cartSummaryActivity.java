@@ -68,25 +68,7 @@ public class cartSummaryActivity extends AppCompatActivity implements justOrderA
         getSupportActionBar().setTitle(R.string.cartSummary);
         //END TOOLBAR
 
-        //Obtencion de datos
-        shoppingCart = ShoppingCartClient.getShoppingCart();
-        //End obtencion de datos
-
-        //Recycler view
-        List<Article> articleList = new ArrayList<>();
-        articleList.addAll(shoppingCart.getShoppingMap().keySet());
-        summaryArticlesAdapter = new SummaryArticlesAdapter(articleList);
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(rLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(summaryArticlesAdapter);
-
-        TextView tvTotalPrice = (TextView) findViewById(R.id.tvTotalPrice);
-        float totalPrice = ShoppingCartClient.getShoppingCart().getTotalPrice();
-        tvTotalPrice.setText(getString(R.string.totalPrice)+" "+totalPrice+"€");
-        //End Recycler view
+        loadRecycler();
 
         //Boton aceptar pedido
         Button btnSendCommand = findViewById(R.id.btnSendCommand);
@@ -97,6 +79,28 @@ public class cartSummaryActivity extends AppCompatActivity implements justOrderA
             }
         });
         //End boton aceptar pedido
+    }
+
+    public void loadRecycler(){
+        //Obtencion de datos
+        shoppingCart = ShoppingCartClient.getShoppingCart();
+        //End obtencion de datos
+
+        //Recycler view
+        List<Article> articleList = new ArrayList<>();
+        articleList.addAll(shoppingCart.getShoppingMap().keySet());
+        summaryArticlesAdapter = new SummaryArticlesAdapter(articleList, this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(rLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(summaryArticlesAdapter);
+
+        TextView tvTotalPrice = findViewById(R.id.tvTotalPrice);
+        float totalPrice = ShoppingCartClient.getShoppingCart().getTotalPrice();
+        tvTotalPrice.setText("Total: "+String.format("%.2f", totalPrice)+"€");
+        //End Recycler view
     }
 
     private void attemptOrder() {
@@ -127,6 +131,11 @@ public class cartSummaryActivity extends AppCompatActivity implements justOrderA
 
     @Override
     public void attemptGetTable_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptPay_response(String jsonResponse) {
 
     }
 

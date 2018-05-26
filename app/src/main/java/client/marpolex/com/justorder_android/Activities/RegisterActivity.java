@@ -100,6 +100,11 @@ public class RegisterActivity extends AppCompatActivity implements OnClickListen
     }
 
     @Override
+    public void attemptPay_response(String jsonResponse) {
+
+    }
+
+    @Override
     public void attemptOrder_response(String jsonResponse) {
 
     }

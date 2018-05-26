@@ -46,6 +46,19 @@ public class ShoppingCart {
         Log.d(TAG, "Articulo " + article.getName() + " añadido. Cantidad: " + getQuantity(article));
     }
 
+    public void removeArticle(Article article){
+        //Miro si hay un articulo con el mismo id que el que me pasan.
+        Object[] obj = shoppingMap.keySet().toArray();
+        for (Object o : obj) {
+            Article articleTemp = (Article) o;
+            if (article.getId() == articleTemp.getId()) { //Si lo hay, lo borro
+                shoppingMap.remove(o);
+                Log.d(TAG, "Articulo " + article.getName() + " borrado");
+                return;
+            }
+        }
+    }
+
     public int getQuantity(Article article) {
         return shoppingMap.get(article);
     }

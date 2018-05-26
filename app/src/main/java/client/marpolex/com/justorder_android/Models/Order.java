@@ -3,7 +3,9 @@ package client.marpolex.com.justorder_android.Models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Order {
+import java.io.Serializable;
+
+public class Order implements Serializable {
 
     private int orderId;
     private int productId;
@@ -13,6 +15,7 @@ public class Order {
     private String userJustOrder;
     private boolean isWaiter;
     private Article product;
+    public boolean isSelectedToPay = true;
 
     public Order(JSONObject jsonObject) {
         try {
