@@ -68,7 +68,7 @@ public class RestaurantsFragment extends Fragment implements justOrderApiInterfa
     private void loadRestaurantsInRecycler() {
         //Recycler view
         recyclerView = (RecyclerView) myView.findViewById(R.id.recycler_view);
-        rAdapter = new RestaurantsAdapter(restaurants);
+        rAdapter = new RestaurantsAdapter(restaurants, getActivity().getApplicationContext());
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(rLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
