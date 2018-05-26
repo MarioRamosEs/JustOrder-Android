@@ -48,7 +48,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             public void onClick(View v) {
                 ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
                 shoppingCart.addArticle(article);
-                Toast.makeText(v.getContext(), article.getName()+" añadido. Cantidad: "+shoppingCart.getQuantity(article), Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), article.getName()+" añadido.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -50,6 +50,7 @@
         <activity android:name=".Activities.Carta.ArticleActivity" />
         <activity android:name=".Activities.Carta.cartSummaryActivity" />
         <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.Carta.SearchActivity" />
         <activity
             android:name=".Activities.TableActivity"
             android:label="@string/title_activity_main2"

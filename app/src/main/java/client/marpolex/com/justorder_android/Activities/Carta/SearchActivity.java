@@ -8,11 +8,16 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
+import java.security.AllPermission;
+import java.util.ArrayList;
 import java.util.List;
 
 import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
@@ -22,25 +27,25 @@ import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient
 import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
-public class SubcategoryActivity extends AppCompatActivity {
+import static android.content.ContentValues.TAG;
 
-    private ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
+public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArticlesAdapter aAdapter;
-    private Subcategory subcategory;
-    private List<Article> articles;
+    private ArrayList<Article> allArticles, articles;
     private Toolbar toolbar;
+    private EditText edtSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subcategory);
+        setContentView(R.layout.activity_search);
 
         //Obtencion de datos
-        Bundle b = getIntent().getExtras();
-        subcategory = (Subcategory) b.getSerializable("subcategory");
-        articles = subcategory.getArticleList();
+        allArticles = ShoppingCartClient.getShoppingCart().getAllArticles();
+        articles = new ArrayList<>();
+        articles.addAll(allArticles);
         //End obtencion de datos
 
         //TOOLBAR
@@ -48,7 +53,7 @@ public class SubcategoryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar); // Setting toolbar as the ActionBar with setSupportActionBar() call
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
-        getSupportActionBar().setTitle(subcategory.getName());
+        //getSupportActionBar().setTitle(subcategory.getName());
         //END TOOLBAR
 
         //Recycler view
@@ -64,7 +69,7 @@ public class SubcategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 long idArticle = aAdapter.getItemId(recyclerView.getChildAdapterPosition(v));
 
-                Intent i = new Intent(SubcategoryActivity.this, ArticleActivity.class);
+                Intent i = new Intent(SearchActivity.this, ArticleActivity.class);
 
                 Article article = articles.get((int) idArticle);
                 Bundle args = new Bundle();
@@ -75,12 +80,53 @@ public class SubcategoryActivity extends AppCompatActivity {
             }
         });
         //End Recycler view
+
+        edtSearch = findViewById(R.id.edtSearch);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                getAllArticlesFilter(edtSearch.getText().toString());
+                //Log.d("onTextChanged", articles.size()+"");
+                aAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    public void getAllArticlesFilter(String name) {
+        articles.clear();
+
+        //Log.d(TAG, "getAllArticlesFilter: "+name);
+        if(name == ""){
+            Log.d(TAG, "getAllArticlesFilter: returneo aqui");
+            articles.addAll(allArticles);
+            return;
+        }
+
+        Log.d(TAG, "getAllArticlesFilter: "+allArticles.hashCode());
+        Log.d(TAG, "getAllArticlesFilter: "+allArticles.size());
+
+        for(Article article : allArticles){
+            Log.d("for Articles", article.getName().toLowerCase()+" - "+name.toLowerCase());
+            if(article.getName().toLowerCase().contains(name.toLowerCase())) articles.add(article);
+        }
+
+        Log.d("filtedArticles", articles.size()+"");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_toolbar_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_search, menu);
         return true;
     }
 
@@ -93,12 +139,7 @@ public class SubcategoryActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_cart) {
-            Intent intent = new Intent(SubcategoryActivity.this, cartSummaryActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        if (id == R.id.action_search) {
-            Intent intent = new Intent(this, SearchActivity.class);
+            Intent intent = new Intent(SearchActivity.this, cartSummaryActivity.class);
             startActivity(intent);
             return true;
         }

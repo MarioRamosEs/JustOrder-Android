@@ -94,8 +94,8 @@ public class CategoryActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_search) {
-            //Todo Busqueda
-            Log.d("TODO", "onOptionsItemSelected: Busqueda TODO");
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
             return true;
         }
 
