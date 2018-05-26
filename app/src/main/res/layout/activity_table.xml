@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="client.marpolex.com.justorder_android.Activities.TableActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_table" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="bottom|center">
+
+        <Button
+            android:id="@+id/btnPay"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:paddingBottom="0dp"
+            android:text="Pagar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+            android:textSize="18sp"
+            app:layout_anchor="@+id/include"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumMesa"
+            tools:layout_editor_absoluteY="491dp" />
+
+        <Button
+            android:id="@+id/btnNewOrder"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Nuevo pedido"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+            android:textSize="18sp"
+            app:layout_anchor="@+id/include"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNumMesa"
+            tools:layout_editor_absoluteY="604dp" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

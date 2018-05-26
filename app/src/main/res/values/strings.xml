@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Just Order</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">email</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Inicio de sesión</string>
+    <string name="action_sign_in_short">Inicio de sesión</string>
+    <string name="error_invalid_email">Email invalido</string>
+    <string name="error_invalid_password">Contraseña demasiado corta</string>
+    <string name="error_incorrect_password">Contraseña incorrecta</string>
+    <string name="error_field_required">Campo requerido</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions." </string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="tus_restaurantes">Tus Restaurantes</string>
+    <string name="login">Inicio de Sesión</string>
+    <string name="my_restaurants">Mis Restaurantes</string>
+    <string name="my_profile">Mi perfil</string>
+    <string name="scan_table">Escanear mesa</string>
+    <string name="settings">Ajustes</string>
+    <string name="share_menu">Compartir</string>
+    <string name="invite_a_friend">Invita a un amigo</string>
+    <string name="book_a_table">Reserva mesa</string>
+    <string name="your_orders">Tus pedidos</string>
+    <string name="menu">Carta</string>
+    <string name="edit_profile">Editar Perfil</string>
+    <string name="yersold">años</string>
+    <string name="expPoints">puntos de experiencia</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="cartSummary">Resumen del pedido</string>
+    <string name="totalPrice">Precio total:</string>
+    <string name="Undefined">Indefinido</string>
+    <string name="men">Hombre</string>
+    <string name="women">Mujer</string>
+    <string name="gender">Género:</string>
+    <string name="register">Registro</string>
+    <string name="BirthDateInput">Fecha de nacimiento (YYYY-MM-DD)</string>
+    <string name="name">Nombre</string>
+    <string name="title_activity_main2">TableActivity</string>
+    <string name="table">Pedidos mesa </string>
+    <string name="help">Ayuda</string>
+</resources>
