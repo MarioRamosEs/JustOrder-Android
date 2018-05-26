@@ -1,4 +1,4 @@
-package client.marpolex.com.justorder_android;
+package client.marpolex.com.justorder_android.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,6 +16,7 @@ import client.marpolex.com.justorder_android.API.justOrderApiInterface;
 import client.marpolex.com.justorder_android.Activities.TableActivity;
 import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
+import client.marpolex.com.justorder_android.R;
 
 public class PayActivity extends AppCompatActivity implements justOrderApiInterface {
 

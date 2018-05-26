@@ -1,7 +1,9 @@
 package client.marpolex.com.justorder_android.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +23,11 @@ import client.marpolex.com.justorder_android.R;
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHolder> {
     protected View.OnClickListener onClickListener;
     private List<Order> orderList;
+    private Context context;
 
-    public OrdersAdapter(List<Order> orderList) {
+    public OrdersAdapter(List<Order> orderList, Context context) {
         this.orderList = orderList;
+        this.context = context;
     }
 
     @Override
@@ -50,8 +54,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.MyViewHold
         holder.cbSelected.setOnCheckedChangeListener(null);
         holder.cbSelected.setChecked(order.isSelectedToPay);
 
-        if (!article.getImage().isEmpty())
-            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
+        if (!article.getImage().isEmpty()) {
+            int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 55, context.getResources().getDisplayMetrics());
+            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).resize(px, px).centerCrop().into(holder.img);
+        }
     }
 
 

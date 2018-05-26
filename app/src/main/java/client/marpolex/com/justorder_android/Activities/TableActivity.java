@@ -1,6 +1,5 @@
 package client.marpolex.com.justorder_android.Activities;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ import client.marpolex.com.justorder_android.Activities.Carta.MenuActivity;
 import client.marpolex.com.justorder_android.Adapters.OrdersAdapter;
 import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
-import client.marpolex.com.justorder_android.PayActivity;
 import client.marpolex.com.justorder_android.R;
 
 public class TableActivity extends AppCompatActivity implements justOrderApiInterface {
@@ -116,7 +114,7 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
 
     private void updateRecyclerView() {
         recyclerView = findViewById(R.id.rvOrders);
-        ordersAdapter = new OrdersAdapter(orderList);
+        ordersAdapter = new OrdersAdapter(orderList, this);
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(rLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -167,13 +165,13 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
             JSONObject response = new JSONObject(jsonResponse);
             boolean success = response.getBoolean("success");
             if (!success) {             //Response failed
-                Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
             } else {                    //Response OK
                 justOrderApiConnectorClient.getJustOrderApiConnector().clearCallbackActivity();
                 updateOrderList(response.getJSONArray("tables"));
                 updateRecyclerView();
             }
-            Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {     //JSON couldn't be parsed or no connection to api server
             Log.d("GetTable_response", e.toString());
             Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();

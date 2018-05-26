@@ -55,7 +55,7 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.QrScanActivity" />
-        <activity android:name=".PayActivity"></activity>
+        <activity android:name=".Activities.PayActivity"></activity>
     </application>
 
 </manifest>
