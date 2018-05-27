@@ -124,7 +124,7 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
             @Override
             public void onClick(View v) {
                 int position = recyclerView.getChildAdapterPosition(v);
-                orderList.get(position).isSelectedToPay = !orderList.get(position).isSelectedToPay;
+                orderList.get(position).changeIsSelectedToPay();
                 updateRecyclerView();
                 //Log.d("ordersAdapter", +position+"-"+orderList.get(position).isSelectedToPay);
             }

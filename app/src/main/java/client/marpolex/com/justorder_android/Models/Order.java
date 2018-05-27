@@ -26,6 +26,8 @@ public class Order implements Serializable {
             quantity = jsonObject.getInt("quantity");
             isWaiter = jsonObject.getBoolean("is_waiter");
 
+            if(paid == 1) isSelectedToPay = false;
+
             if (jsonObject.isNull("user_justorder"))
                 userJustOrder = "";
             else
@@ -44,6 +46,14 @@ public class Order implements Serializable {
 
     public int getProductId() {
         return productId;
+    }
+
+    public void changeIsSelectedToPay(){
+        if(paid == 1){
+            isSelectedToPay = false;
+            return;
+        }
+        isSelectedToPay = !isSelectedToPay;
     }
 
     public String getPaid() {
