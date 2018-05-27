@@ -14,6 +14,7 @@ public class Rating implements Serializable{
     private String createdAt;
     private String name;
     private String surnames;
+    private String imgUrl;
 
     Rating(JSONObject jsonObject, long id){
         this.id = id;
@@ -25,8 +26,41 @@ public class Rating implements Serializable{
             JSONObject user = jsonObject.getJSONObject("user");
             name = user.getString("name");
             surnames = user.getString("surnames");
+            imgUrl = user.getString("img");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public int getIdRating() {
+        return idRating;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurnames() {
+        return surnames;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
     }
 }

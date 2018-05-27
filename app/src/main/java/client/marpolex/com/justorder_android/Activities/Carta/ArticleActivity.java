@@ -47,6 +47,7 @@ public class ArticleActivity extends AppCompatActivity {
         //END TOOLBAR
 
         loadArticleInfo();
+        loadRatings();
     }
 
     private void loadArticleInfo() {
@@ -71,6 +72,9 @@ public class ArticleActivity extends AppCompatActivity {
             Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).resize(screenSize.x, (int)px).into(imageView); //.centerCrop()
 
         ratingBar.setRating((float) article.getRating());
+    }
+    private void loadRatings(){
+
     }
 
     @Override
