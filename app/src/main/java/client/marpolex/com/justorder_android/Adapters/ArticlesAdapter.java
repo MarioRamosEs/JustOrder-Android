@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         holder.name.setText(article.getName());
         holder.description.setText(article.getDescription());
         holder.pvp.setText(String.format("%.2f", article.getBase_price()) + "€");
+        holder.ratingBar.setRating((float) article.getRating());
 
         if(! article.getImage().isEmpty())
             Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(holder.img);
@@ -70,6 +72,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, description, pvp;
         public ImageView img, addToCart;
+        public RatingBar ratingBar;
 
         public MyViewHolder(View view) {
             super(view);
@@ -78,6 +81,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             pvp = (TextView) view.findViewById(R.id.tvPVP);
             img = (ImageView) view.findViewById(R.id.ivImg);
             addToCart = (ImageView) view.findViewById(R.id.ivAddToCart);
+            ratingBar = view.findViewById(R.id.ratingBar);
         }
     }
 }

@@ -22,6 +22,7 @@ public class Rating implements Serializable{
             idRating = jsonObject.getInt("id");
             rating = jsonObject.getDouble("rating");
             createdAt = jsonObject.getString("created_at");
+            comment = jsonObject.getString("comment");
 
             JSONObject user = jsonObject.getJSONObject("user");
             name = user.getString("name");

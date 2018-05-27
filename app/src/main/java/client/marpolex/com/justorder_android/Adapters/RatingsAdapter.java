@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ public class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.MyViewHo
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.article_row, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.rating_row, parent, false);
         itemView.setOnClickListener(onClickListener);
         return new MyViewHolder(itemView);
     }
@@ -39,6 +40,7 @@ public class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.MyViewHo
 
         holder.name.setText(rating.getName() + " " + rating.getSurnames());
         holder.description.setText(rating.getComment());
+        holder.ratingBar.setRating((float) rating.getRating());
 
         if (!rating.getImgUrl().isEmpty())
             Picasso.get().load(rating.getImgUrl()).placeholder(R.drawable.logo).into(holder.img);
@@ -61,12 +63,14 @@ public class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, description;
         public ImageView img;
+        public RatingBar ratingBar;
 
         public MyViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.tvName);
             description = view.findViewById(R.id.tvDescription);
             img = view.findViewById(R.id.ivImg);
+            ratingBar = view.findViewById(R.id.ratingBar);
         }
     }
 }

@@ -43,4 +43,6 @@
     <string name="title_activity_main2">TableActivity</string>
     <string name="table">Pedidos mesa </string>
     <string name="help">Ayuda</string>
+    <string name="Send">Enviar</string>
+    <string name="WriteARating">Escribir una valoracion</string>
 </resources>

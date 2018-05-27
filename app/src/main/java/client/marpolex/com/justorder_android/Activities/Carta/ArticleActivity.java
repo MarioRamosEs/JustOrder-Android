@@ -6,17 +6,23 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
+import client.marpolex.com.justorder_android.Adapters.RatingsAdapter;
 import client.marpolex.com.justorder_android.Models.Article;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
@@ -26,7 +32,10 @@ public class ArticleActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Article article;
-    private ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
+    //private ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
+    private RecyclerView recyclerView;
+    private RatingsAdapter rAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +67,7 @@ public class ArticleActivity extends AppCompatActivity {
 
         name.setText(article.getName());
         description.setText(article.getDescription());
+        ratingBar.setRating((float) article.getRating());
 
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
@@ -74,7 +84,14 @@ public class ArticleActivity extends AppCompatActivity {
         ratingBar.setRating((float) article.getRating());
     }
     private void loadRatings(){
-
+        //Recycler view
+        recyclerView = findViewById(R.id.recyclerView);
+        rAdapter = new RatingsAdapter(article.getRatingsList());
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(rLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(rAdapter);
+        //End Recycler view
     }
 
     @Override

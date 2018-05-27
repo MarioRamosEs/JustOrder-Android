@@ -88,6 +88,10 @@ public class Article implements Serializable {
         return recyclerId;
     }
 
+    public ArrayList<Rating> getRatingsList() {
+        return ratingsList;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
