@@ -11,10 +11,6 @@ import java.util.List;
 import client.marpolex.com.justorder_android.Models.Subcategory;
 import client.marpolex.com.justorder_android.R;
 
-/**
- * Created by mario on 28/03/2018.
- */
-
 public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdapter.MyViewHolder> {
     protected View.OnClickListener onClickListener;
     private List<Subcategory> subcategoryList;
@@ -25,7 +21,7 @@ public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdap
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_row, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.subcategory_row, parent, false);
         itemView.setOnClickListener(onClickListener);
         return new MyViewHolder(itemView);
     }
