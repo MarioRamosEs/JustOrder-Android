@@ -4,7 +4,10 @@ package client.marpolex.com.justorder_android.Models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Rating {
+import java.io.Serializable;
+
+public class Rating implements Serializable{
+    long id;
     private int idRating;
     private double rating;
     private String comment;
@@ -12,7 +15,8 @@ public class Rating {
     private String name;
     private String surnames;
 
-    Rating(JSONObject jsonObject){
+    Rating(JSONObject jsonObject, long id){
+        this.id = id;
         try {
             idRating = jsonObject.getInt("id");
             rating = jsonObject.getDouble("rating");

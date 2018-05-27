@@ -1,13 +1,11 @@
 package client.marpolex.com.justorder_android.Models;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-
-/**
- * Created by mario on 08/04/2018.
- */
+import java.util.ArrayList;
 
 public class Article implements Serializable {
     private long id;
@@ -23,8 +21,10 @@ public class Article implements Serializable {
     private String created_at;
     private String updated_at;
     private double rating;
+    private ArrayList<Rating> ratingsList;
 
     public Article(JSONObject jsonObject, int recyclerId) {
+        ratingsList = new ArrayList<>();
         this.recyclerId = recyclerId;
         try {
             id = jsonObject.getInt("id");
@@ -49,6 +49,12 @@ public class Article implements Serializable {
                 else rating = 0;
             } else rating = 0;
 
+            //Ratings
+            JSONArray jsonRatings = jsonObject.getJSONArray("ratings");
+            for (int i = 0; i < jsonRatings.length(); i++) {
+                ratingsList.add(new Rating(jsonRatings.getJSONObject(i), i));
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -66,36 +72,12 @@ public class Article implements Serializable {
         return description;
     }
 
-    public String getRef_code() {
-        return ref_code;
-    }
-
     public double getBase_price() {
         return base_price;
     }
 
-    public String getTax_type() {
-        return tax_type;
-    }
-
     public String getImage() {
         return image;
-    }
-
-    public String getProduct_type() {
-        return product_type;
-    }
-
-    public String getProduct_subtype() {
-        return product_subtype;
-    }
-
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public String getUpdated_at() {
-        return updated_at;
     }
 
     public double getRating() {

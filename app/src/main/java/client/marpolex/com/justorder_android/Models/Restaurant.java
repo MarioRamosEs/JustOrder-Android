@@ -40,8 +40,9 @@ public class Restaurant extends SugarRecord {
             if (jsonObject.isNull("rating")) rating = 0;
             else rating = (float) jsonObject.getDouble("rating");
 
-            ratingsJson = jsonObject.getJSONArray("ratings").toString();
-            loadRatingList();
+            //TODO RATING RESTAURANTE
+            //ratingsJson = jsonObject.getJSONArray("ratings").toString();
+            //loadRatingList();
         } catch (JSONException e) {
             Log.d("Restaurant", "Restaurant: peto aqui");
             e.printStackTrace();
@@ -101,7 +102,7 @@ public class Restaurant extends SugarRecord {
             try {
                 JSONArray jsonRatings = new JSONArray(ratingsJson);
                 for (int i = 0; i < jsonRatings.length(); i++) {
-                    ratings.add(new Rating(jsonRatings.getJSONObject(i)));
+                    ratings.add(new Rating(jsonRatings.getJSONObject(i),i));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
