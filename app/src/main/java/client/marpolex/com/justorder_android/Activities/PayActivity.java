@@ -5,9 +5,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +22,7 @@ import client.marpolex.com.justorder_android.API.justOrderApiInterface;
 import client.marpolex.com.justorder_android.Activities.TableActivity;
 import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
+import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
 public class PayActivity extends AppCompatActivity implements justOrderApiInterface {
@@ -37,11 +44,7 @@ public class PayActivity extends AppCompatActivity implements justOrderApiInterf
         restaurantId = getIntent().getIntExtra("restaurantId", -1);
         orderList = (ArrayList<Order>) getIntent().getSerializableExtra("ordersToPay");
 
-        //Llamada a la API
-        justOrderApiConnectorClient.getJustOrderApiConnector().attemptPay(restaurantId, tableId, orderList, this);
-
         dialogLoding = ProgressDialog.show(this, "", "Cargando, por favor espere...", true);
-
         tvStatus = findViewById(R.id.tvStatus);
         tvStatus.setText("");
         btnReturn = findViewById(R.id.btnReturn);
@@ -51,7 +54,10 @@ public class PayActivity extends AppCompatActivity implements justOrderApiInterf
                 returnToTable();
             }
         });
-        btnReturn.setEnabled(false);
+        //btnReturn.setEnabled(false);
+
+        //Llamada a la API
+        justOrderApiConnectorClient.getJustOrderApiConnector().attemptPay(restaurantId, tableId, orderToPayToString(), this);
     }
 
     private void returnToTable() {
@@ -69,6 +75,30 @@ public class PayActivity extends AppCompatActivity implements justOrderApiInterf
     @Override
     public void attemptPay_response(String jsonResponse) {
         //TODO
+        Log.d("attemptPay_response", jsonResponse);
+
+        try {
+            JSONObject response = new JSONObject(jsonResponse);
+            boolean success = response.getBoolean("success");
+            if (!success) {             //Login failed
+                Toast.makeText(this.getApplicationContext(), response.getString("message"), Toast.LENGTH_SHORT).show();
+                tvStatus.setText("Pago fallido");
+                unLockInterface();
+            } else {                    //Username and password OK
+                justOrderApiConnectorClient.getJustOrderApiConnector().clearCallbackActivity();
+                tvStatus.setText("Pago aceptado");
+                unLockInterface();
+
+            }
+        } catch (JSONException e) {     //JSON couldn't be parsed or no connection to api server
+            Log.d("attemptLogin", e.toString());
+            Toast.makeText(this.getApplicationContext(), "Error al conectar con la API", Toast.LENGTH_SHORT).show();
+            unLockInterface();
+        }
+    }
+
+    private void unLockInterface() {
+        dialogLoding.hide();
     }
 
 
@@ -102,5 +132,19 @@ public class PayActivity extends AppCompatActivity implements justOrderApiInterf
 
     }
 
+    private String orderToPayToString(){
+        JSONArray items = new JSONArray();
+        for(Order order : orderList){
+            JSONObject temp = new JSONObject();
+            try {
+                temp.put("content_id", order.getProductId());
+                temp.put("quantity", order.getQuantity());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            items.put(temp);
+        }
 
+        return items.toString();
+    }
 }

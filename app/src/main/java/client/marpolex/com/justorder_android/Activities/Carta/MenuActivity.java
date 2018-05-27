@@ -38,7 +38,6 @@ public class MenuActivity extends AppCompatActivity implements justOrderApiInter
     List<Category> categoryList;
     int idRestaurant, idTable;
     private Toolbar toolbar;
-    private Restaurant restaurant;
     private static justOrderApiConnector apiConnector;
 
     @Override
@@ -50,7 +49,7 @@ public class MenuActivity extends AppCompatActivity implements justOrderApiInter
         idRestaurant = getIntent().getIntExtra("restaurantId", -1);
         idTable = getIntent().getIntExtra("tableId", -1);
         Log.d("idRestaurant", String.valueOf(idRestaurant));
-        restaurant = Restaurant.find(Restaurant.class, "id_restaurant = ?", idRestaurant+"").get(0);
+        //restaurant = Restaurant.find(Restaurant.class, "id_restaurant = ?", idRestaurant+"").get(0);
 
         //Establecer el idRestaurant y idTable en ShoppingCart
         ShoppingCartClient.getShoppingCart().setRestaurantId(idRestaurant);
@@ -61,7 +60,7 @@ public class MenuActivity extends AppCompatActivity implements justOrderApiInter
         setSupportActionBar(toolbar); // Setting toolbar as the ActionBar with setSupportActionBar() call
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setSubtitleTextColor(Color.WHITE);
-        getSupportActionBar().setTitle(restaurant.getName());
+        getSupportActionBar().setTitle("Carta");
         //END TOOLBAR
 
         attemptGetCart();

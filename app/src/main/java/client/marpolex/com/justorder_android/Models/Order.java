@@ -20,7 +20,7 @@ public class Order implements Serializable {
     public Order(JSONObject jsonObject) {
         try {
             orderId = jsonObject.getInt("id");
-            //productId = jsonObject.getInt("id_product");
+            productId = jsonObject.getInt("id_product");
             paid = jsonObject.getInt("paid");
             status = jsonObject.getString("status");
             quantity = jsonObject.getInt("quantity");

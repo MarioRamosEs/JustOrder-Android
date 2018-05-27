@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     tools:context="client.marpolex.com.justorder_android.Activities.PayActivity">
 
+    <Button
+        android:id="@+id/btnReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/google_button"
+        android:text="Volver"
+        android:textColor="@color/primary_text"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -17,6 +34,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -29,7 +47,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="40dp"
-            android:padding="30dp"
+            android:padding="50dp"
             app:srcCompat="@drawable/logoblanco" />
 
         <TextView
@@ -45,16 +63,6 @@
             android:textColor="@color/white"
             android:textSize="36sp" />
 
-        <Button
-            android:id="@+id/btnReturn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/google_button"
-            android:text="Volver"
-            android:textColor="@color/primary_text" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -66,10 +66,10 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
         this.doInBackground("attemptGetTable", restaurantId + "", tableId + "", shoppingCart.cartSummaryToJson());
     }
 
-    public void attemptPay(int restaurantId, int tableId, List<Order> orderList, justOrderApiInterface activity) {
+    public void attemptPay(int restaurantId, int tableId, String orderToPay, justOrderApiInterface activity) {
         this.callBackActivity = activity;
         ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
-        this.doInBackground("attemptGetTable", restaurantId + "", tableId + "", shoppingCart.cartSummaryToJson());
+        this.doInBackground("attemptPay", restaurantId + "", tableId + "", orderToPay);
     }
 
     @Override
@@ -123,7 +123,10 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     requestMethod = "GET";
                     break;
                 case "attemptPay":
-                    Log.d(TAG, "doInBackground: TODO"); //todo
+                    apiUrl = new URL(baseUrl + "/api/sites/" + params[1] + "/tables/" + params[2]+"/pay");
+                    request.put("contents", new JSONArray(params[3]));
+                    Log.d("REQUEST TO API", request.toString());
+                    requestMethod = "POST";
                     break;
             }
 

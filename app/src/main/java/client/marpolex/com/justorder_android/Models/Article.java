@@ -43,8 +43,12 @@ public class Article implements Serializable {
             if (jsonObject.isNull("image")) image = "";
             else image = jsonObject.getString("image");
 
-            if (jsonObject.has("rating")) rating = jsonObject.getDouble("rating");
-            else rating = 0;
+            if (jsonObject.has("rating")) {
+                if(!jsonObject.isNull("rating"))
+                    rating = jsonObject.getDouble("rating");
+                else rating = 0;
+            } else rating = 0;
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
