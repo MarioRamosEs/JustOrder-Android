@@ -68,7 +68,6 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
 
     public void attemptPay(int restaurantId, int tableId, String orderToPay, justOrderApiInterface activity) {
         this.callBackActivity = activity;
-        ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
         this.doInBackground("attemptPay", restaurantId + "", tableId + "", orderToPay);
     }
 

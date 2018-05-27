@@ -137,7 +137,7 @@ public class PayActivity extends AppCompatActivity implements justOrderApiInterf
         for(Order order : orderList){
             JSONObject temp = new JSONObject();
             try {
-                temp.put("content_id", order.getProductId());
+                temp.put("content_id", order.getOrderId());
                 temp.put("quantity", order.getQuantity());
             } catch (JSONException e) {
                 e.printStackTrace();
