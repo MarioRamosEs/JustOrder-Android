@@ -38,17 +38,6 @@ public class RestaurantFragment extends Fragment {
     public void onCreate() {
         final long idRestaurant = getArguments().getLong("idRestaurant");
         loadRestaurantInfo(idRestaurant);
-
-        Button menu = (Button) myView.findViewById(R.id.btnMenu);
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShoppingCartClient.resetShoppingCart();
-                Intent intent = new Intent(getActivity().getApplicationContext(), MenuActivity.class);
-                intent.putExtra("restaurantId", (int) idRestaurant);
-                startActivity(intent);
-            }
-        });
     }
 
     private void loadRestaurantInfo(long idRestaurant) {
