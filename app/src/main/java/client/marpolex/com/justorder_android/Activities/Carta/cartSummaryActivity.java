@@ -140,6 +140,16 @@ public class cartSummaryActivity extends AppCompatActivity implements justOrderA
     }
 
     @Override
+    public void sendRatingProduct_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void sendRatingRestaurant_response(String jsonResponse) {
+
+    }
+
+    @Override
     public void attemptOrder_response(String jsonResponse) {
         Log.d("attemptOrder_response: ", jsonResponse);
 

@@ -1,5 +1,6 @@
 package client.marpolex.com.justorder_android.Activities.Carta;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -15,23 +16,38 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import client.marpolex.com.justorder_android.API.justOrderApiInterface;
+import client.marpolex.com.justorder_android.Activities.LoginActivity;
 import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
 import client.marpolex.com.justorder_android.Adapters.RatingsAdapter;
 import client.marpolex.com.justorder_android.Models.Article;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
+import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
+import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
-public class ArticleActivity extends AppCompatActivity {
+public class ArticleActivity extends AppCompatActivity implements justOrderApiInterface {
 
     private Toolbar toolbar;
     private Article article;
+    private Button btnSendReview;
+    private RatingBar ratingBarUser;
+    private EditText edtReview;
+    ProgressDialog dialogLoding;
     //private ShoppingCart shoppingCart = ShoppingCartClient.getShoppingCart();
     private RecyclerView recyclerView;
     private RatingsAdapter rAdapter;
@@ -57,6 +73,36 @@ public class ArticleActivity extends AppCompatActivity {
 
         loadArticleInfo();
         loadRatings();
+
+        //Elementos enviar comentarios
+        ratingBarUser = findViewById(R.id.ratingBarUser);
+        edtReview = findViewById(R.id.edtReview);
+        btnSendReview = findViewById(R.id.btnSendReview);
+        btnSendReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendRating();
+            }
+        });
+    }
+
+    private void sendRating() {
+        lockInterface();
+        int restaurantId = ShoppingCartClient.getShoppingCart().getRestaurantId();
+        int articleId = (int) article.getId();
+        String comment = edtReview.getText().toString();
+        float rating = ratingBarUser.getRating();
+
+        justOrderApiConnectorClient.getJustOrderApiConnector().sendRatingProduct(restaurantId, articleId, comment, rating, this);
+    }
+
+    private void lockInterface() {
+        dialogLoding = ProgressDialog.show(this, "", "Cargando, por favor espere...", true);
+        dialogLoding.show();
+    }
+
+    private void unLockInterface() {
+        dialogLoding.hide();
     }
 
     private void loadArticleInfo() {
@@ -121,5 +167,67 @@ public class ArticleActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void sendRatingProduct_response(String jsonResponse) {
+        try {
+            JSONObject response = new JSONObject(jsonResponse);
+            boolean success = response.getBoolean("success");
+            if (!success) {             //Comment failed
+                Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
+                unLockInterface();
+            } else {                    //Username and password OK
+                justOrderApiConnectorClient.getJustOrderApiConnector().clearCallbackActivity();
+                Toast.makeText(this, "Comentario enviado correctamente.", Toast.LENGTH_SHORT).show();
+                unLockInterface();
+            }
+        } catch (JSONException e) {     //JSON couldn't be parsed or no connection to api server
+            Log.d("attemptLogin", e.toString());
+            Toast.makeText(this, "Error al conectar con la API", Toast.LENGTH_SHORT).show();
+            unLockInterface();
+        }
+    }
+
+
+
+    @Override
+    public void attemptLogin_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptRegister_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptOrder_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void getRestaurants_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void getCatalog_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptGetTable_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void attemptPay_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void sendRatingRestaurant_response(String jsonResponse) {
+
     }
 }

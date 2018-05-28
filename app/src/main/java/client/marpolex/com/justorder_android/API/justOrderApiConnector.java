@@ -16,9 +16,7 @@ import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
-import client.marpolex.com.justorder_android.Models.Order;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 
@@ -69,6 +67,16 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
     public void attemptPay(int restaurantId, int tableId, String orderToPay, justOrderApiInterface activity) {
         this.callBackActivity = activity;
         this.doInBackground("attemptPay", restaurantId + "", tableId + "", orderToPay);
+    }
+
+    public void sendRatingProduct(int restaurantId, int productId, String comment, float rating, justOrderApiInterface activity) {
+        this.callBackActivity = activity;
+        this.doInBackground("sendRatingProduct", restaurantId + "", productId + "", comment, String.valueOf(rating));
+    }
+
+    public void sendRatingRestaurant(int restaurantId, String comment, float rating, justOrderApiInterface activity) {
+        this.callBackActivity = activity;
+        this.doInBackground("sendRatingRestaurant", restaurantId + "", comment, String.valueOf(rating));
     }
 
     @Override
@@ -122,9 +130,23 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     requestMethod = "GET";
                     break;
                 case "attemptPay":
-                    apiUrl = new URL(baseUrl + "/api/sites/" + params[1] + "/tables/" + params[2]+"/pay");
+                    apiUrl = new URL(baseUrl + "/api/sites/" + params[1] + "/tables/" + params[2] + "/pay");
                     request.put("contents", new JSONArray(params[3]));
-                    Log.d("REQUEST TO API", request.toString());
+                    //Log.d("REQUEST TO API", request.toString());
+                    requestMethod = "POST";
+                    break;
+                case "sendRatingProduct":
+                    apiUrl = new URL(baseUrl + "/api/catalog/" + params[1] + "/articles/" + params[2]);
+                    request.put("comment", params[3]);
+                    request.put("rating", params[4]);
+                    Log.d("sendRatingProduct", request.toString());
+                    requestMethod = "POST";
+                    break;
+                case "sendRatingResaurant":
+                    apiUrl = new URL(baseUrl + "/api/catalog/" + params[1]); //TODO
+                    request.put("comment", params[2]);
+                    request.put("rating", params[3]);
+                    Log.d("sendRatingProduct", request.toString());
                     requestMethod = "POST";
                     break;
             }
@@ -195,6 +217,12 @@ public class justOrderApiConnector extends AsyncTask<String, Void, JSONObject> {
                     break;
                 case "attemptPay":
                     callBackActivity.attemptPay_response(buffer.toString());
+                    break;
+                case "sendRatingProduct":
+                    callBackActivity.sendRatingProduct_response(buffer.toString());
+                    break;
+                case "sendRatingResaurant":
+                    callBackActivity.sendRatingRestaurant_response(buffer.toString());
                     break;
             }
 

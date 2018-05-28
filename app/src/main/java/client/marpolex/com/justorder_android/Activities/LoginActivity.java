@@ -168,6 +168,16 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener,
     }
 
     @Override
+    public void sendRatingProduct_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void sendRatingRestaurant_response(String jsonResponse) {
+
+    }
+
+    @Override
     public void attemptOrder_response(String jsonResponse) {
 
     }

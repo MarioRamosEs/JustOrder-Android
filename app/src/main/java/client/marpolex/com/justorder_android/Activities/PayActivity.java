@@ -97,6 +97,16 @@ public class PayActivity extends AppCompatActivity implements justOrderApiInterf
         }
     }
 
+    @Override
+    public void sendRatingProduct_response(String jsonResponse) {
+
+    }
+
+    @Override
+    public void sendRatingRestaurant_response(String jsonResponse) {
+
+    }
+
     private void unLockInterface() {
         dialogLoding.hide();
     }

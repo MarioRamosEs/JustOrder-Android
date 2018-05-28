@@ -8,4 +8,6 @@ public interface justOrderApiInterface {
     void getCatalog_response(String jsonResponse);
     void attemptGetTable_response(String jsonResponse);
     void attemptPay_response(String jsonResponse);
+    void sendRatingProduct_response(String jsonResponse);
+    void sendRatingRestaurant_response(String jsonResponse);
 }
