@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="client.marpolex.com.justorder_android.Activities.Carta.SubcategoryActivity">
+    tools:context="client.marpolex.com.justorder_android.Activities.Carta.SubcategoryActivity"
+    android:background="@color/backgroundGray">
 
     <include
         android:id="@+id/tool_bar"
@@ -14,6 +15,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
