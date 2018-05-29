@@ -3,6 +3,8 @@ package client.marpolex.com.justorder_android.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,7 +36,7 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
     private List<Order> orderList = new ArrayList<>();
     private RecyclerView recyclerView;
     private OrdersAdapter ordersAdapter;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +51,7 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
         tableId = getIntent().getIntExtra("tableId", -1);
         //End obtener datos
 
-        //Llamada a la API
-        dialogLoding = ProgressDialog.show(TableActivity.this, "", "Cargando, por favor espere...", true);
-        dialogLoding.show();
-        justOrderApiConnectorClient.getJustOrderApiConnector().attemptGetTable(restaurantId, tableId, this);
+        loadTable();
 
         getSupportActionBar().setTitle(getString(R.string.table) + " " + tableId);
 
@@ -75,6 +74,28 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
                 paySelectedItems();
             }
         });
+
+        swipeRefreshLayout = findViewById(R.id.swiperefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d("onRefresh", "onRefresh: ");
+                loadTable();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
+    }
+
+    private void loadTable() {
+        //Llamada a la API
+        dialogLoding = ProgressDialog.show(TableActivity.this, "", "Cargando, por favor espere...", true);
+        dialogLoding.show();
+        justOrderApiConnectorClient.getJustOrderApiConnector().attemptGetTable(restaurantId, tableId, this);
     }
 
     private void paySelectedItems() {
@@ -102,6 +123,7 @@ public class TableActivity extends AppCompatActivity implements justOrderApiInte
     }
 
     private void updateOrderList(JSONArray jsonArray) {
+        orderList.clear();
         try {
             JSONArray tableContents = jsonArray.getJSONObject(0).getJSONArray("table_contents");
             for (int i = 0; i < tableContents.length(); i++) {
