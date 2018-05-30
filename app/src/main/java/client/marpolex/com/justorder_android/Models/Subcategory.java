@@ -16,6 +16,7 @@ public class Subcategory implements Serializable {
     String name;
     List<Article> articleList = new ArrayList<>();
     long id;
+    String image;
 
     public Subcategory(JSONObject jsonObject, long id) {
         this.id = id;
@@ -26,6 +27,9 @@ public class Subcategory implements Serializable {
             for (int i = 0; i < articles.length(); i++) {
                 articleList.add(new Article(articles.getJSONObject(i), i));
             }
+
+            if (jsonObject.isNull("image")) image = "";
+            else image = jsonObject.getString("image");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -42,5 +46,9 @@ public class Subcategory implements Serializable {
 
     public long getId() {
         return id;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

@@ -4,7 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -30,6 +33,9 @@ public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Subcategory subcategory = subcategoryList.get(position);
         holder.name.setText(subcategory.getName());
+
+        if(! subcategory.getImage().isEmpty())
+            Picasso.get().load(subcategory.getImage()).placeholder(R.drawable.logo).into(holder.imageView);
     }
 
     @Override
@@ -48,12 +54,12 @@ public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, direction, openingHours;
+        public ImageView imageView;
 
         public MyViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.tvName);
-            direction = (TextView) view.findViewById(R.id.tvDescription);
-            openingHours = (TextView) view.findViewById(R.id.tvOpeningHours);
+            imageView = view.findViewById(R.id.ivImg2);
         }
     }
 }
