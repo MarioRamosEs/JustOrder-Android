@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,14 +29,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import client.marpolex.com.justorder_android.API.justOrderApiInterface;
-import client.marpolex.com.justorder_android.Activities.LoginActivity;
-import client.marpolex.com.justorder_android.Adapters.ArticlesAdapter;
 import client.marpolex.com.justorder_android.Adapters.RatingsAdapter;
 import client.marpolex.com.justorder_android.Models.Article;
-import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCart;
 import client.marpolex.com.justorder_android.Models.Singleton.ShoppingCartClient;
 import client.marpolex.com.justorder_android.Models.Singleton.justOrderApiConnectorClient;
-import client.marpolex.com.justorder_android.Models.User;
 import client.marpolex.com.justorder_android.R;
 
 public class ArticleActivity extends AppCompatActivity implements justOrderApiInterface {
@@ -124,12 +119,15 @@ public class ArticleActivity extends AppCompatActivity implements justOrderApiIn
         Point screenSize = new Point();
         getWindowManager().getDefaultDisplay().getSize(screenSize);
 
-        if(! article.getImage().isEmpty())
-            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).resize(screenSize.x, (int)px).into(imageView); //.centerCrop()
+        if (!article.getImage().isEmpty()) {
+            //Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).resize(screenSize.x, (int)px).into(imageView); //.centerCrop()
+            Picasso.get().load(article.getImage()).placeholder(R.drawable.logo).into(imageView); //.centerCrop()
+        }
 
         ratingBar.setRating((float) article.getRating());
     }
-    private void loadRatings(){
+
+    private void loadRatings() {
         //Recycler view
         recyclerView = findViewById(R.id.recyclerView);
         rAdapter = new RatingsAdapter(article.getRatingsList());
@@ -188,7 +186,6 @@ public class ArticleActivity extends AppCompatActivity implements justOrderApiIn
             unLockInterface();
         }
     }
-
 
 
     @Override
